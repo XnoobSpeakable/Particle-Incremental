@@ -1,6 +1,9 @@
-var x = 0
+let x = 0
+let y = 1
 function upfunction()
 {
-  x++
-  console.log(x)
+setInterval(() => {
+    x++
+    console.log(x)
+}, 1000);
 }
