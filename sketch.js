@@ -1,5 +1,6 @@
 var x = 0
-function upfunction() {
+function upfunction()
+{
   x++
   console.log(x)
 }
