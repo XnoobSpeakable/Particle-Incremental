@@ -1,6 +1,5 @@
-LET x = 0
+let x = 0
 let y = 1
-console.log("NOPE DIDNT HELP ")
 function upfunction()
 {
 setInterval(() => {
