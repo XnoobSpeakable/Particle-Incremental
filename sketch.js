@@ -1,6 +1,6 @@
-var x = 0
+LET x = 0
 let y = 1
-console.log("let is now var")
+console.log("NOPE DIDNT HELP ")
 function upfunction()
 {
 setInterval(() => {
