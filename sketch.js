@@ -4,8 +4,7 @@ function upfunction()
 {
 setInterval(() => {
     x++
+    document.getElementById("counter").textContent = x
     console.log(x)
 }, 1000);
 }
-document.getElementById("ID").innerHTML = "<p>Text</p>";
-element.textContent = x
