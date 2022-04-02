@@ -11,18 +11,28 @@
   </head>
 
   <body>
-    <script src="main.js"></script>
+    <script defer src="main.js"></script>
     <h1>WORK IN PROGRESS</h1>
     <p id="disclaimer">this game is in the adding features and testing if they work phase and is NOT meant to be played</p>
     <div id="counter">0 particles</div>
     <br>
-    <button onclick="callup()">Buy generator</button>
-    Cost: Free
+    <button onclick="buygen()">Buy generator</button>
+    <div id="divgencost">Cost: Free</div>
     <br>
     <button onclick="buybb()">Bigger batches</button>
-    Cost: 2000
+    <div id="divbbcost">Cost: 2000</div>
     <br>
     <button onclick="buyspeed()">Speed</button>
-    Cost: 50
+    <div id="divspeedcost">Cost: 50</div>
+    <br>
+    <button onclick="cheat()">cheat</button>
+    <br>
+    <h2>Boost</h2>
+    <h3>Manual boost</h3>
+    <button onclick="mbman()">Manual Boost</button>
+    <br>
+    <br>
+    <br>
+    <button onclick="save()">save</button>
   </body>
 </html>
