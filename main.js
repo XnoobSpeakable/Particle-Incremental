@@ -12,7 +12,9 @@ function load() {
             speedcost: 50,
             intervalspeed: 1000,
             fracmult: 2,
-            hundredoveris: 0.1
+            hundredoveris: 0.1,
+            mbupcost: 50,
+            mbmultcost: 1000
           };
         }
     else {
@@ -57,19 +59,28 @@ function buyspeed() {
     }
 }
 
-/*
 function mbman() {
     sf.num += sf.mbinc * sf.mbmultv
     document.getElementById("counter").textContent = sf.num + " particles"
 }
 
 function mbup() {
-
+    if(sf.num >= sf.mbupcost) {
+        sf.num -= sf.mbupcost
+        sf.mbupcost *= 2
+        sf.mbinc += 1
+        document.getElementById("divmbupcost").textContent = "Cost: " + sf.mbupcost
+    }
 }
 
 function mbmult() {
-
-}*/
+    if(sf.num >= sf.mbmultcost) {
+        sf.num -= sf.mbmultcost
+        sf.mbmultcost *= 3
+        sf.mbmultv += 1
+        document.getElementById("divmbmultcost").textContent = "Cost: " + sf.mbmult
+    }
+}
 
 setInterval(() => {
     if(sf.firstgenbought) {
