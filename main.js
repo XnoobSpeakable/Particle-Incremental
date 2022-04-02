@@ -57,10 +57,6 @@ function buyspeed() {
     }
 }
 
-function cheat() {
-    sf.num += 1000
-    document.getElementById("counter").textContent = sf.num + " particles"
-}
 /*
 function mbman() {
     sf.num += sf.mbinc * sf.mbmultv
@@ -76,9 +72,10 @@ function mbmult() {
 }*/
 
 setInterval(() => {
-    if(sf.firstgenbought == true) {
+    if(sf.firstgenbought) {
+            sf.hundredoveris = 100 / sf.intervalspeed
             sf.num += sf.inc * sf.genmult * sf.hundredoveris
-            document.getElementById("counter").textContent = sf.num + " particles"
+            document.getElementById("counter").textContent = sf.num.toFixed(3) + " particles"
     }
   }, 100)
 
