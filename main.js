@@ -14,7 +14,14 @@ function load() {
             fracmult: 2,
             hundredoveris: 0.1,
             mbupcost: 50,
-            mbmultcost: 1000
+            mbmultcost: 1000,
+            gbunlocked: false,
+            gbtl: 0,
+            gbtlc: 10,
+            gbm: 1,
+            gbmc: 2,
+            gbuptcost: 100,
+            gbupmcost: 10000
           };
         }
     else {
@@ -25,6 +32,12 @@ function load() {
 load()
 
 document.getElementById("counter").textContent = sf.num + " particles"
+
+function gbbexec() {
+    for(let i = 0; i < sf.gblen; i++) {
+        
+    }
+}
 
 function buygen() {
         if(sf.firstgenbought == false) {
@@ -78,15 +91,59 @@ function mbmult() {
         sf.num -= sf.mbmultcost
         sf.mbmultcost *= 3
         sf.mbmultv += 1
-        document.getElementById("divmbmultcost").textContent = "Cost: " + sf.mbmult
+        document.getElementById("divmbmultcost").textContent = "Cost: " + sf.mbmultv
+    }
+}
+
+function unlockgeneratorboost() {
+    if(sf.gbunlocked) {
+        document.getElementById("divgenunlockcost").textContent = "Unlocked"
+    }
+    else {
+        if(sf.num >= 5000) {
+            sf.num -= 5000
+            sf.gbunlocked = true
+        }
+    }
+}
+
+function gbboost() {
+    if(sf.gbunlocked) {
+        sf.gbtl = sf.gbtlc
+    }
+}
+
+function gbupt() {
+    if(sf.num >= sf.gbuptcost) {
+        sf.num -= sf.gbuptcost
+        sf.gbuptcost *= 5
+        document.getElementById("divgbuptcost").textContent = "Cost: " + sf.gbuptcost
+        sf.gbtlc += 10
+    }
+}
+
+function gbupm() {
+    if(sf.num >= sf.gbupmcost) {
+        sf.num -= sf.gbupmcost
+        sf.gbupmcost *= 5
+        document.getElementById("divgbupmcost").textContent = "Cost: " + sf.gbupmcost
+        gbmc += 0.5
     }
 }
 
 setInterval(() => {
     if(sf.firstgenbought) {
-            sf.hundredoveris = 100 / sf.intervalspeed
-            sf.num += sf.inc * sf.genmult * sf.hundredoveris
-            document.getElementById("counter").textContent = sf.num.toFixed(3) + " particles"
+        if(sf.gbtl > 1) {
+            sf.gbm = sf.gbmc
+        }
+        else {
+            sf.gbm = 1
+        }
+    sf.gbtl -= 1
+    sf.hundredoveris = 100 / sf.intervalspeed
+    sf.num += sf.inc * sf.genmult * sf.hundredoveris * sf.gbm
+    document.getElementById("counter").textContent = sf.num.toFixed(3) + " particles"
+            
     }
   }, 100)
 
