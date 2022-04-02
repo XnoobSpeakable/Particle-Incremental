@@ -91,7 +91,7 @@ function mbmult() {
         sf.num -= sf.mbmultcost
         sf.mbmultcost *= 3
         sf.mbmultv += 1
-        document.getElementById("divmbmultcost").textContent = "Cost: " + sf.mbmultv
+        document.getElementById("divmbmultcost").textContent = "Cost: " + sf.mbmultcost
     }
 }
 
@@ -143,7 +143,6 @@ setInterval(() => {
     sf.hundredoveris = 100 / sf.intervalspeed
     sf.num += sf.inc * sf.genmult * sf.hundredoveris * sf.gbm
     document.getElementById("counter").textContent = sf.num.toFixed(3) + " particles"
-            
     }
   }, 100)
 
