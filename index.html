@@ -12,45 +12,57 @@
 
   <body>
     <script defer src="main.js"></script>
-    <h1>WORK IN PROGRESS</h1>
-    <p id="disclaimer">this game is in the adding features and testing if they work phase and is NOT meant to be played</p>
-    <div id="counter">0 particles</div>
-    <br>
-    <button onclick="buygen()">Buy generator</button>
-    <div id="divgencost">Cost: Free</div>
-    <br>
-    <button onclick="buybb()">Bigger batches</button>
-    <div id="divbbcost">Cost: 2000</div>
-    <br>
-    <button onclick="buyspeed()">Speed</button>
-    <div id="divspeedcost">Cost: 50</div>
-    <br>
-    <h2>Boost</h2>
-    <h3>Manual boost</h3>
-    <button onclick="mbman()">Manual Boost</button>
-    <br>
-    <br>
-    <button onclick="mbup()">Manual Boost +1/click</button>
-    <div id="divmbupcost">Cost: 50</div>
-    <br>
-    <button onclick="mbmult()">Manual Boost +1x/click</button>
-    <div id="divmbmultcost">Cost: 1000</div>
-    <br>
-    <br>
-    <h3>Generator boost</h3>
-    <button onclick="unlockgeneratorboost()">Unlock generator boost</button>
-    <div id="divgenunlockcost">Cost: 5000</div>
-    <br>
-    <button onclick="gbboost()">Generator Boost</button>
-    <br>
-    <br>
-    <button onclick="gbupt()">Generator Boost +1s</button>
-    <div id="divgbuptcost">Cost: 50</div>
-    <br>
-    <button onclick="gbupm()">Generator Boost +0.5x boost</button>
-    <div id="divgbupmcost">Cost: 10000</div>
-    <br>
-    <br>
-    <button onclick="save()">save</button>
+    <div class="tab">
+      <button class="tablinks" onclick="openTab(event, 'Base')" id="defaultOpen">Base</button>
+      <button class="tablinks" onclick="openTab(event, 'Alpha')">Alpha</button>
+      <button class="tablinks" onclick="openTab(event, 'Beta')">Beta</button>
+      <button class="tablinks" onclick="openTab(event, 'Gamma')">Gamma</button>
+      <button class="tablinks" onclick="openTab(event, 'Delta')">Delta</button>
+      <button class="tablinks" onclick="openTab(event, 'Omega')">Omega</button>
+      <script>
+        // Get the element with id="defaultOpen" and click on it
+        document.getElementById("defaultOpen").click();
+        </script>
+    </div>
+    <div id="Base" class="tabcontent">
+      <div id="counter">0 particles</div>
+      <br>
+      <button onclick="buygen()">Buy generator</button>
+      <div id="divgencost">Cost: Free</div>
+      <br>
+      <button onclick="buybb()">Bigger batches</button>
+      <div id="divbbcost">Cost: 2000</div>
+      <br>
+      <button onclick="buyspeed()">Speed</button>
+      <div id="divspeedcost">Cost: 50</div>
+      <br>
+      <h2>Boost</h2>
+      <h3>Manual boost</h3>
+      <button onclick="mbman()">Manual Boost</button>
+      <br>
+      <br>
+      <button onclick="mbup()">Manual Boost +1/click</button>
+      <div id="divmbupcost">Cost: 50</div>
+      <br>
+      <button onclick="mbmult()">Manual Boost +1x/click</button>
+      <div id="divmbmultcost">Cost: 1000</div>
+      <br>
+      <br>
+      <h3>Generator boost</h3>
+      <button onclick="unlockgeneratorboost()">Unlock generator boost</button>
+      <div id="divgenunlockcost">Cost: 5000</div>
+      <br>
+      <button onclick="gbboost()">Generator Boost</button>
+      <br>
+      <br>
+      <button onclick="gbupt()">Generator Boost +1s</button>
+      <div id="divgbuptcost">Cost: 50</div>
+      <br>
+      <button onclick="gbupm()">Generator Boost +0.5x boost</button>
+      <div id="divgbupmcost">Cost: 10000</div>
+      <br>
+      <br>
+      <button onclick="save()">save</button>
+    </div>
   </body>
 </html>
