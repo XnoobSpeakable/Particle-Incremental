@@ -1,5 +1,5 @@
 function load() {
-    if(localStorage.getItem('savefile') == "") {
+    if(localStorage.getItem('savefile') == null) {
         sf = {
             num: 0,
             inc: 1,
@@ -11,7 +11,8 @@ function load() {
             bbcost: 2000,
             speedcost: 50,
             intervalspeed: 1000,
-            fracmult: 2
+            fracmult: 2,
+            hundredoveris: 0.1
           };
         }
     else {
@@ -23,25 +24,17 @@ load()
 
 document.getElementById("counter").textContent = sf.num + " particles"
 
-function run() {
-    sf.num += sf.inc * sf.genmult
-    document.getElementById("counter").textContent = sf.num + " particles"
-}
-
 function buygen() {
         if(sf.firstgenbought == false) {
             sf.firstgenbought = true
-            var interval = setInterval(run, sf.intervalspeed);
             document.getElementById("divgencost").textContent = "Cost: " + sf.gencost
         }
         if(sf.firstgenbought == true) {
             if(sf.num >= sf.gencost) {
                 sf.num -= sf.gencost
                 sf.gencost *= 4
-                clearInterval(interval)
                 sf.genmult++
                 document.getElementById("divgencost").textContent = "Cost: " + sf.gencost
-                interval = setInterval(run, sf.intervalspeed);
             }
         }
     }
@@ -51,9 +44,7 @@ function buybb() {
         sf.num -= sf.bbcost
         sf.bbcost *= 2
         document.getElementById("divbbcost").textContent = "Cost: " + sf.bbcost
-        clearInterval(interval)
         sf.inc++
-        interval = setInterval(run, sf.intervalspeed);
     }
 }
 
@@ -61,9 +52,7 @@ function buybb() {
 function buyspeed() {
     if(sf.num >= sf.speedcost) {
         sf.num -= sf.speedcost
-        clearInterval(interval)
         sf.intervalspeed = 1000 / sf.fracmult
-        sf.interval = setInterval(run, sf.intervalspeed);
         sf.fracmult++
     }
 }
@@ -85,6 +74,13 @@ function mbup() {
 function mbmult() {
 
 }*/
+
+setInterval(() => {
+    if(sf.firstgenbought == true) {
+            sf.num += sf.inc * sf.genmult * sf.hundredoveris
+            document.getElementById("counter").textContent = sf.num + " particles"
+    }
+  }, 100)
 
 function save() {
     savefile = JSON.stringify(sf)
