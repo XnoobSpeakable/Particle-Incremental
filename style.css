@@ -4,3 +4,29 @@ button:hover {
 #disclaimer {
   color: red
 }
+
+/* stolen code */
+/* Style the tab */
+.tab {
+  background-color: white;
+}
+
+/* Style the buttons that are used to open the tab content */
+.tab button {
+  background-color: inherit;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+  background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+  background-color: white;
+}

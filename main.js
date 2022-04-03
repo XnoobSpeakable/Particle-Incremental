@@ -1,3 +1,4 @@
+//this is stolen code
 function openTab(evt, cityName) {
     // Declare all variables
     var i, tabcontent, tablinks;
@@ -19,7 +20,7 @@ function openTab(evt, cityName) {
     evt.currentTarget.className += " active";
   }
 
-
+//this is not stolen code
 function load() {
     if(localStorage.getItem('savefile') == null) {
         sf = {
@@ -45,7 +46,13 @@ function load() {
             gbuptcost: 100,
             gbupmcost: 10000,
             alphaacccost: 1e+12,
-            alphaaccelerators: 0
+            alphaaccelerators: 0,
+            pchunks: 0,
+            alphanum: 0,
+            bangtime: 300,
+            bangtimeleft: 1e+300,
+            alphaacceleratorsleft: 0,
+            alphainc: 1
           };
         }
     else {
@@ -169,11 +176,38 @@ function gbupm() {
 }
 
 function alphaacc() {
-    if(sf.num >= sf.alphaacccost) {
-        sf.num -= sf.alphaacccost
-        sf.alphaacccost *= 1000
-        sf.alphaaccelerators += 1
-        //implement it later
+    if(0 < sf.bangtimeleft < sf.bangtime + 1) {
+        document.getElementById("divalphaacceleratorcost").textContent = "Bang in progress, try again later"
+    }
+    else {
+        if(sf.num >= sf.alphaacccost) {
+            sf.num -= sf.alphaacccost
+            sf.alphaacccost *= 1000
+            document.getElementById("divalphaacceleratorcost").textContent = "Cost: " + sf.alphaacccost
+            sf.alphaaccelerators += 1
+            sf.alphaacceleratorsleft = sf.alphaaccelerators
+        }
+    }
+}
+
+function makechunk() {
+    if(sf.num >= 1e+10) {
+        sf.num -= 1e+10
+        sf.pchunks += 1
+        document.getElementById("chunkamount").textContent = "Particle Chunks: " + sf.pchunks
+    }
+}
+
+function bang() {
+    if(sf.pchunks >= 2) {
+        if(sf.alphaacceleratorsleft > 0) {
+            sf.alphaacceleratorsleft -= 1
+            sf.pchunks -=2
+            sf.bangtimeleft = sf.bangtime
+            if(sf.bangtimeleft <= 0) {
+                sf.alphanum += sf.alphainc
+            }
+        }
     }
 }
 
@@ -185,10 +219,15 @@ setInterval(() => {
         else {
             sf.gbm = 1
         }
+    sf.bangtimeleft -= 1
+    if(0 < sf.bangtimeleft < sf,bangtime) {
+        document.getElementById("bantimeleft").textContent = "Bang time left: " + sf.bangtimeleft
+    }
     sf.gbtl -= 1
     sf.hundredoveris = 100 / sf.intervalspeed
     sf.num += sf.inc * sf.genmult * sf.hundredoveris * sf.gbm
     document.getElementById("counter").textContent = sf.num.toFixed(3) + " particles"
+    document.getElementById("alphacounter").textContent = sf.alphanum.toFixed(3) + " Alpha particles"
     }
   }, 100)
 
