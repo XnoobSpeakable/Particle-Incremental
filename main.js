@@ -41,9 +41,11 @@ function load() {
             gbtl: 0,
             gbtlc: 10,
             gbm: 1,
-            gbmc: 2,
+            gbmc: 5,
             gbuptcost: 100,
-            gbupmcost: 10000
+            gbupmcost: 10000,
+            alphaacccost: 1e+12,
+            alphaaccelerators: 0
           };
         }
     else {
@@ -149,7 +151,16 @@ function gbupm() {
         sf.num -= sf.gbupmcost
         sf.gbupmcost *= 5
         document.getElementById("divgbupmcost").textContent = "Cost: " + sf.gbupmcost
-        gbmc += 0.5
+        gbmc += 5
+    }
+}
+
+function alphaacc() {
+    if(sf.num >= sf.alphaacccost) {
+        sf.num -= sf.alphaacccost
+        sf.alphaacccost *= 1000
+        sf.alphaaccelerators += 1
+        //implement it later
     }
 }
 
