@@ -220,7 +220,7 @@ setInterval(() => {
             sf.gbm = 1
         }
     sf.bangtimeleft -= 1
-    if(0 < sf.bangtimeleft < sf,bangtime) {
+    if(0 < sf.bangtimeleft < sf.bangtime) {
         document.getElementById("bantimeleft").textContent = "Bang time left: " + sf.bangtimeleft
     }
     sf.gbtl -= 1
