@@ -6,7 +6,7 @@ button:hover {
   color: red;
 }
 
-body {
+.tabcontent {
   background-color: darkslategrey;
   font-family: sans-serif;
 }
