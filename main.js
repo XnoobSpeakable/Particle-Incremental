@@ -204,9 +204,6 @@ function bang() {
             sf.alphaacceleratorsleft -= 1
             sf.pchunks -=2
             sf.bangtimeleft = sf.bangtime
-            if(sf.bangtimeleft <= 0) {
-                sf.alphanum += sf.alphainc
-            }
         }
     }
 }
@@ -219,6 +216,10 @@ setInterval(() => {
         else {
             sf.gbm = 1
         }
+    if(sf.bangtimeleft = 0) {
+        sf.alphaacceleratorsleft += 1
+        sf.alphanum += sf.alphainc * sf.alphaacceleratorsleft
+    }
     sf.bangtimeleft -= 1
     if(sf.bangtimeleft > 0 && sf.bangtimeleft < sf.bangtime) {
         document.getElementById("bangtimeleft").textContent = "Bang time left: " + sf.bangtimeleft
