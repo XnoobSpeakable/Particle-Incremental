@@ -134,24 +134,37 @@ function unlockgeneratorboost() {
 function gbboost() {
     if(sf.gbunlocked) {
         sf.gbtl = sf.gbtlc
+        document.getElementById("divgenboost").textContent = ""
+    }
+    else {
+        document.getElementById("divgenboost").textContent = "Unlock Generator Boost first"
     }
 }
-
 function gbupt() {
-    if(sf.num >= sf.gbuptcost) {
-        sf.num -= sf.gbuptcost
-        sf.gbuptcost *= 5
-        document.getElementById("divgbuptcost").textContent = "Cost: " + sf.gbuptcost
-        sf.gbtlc += 10
+    if(sf.gbunlocked) {
+        if(sf.num >= sf.gbuptcost) {
+            sf.num -= sf.gbuptcost
+            sf.gbuptcost *= 5
+            document.getElementById("divgbuptcost").textContent = "Cost: " + sf.gbuptcost
+            sf.gbtlc += 10
+        }
+    }
+    else {
+        document.getElementById("divgbuptcost").textContent = "Unlock Generator Boost first"
     }
 }
 
 function gbupm() {
-    if(sf.num >= sf.gbupmcost) {
-        sf.num -= sf.gbupmcost
-        sf.gbupmcost *= 5
-        document.getElementById("divgbupmcost").textContent = "Cost: " + sf.gbupmcost
-        gbmc += 5
+    if(sf.gbunlocked) {
+        if(sf.num >= sf.gbupmcost) {
+            sf.num -= sf.gbupmcost
+            sf.gbupmcost *= 5
+            document.getElementById("divgbupmcost").textContent = "Cost: " + sf.gbupmcost
+            gbmc += 5
+        }
+    }
+    else {
+        document.getElementById("divgbupmcost").textContent = "Unlock Generator Boost first"
     }
 }
 
