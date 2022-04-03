@@ -1,8 +1,14 @@
 button:hover {
   color: blue;
 }
+
 #disclaimer {
-  color: red
+  color: red;
+}
+
+body {
+  background-color: darkslategrey;
+  font-family: sans-serif;
 }
 
 /* stolen code */
