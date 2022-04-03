@@ -221,7 +221,7 @@ setInterval(() => {
         }
     sf.bangtimeleft -= 1
     if(0 < sf.bangtimeleft < sf.bangtime) {
-        document.getElementById("bantimeleft").textContent = "Bang time left: " + sf.bangtimeleft
+        document.getElementById("bangtimeleft").textContent = "Bang time left: " + sf.bangtimeleft
     }
     sf.gbtl -= 1
     sf.hundredoveris = 100 / sf.intervalspeed
