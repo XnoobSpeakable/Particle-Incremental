@@ -11,20 +11,20 @@
   </head>
 
   <body>
-    <script src="main.js"></script>
+    <script defer src="main.js"></script>
     <div class="tab">
-      <button class="tablinks" onclick="openTab(event, 'Baset')" id="Base">Base</button>
-      <button class="tablinks" onclick="openTab(event, 'Alphat')" id="Alpha">Alpha</button>
-      <button class="tablinks" onclick="openTab(event, 'Betat')" id="Beta">Beta</button>
-      <button class="tablinks" onclick="openTab(event, 'Gammat')" id="Gamma">Gamma</button>
-      <button class="tablinks" onclick="openTab(event, 'Deltat')" id="Delta">Delta</button>
-      <button class="tablinks" onclick="openTab(event, 'Omegat')" is="Omega">Omega</button>
+      <button class="tablinks" onclick="openTab(event, 'Base')" id="defaultOpen">Base</button>
+      <button class="tablinks" onclick="openTab(event, 'Alpha')">Alpha</button>
+      <button class="tablinks" onclick="openTab(event, 'Beta')">Beta</button>
+      <button class="tablinks" onclick="openTab(event, 'Gamma')">Gamma</button>
+      <button class="tablinks" onclick="openTab(event, 'Delta')">Delta</button>
+      <button class="tablinks" onclick="openTab(event, 'Omega')">Omega</button>
     </div>
     <script>
       // Get the element with id="defaultOpen" and click on it
-      document.getElementById("Base").click();
+      document.getElementById("defaultOpen").click();
     </script>
-    <div id="Baset" class="tabcontent">
+    <div id="Base" class="tabcontent">
       <div id="counter">0 particles</div>
       <br>
       <button onclick="buygen()">Buy generator</button>
@@ -76,16 +76,16 @@
       <div id="bangtimeleft"></div>
       <br>
     </div>
-    <div id="Alphat" class="tabcontent">
+    <div id="Alpha" class="tabcontent">
       <div id="alphacounter">0 Alpha particles</div>
     </div>
     <br>
     <button onclick="save()">save</button>
     <br>
-    Version b0.9.sendhelp
+    Version b0.9.2
     <br>
     Changelog:
     <br>
-    everything is stil lbroken
+    EMERGENCY FIX 2
   </body>
 </html>
