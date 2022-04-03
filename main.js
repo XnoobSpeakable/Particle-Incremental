@@ -167,7 +167,7 @@ function gbupm() {
             sf.num -= sf.gbupmcost
             sf.gbupmcost *= 5
             document.getElementById("divgbupmcost").textContent = "Cost: " + sf.gbupmcost
-            gbmc += 5
+            sf.gbmc += 5
         }
     }
     else {
@@ -176,7 +176,7 @@ function gbupm() {
 }
 
 function alphaacc() {
-    if(0 < sf.bangtimeleft < sf.bangtime + 1) {
+    if(sf.bangtimeleft > 0 && sf.bangtimeleft > sf.bangtime) {
         document.getElementById("divalphaacceleratorcost").textContent = "Bang in progress, try again later"
     }
     else {
@@ -220,7 +220,7 @@ setInterval(() => {
             sf.gbm = 1
         }
     sf.bangtimeleft -= 1
-    if(0 < sf.bangtimeleft < sf.bangtime) {
+    if(sf.bangtimeleft > 0 && sf.bangtimeleft > sf.bangtime) {
         document.getElementById("bangtimeleft").textContent = "Bang time left: " + sf.bangtimeleft
     }
     sf.gbtl -= 1
