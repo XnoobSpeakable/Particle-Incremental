@@ -216,7 +216,7 @@ setInterval(() => {
         else {
             sf.gbm = 1
         }
-    if(sf.bangtimeleft = 0) {
+    if(sf.bangtimeleft == 0) {
         sf.alphaacceleratorsleft += 1
         sf.alphanum += sf.alphainc * sf.alphaacceleratorsleft
     }
