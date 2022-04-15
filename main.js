@@ -52,7 +52,9 @@ function load() {
             bangtime: 300,
             bangtimeleft: 1e+300,
             alphaacceleratorsleft: 0,
-            alphainc: 1
+            alphainc: 1,
+            tbcost: 1,
+            tbmultiplier: 1
           };
         }
     else {
@@ -208,6 +210,16 @@ function bang() {
     }
 }
 
+function threeboost() {
+    if(sf.alphanum >= sf.tbcost) {
+        sf.alphanum -= sf.tbcost
+        sf.tbcost *= 4
+        document.getElementById("divthreeboostcost").textContent = "Cost: " + sf.tbcost + " Alpha"
+        sf.tbmultiplier *= 3
+    }
+}
+
+//game loop
 setInterval(() => {
     if(sf.firstgenbought) {
         if(sf.gbtl > 1) {
@@ -217,7 +229,7 @@ setInterval(() => {
             sf.gbm = 1
         }
     if(sf.bangtimeleft == 0) {
-        sf.alphaacceleratorsleft += 1
+        sf.alphaacceleratorsleft += sf.alphaaccelerators
         sf.alphanum += sf.alphainc * sf.alphaacceleratorsleft
     }
     sf.bangtimeleft -= 1
@@ -226,7 +238,10 @@ setInterval(() => {
     }
     sf.gbtl -= 1
     sf.hundredoveris = 100 / sf.intervalspeed
-    sf.num += sf.inc * sf.genmult * sf.hundredoveris * sf.gbm
+
+    //most important line, calculates your main "Particles" number
+    sf.num += sf.inc * sf.genmult * sf.hundredoveris * sf.gbm * sf.tbmultiplier
+
     document.getElementById("counter").textContent = sf.num.toFixed(3) + " particles"
     document.getElementById("alphacounter").textContent = sf.alphanum.toFixed(3) + " Alpha particles"
     }
