@@ -129,6 +129,9 @@ function buygen() {
                 sf.gencost *= 4
                 sf.genmult++
                 document.getElementById("divgencost").textContent = "Cost: " + sf.gencost
+                if(sf.gencost >= 1000000) {
+                    document.getElementById("divgencost").textContent = "Cost: " + (sf.gencost / 1000000).toFixed(2) + " million"
+                }
             }
         }
     }
@@ -138,6 +141,9 @@ function buybb() {
         sf.num -= sf.bbcost
         sf.bbcost *= 2
         document.getElementById("divbbcost").textContent = "Cost: " + sf.bbcost
+        if(sf.bbcost >= 1000000) {
+            document.getElementById("divbbcost").textContent = "Cost: " + (sf.bbcost / 1000000).toFixed(2) + " million"
+        }
         sf.inc++
     }
 }
@@ -153,7 +159,7 @@ function buyspeed() {
 
 function mbman() {
     sf.num += sf.mbinc * sf.mbmultv
-    document.getElementById("counter").textContent = sf.num.toFixed(3) + " particles"
+    document.getElementById("counter").textContent = sf.num.toFixed(2) + " particles"
 }
 
 function mbup() {
@@ -162,6 +168,9 @@ function mbup() {
         sf.mbupcost *= 2
         sf.mbinc += 1
         document.getElementById("divmbupcost").textContent = "Cost: " + sf.mbupcost
+        if(sf.mbupcost >= 1000000) {
+            document.getElementById("divmbupcost").textContent = "Cost: " + (sf.mbupcost / 1000000).toFixed(2) + " million"
+        }
     }
 }
 
@@ -171,6 +180,9 @@ function mbmult() {
         sf.mbmultcost *= 3
         sf.mbmultv += 1
         document.getElementById("divmbmultcost").textContent = "Cost: " + sf.mbmultcost
+        if(sf.mbmultcost >= 1000000) {
+            document.getElementById("divbbcost").textContent = "Cost: " + (sf.bbcost / 1000000).toFixed(2) + " million"
+        }
     }
 }
 
@@ -203,6 +215,9 @@ function gbupt() {
             sf.num -= sf.gbuptcost
             sf.gbuptcost *= 5
             document.getElementById("divgbuptcost").textContent = "Cost: " + sf.gbuptcost
+            if(sf.gbuptcost >= 1000000) {
+                document.getElementById("divgbuptcost").textContent = "Cost: " + (sf.gbuptcost / 1000000).toFixed(2) + " million"
+            }
             sf.gbtlc += 10
         }
     }
@@ -217,6 +232,9 @@ function gbupm() {
             sf.num -= sf.gbupmcost
             sf.gbupmcost *= 5
             document.getElementById("divgbupmcost").textContent = "Cost: " + sf.gbupmcost
+            if(sf.gbuptmcost >= 1000000) {
+                document.getElementById("divgbupmcost").textContent = "Cost: " + (sf.gbupmcost / 1000000).toFixed(2) + " million"
+            }
             sf.gbmc += 5
         }
     }
@@ -296,8 +314,11 @@ setInterval(() => {
         document.getElementById("bangreach").style.display='none'
         document.getElementById("bangshow").style.display='block'
     }
-    document.getElementById("counter").textContent = sf.num.toFixed(3) + " particles"
-    document.getElementById("alphacounter").textContent = sf.alphanum.toFixed(3) + " Alpha particles"
+    document.getElementById("counter").textContent = sf.num.toFixed(2) + " particles"
+    if(sf.num >= 1000000) {
+        document.getElementById("counter").textContent = (sf.num / 1000000).toFixed(2) + " million particles"
+    }
+    document.getElementById("alphacounter").textContent = sf.alphanum.toFixed(2) + " Alpha particles"
     }
   }, 100)
 
