@@ -12,19 +12,13 @@
 
   <body>
     <script defer src="main.js"></script>
-    <div class="tab">
-      <button class="tablinks" onclick="openTab(event, 'Base')" id="defaultOpen">Base</button>
-      <button class="tablinks" onclick="openTab(event, 'Alpha')">Alpha</button>
-      <button class="tablinks" onclick="openTab(event, 'Beta')">Beta</button>
-      <button class="tablinks" onclick="openTab(event, 'Gamma')">Gamma</button>
-      <button class="tablinks" onclick="openTab(event, 'Delta')">Delta</button>
-      <button class="tablinks" onclick="openTab(event, 'Omega')">Omega</button>
-    </div>
-    <script>
-      // Get the element with id="defaultOpen" and click on it
-      document.getElementById("defaultOpen").click();
-    </script>
-    <div id="Base" class="tabcontent">
+    <button onclick="openbase()">Base</button>
+    <button onclick="openalpha()">Alpha</button>
+    <button onclick="openbeta()">Beta</button>
+    <button onclick="opengamma()">Gamma</button>
+    <button onclick="opendelta()">Delta</button>
+    <button onclick="openomega()">Omega</button>
+    <div id="Base">
       <div id="counter">0 particles</div>
       <br>
       <div class="btn-group">
@@ -81,19 +75,23 @@
       <div id="bangtimeleft"></div>
       <br>
     </div>
-    <div id="Alpha" class="tabcontent">
+    <div id="Alpha" style="display:none">
       <div id="alphacounter">0 Alpha particles</div>
       <br>
       <button onclick="threeboost()">3x boost to base (multiplicative)</button>
       <div id="divthreeboostcost">Cost: 1 Alpha</div>
     </div>
+    <div id="Beta" style="display:none">nothing here yet</div>
+    <div id="Gamma" style="display:none">nothing here yet</div>
+    <div id="Delta" style="display:none">nothing here yet</div>
+    <div id="Omega" style="display:none">nothing here yet</div>
     <br>
     <button onclick="save()">save</button>
     <br>
-    Version b1.0.1
+    Version b1.1.0
     <br>
     Changelog:
     <br>
-    beginning of UI change
+    tab rewrite complete, they work properly now
   </body>
 </html>

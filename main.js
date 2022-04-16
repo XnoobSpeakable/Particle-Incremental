@@ -1,26 +1,4 @@
-//this is stolen code
-function openTab(evt, cityName) {
-    // Declare all variables
-    var i, tabcontent, tablinks;
-  
-    // Get all elements with class="tabcontent" and hide them
-    tabcontent = document.getElementsByClassName("tabcontent");
-    for (i = 0; i < tabcontent.length; i++) {
-      tabcontent[i].style.display = "none";
-    }
-  
-    // Get all elements with class="tablinks" and remove the class "active"
-    tablinks = document.getElementsByClassName("tablinks");
-    for (i = 0; i < tablinks.length; i++) {
-      tablinks[i].className = tablinks[i].className.replace(" active", "");
-    }
-  
-    // Show the current tab, and add an "active" class to the button that opened the tab
-    document.getElementById(cityName).style.display = "block";
-    evt.currentTarget.className += " active";
-  }
 
-//this is not stolen code
 function load() {
     if(localStorage.getItem('savefile') == null) {
         sf = {
@@ -62,9 +40,61 @@ function load() {
     }
 }
 
-load()
+function openbase() {
+    document.getElementById("Base").style.display='block'
+    document.getElementById("Alpha").style.display='none'
+    document.getElementById("Beta").style.display='none'
+    document.getElementById("Gamma").style.display='none'
+    document.getElementById("Delta").style.display='none'
+    document.getElementById("Omega").style.display='none'
+}
 
-document.getElementById("counter").textContent = sf.num + " particles"
+function openalpha() {
+    document.getElementById("Base").style.display='none'
+    document.getElementById("Alpha").style.display='block'
+    document.getElementById("Beta").style.display='none'
+    document.getElementById("Gamma").style.display='none'
+    document.getElementById("Delta").style.display='none'
+    document.getElementById("Omega").style.display='none'
+}
+
+function openbeta() {
+    document.getElementById("Base").style.display='none'
+    document.getElementById("Alpha").style.display='none'
+    document.getElementById("Beta").style.display='block'
+    document.getElementById("Gamma").style.display='none'
+    document.getElementById("Delta").style.display='none'
+    document.getElementById("Omega").style.display='none'
+}
+
+function opengamma() {
+    document.getElementById("Base").style.display='none'
+    document.getElementById("Alpha").style.display='none'
+    document.getElementById("Beta").style.display='none'
+    document.getElementById("Gamma").style.display='block'
+    document.getElementById("Delta").style.display='none'
+    document.getElementById("Omega").style.display='none'
+}
+
+function opendelta() {
+    document.getElementById("Base").style.display='none'
+    document.getElementById("Alpha").style.display='none'
+    document.getElementById("Beta").style.display='none'
+    document.getElementById("Gamma").style.display='none'
+    document.getElementById("Delta").style.display='block'
+    document.getElementById("Omega").style.display='none'
+}
+
+function openomega() {
+    document.getElementById("Base").style.display='none'
+    document.getElementById("Alpha").style.display='none'
+    document.getElementById("Beta").style.display='none'
+    document.getElementById("Gamma").style.display='none'
+    document.getElementById("Delta").style.display='none'
+    document.getElementById("Omega").style.display='block'
+}
+
+load()
 
 function gbbexec() {
     for(let i = 0; i < sf.gblen; i++) {
