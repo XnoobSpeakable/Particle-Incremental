@@ -2,14 +2,48 @@ button:hover {
   color: blue;
 }
 #disclaimer {
-  color: red
+  color: red;
 }
-
-
 #divgencost {
   display: inline-block;
 }
 #divbbcost {
   display: inline-block;
-  text-indent: 2.25em
+  text-indent: 2.25em;
+}
+#divspeedcost {
+  display: inline-block;
+  text-indent: 2.25em;
+}
+#counter {
+  font-size: larger;
+}
+#alphacounter {
+  font-size: larger;
+}
+#divmbupcost {
+  display: inline-block;
+  text-indent: 6.5em;
+}
+#divmbmultcost {
+  display: inline-block;
+  text-indent: 5.75em;
+}
+#divalphaacceleratorcost {
+  display: inline-block;
+}
+#pcosttext {
+  display: inline-block;
+  text-indent: 2.25em;
+}
+#divgenboost {
+  display: inline-block;
+}
+#divgbuptcost {
+  display: inline-block;
+  text-indent: 7.5em;
+}
+#divgbupmcost {
+  display: inline-block;
+  text-indent: 4.75em;
 }

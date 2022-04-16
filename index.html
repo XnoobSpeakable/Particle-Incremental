@@ -23,56 +23,52 @@
       <br>
       <div class="btn-group">
         <button onclick="buygen()">Buy generator</button>
-        
         <button onclick="buybb()">Bigger batches</button>
-        
+        <button onclick="buyspeed()">Speed</button>
       </div>
-      
       <div id="divgencost">Cost: Free</div>
       <div id="divbbcost">Cost: 2000</div>
-      <br>
-      <br>
-      <button onclick="buyspeed()">Speed</button>
       <div id="divspeedcost">Cost: 50</div>
-      <br>
       <h2>Boost</h2>
       <h3>Manual boost</h3>
-      <button onclick="mbman()">Manual Boost</button>
-      <br>
-      <br>
-      <button onclick="mbup()">Manual Boost +1/click</button>
+      <div class="btn-group">
+        <button onclick="mbman()">Manual Boost</button>
+        <button onclick="mbup()">Manual Boost +1/click</button>
+        <button onclick="mbmult()">Manual Boost +1x/click</button>
+      </div>
       <div id="divmbupcost">Cost: 50</div>
-      <br>
-      <button onclick="mbmult()">Manual Boost +1x/click</button>
       <div id="divmbmultcost">Cost: 1000</div>
-      <br>
       <br>
       <h3>Generator boost</h3>
       <button onclick="unlockgeneratorboost()">Unlock generator boost</button>
       <div id="divgenunlockcost">Cost: 5000</div>
-      <br>
-      <button onclick="gbboost()">Generator Boost</button>
-      <div id="divgenboost"></div>
-      <br>
-      <br>
-      <button onclick="gbupt()">Generator Boost +1s</button>
-      <div id="divgbuptcost">Cost: 50</div>
-      <br>
-      <button onclick="gbupm()">Generator Boost +5x boost</button>
-      <div id="divgbupmcost">Cost: 10000</div>
-      <br>
-      <h2>Bang!</h2>
-      <br>
-      <button onclick="alphaacc()">Buy Alpha Accelerator</button>
-      <div id="divalphaacceleratorcost">Cost: 1e12</div>
-      <br>
-      <button onclick="makechunk()">Make Particle Chunk</button>
-      <div>Cost: 1e10</div>
-      <br>
-      <button onclick="bang()">BANG!</button>
-      <div>Cost: 2 Particle Chunks</div>
-      <div id="chunkamount">Particle Chunks: 0</div>
-      <div id="bangtimeleft"></div>
+      <div id="gbshow" style="display:none">
+        <div class="btn-group">
+          <button onclick="gbboost()">Generator Boost</button>
+          <button onclick="gbupt()">Generator Boost +1s</button>
+          <button onclick="gbupm()">Generator Boost +5x boost</button>
+        </div>
+        <div id="divgenboost"></div>
+        <div id="divgbuptcost">Cost: 50</div>
+        <div id="divgbupmcost">Cost: 10000</div>
+      </div>
+      <div id="bangshow" style="display:none">
+        <h2>Bang!</h2>
+        <br>
+        <div class="btn-group">
+          <button onclick="alphaacc()">Buy Alpha Accelerator</button>
+          <button onclick="makechunk()">Make Particle Chunk</button>
+        </div>
+        <div id="divalphaacceleratorcost">Cost: 1e12</div>
+        <div id="pcosttext">Cost: 1e10</div>
+        <br>
+        <br>
+        <button onclick="bang()">BANG!</button>
+        <div>Cost: 2 Particle Chunks</div>
+        <div id="chunkamount">Particle Chunks: 0</div>
+        <div id="bangtimeleft"></div>
+      </div>
+      <div id="bangreach">Reach 1e9 to unlock Bang!</div>
       <br>
     </div>
     <div id="Alpha" style="display:none">
@@ -85,14 +81,12 @@
     <div id="Gamma" style="display:none">nothing here yet</div>
     <div id="Delta" style="display:none">nothing here yet</div>
     <div id="Omega" style="display:none">nothing here yet</div>
-    <br>
     <button onclick="save()">save</button>
     <br>
-    Version b1.2.1
+    Version b1.3.0
     <br>
     Changelog:
     <br>
-    saving now saves costs, unlocks and texts (number text on page), makes saving smoother
-    a few other bugs fixed too
+    major UI changes
   </body>
 </html>

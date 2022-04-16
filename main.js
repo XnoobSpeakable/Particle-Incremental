@@ -46,6 +46,7 @@ function loadcut() {
     document.getElementById("divmbmultcost").textContent = "Cost: " + sf.mbmultcost
     if(sf.gbunlocked) {
         document.getElementById("divgenunlockcost").textContent = "Unlocked"
+        document.getElementById("gbshow").style.display='block'
     }
     document.getElementById("divgbuptcost").textContent = "Cost: " + sf.gbuptcost
     document.getElementById("divalphaacceleratorcost").textContent = "Cost: " + sf.alphaacccost
@@ -177,6 +178,7 @@ function unlockgeneratorboost() {
             sf.num -= 5000
             sf.gbunlocked = true
             document.getElementById("divgenunlockcost").textContent = "Unlocked"
+            document.getElementById("gbshow").style.display='block'
         }
     }
 }
@@ -285,6 +287,10 @@ setInterval(() => {
     //most important line, calculates your main "Particles" number
     sf.num += sf.inc * sf.genmult * sf.hundredoveris * sf.gbm * sf.tbmultiplier
 
+    if(sf.num >= 1000000000) {
+        document.getElementById("bangreach").style.display='none'
+        document.getElementById("bangshow").style.display='block'
+    }
     document.getElementById("counter").textContent = sf.num.toFixed(3) + " particles"
     document.getElementById("alphacounter").textContent = sf.alphanum.toFixed(3) + " Alpha particles"
     }
