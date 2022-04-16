@@ -1,4 +1,3 @@
-
 function load() {
     if(localStorage.getItem('savefile') == null) {
         sf = {
@@ -38,6 +37,21 @@ function load() {
     else {
         sf = JSON.parse(localStorage.getItem('savefile'))
     }
+}
+
+function loadcut() {
+    document.getElementById("divgencost").textContent = "Cost: " + sf.gencost
+    document.getElementById("divbbcost").textContent = "Cost: " + sf.bbcost
+    document.getElementById("divmbupcost").textContent = "Cost: " + sf.mbupcost
+    document.getElementById("divmbmultcost").textContent = "Cost: " + sf.mbmultcost
+    if(sf.gbunlocked) {
+        document.getElementById("divgenunlockcost").textContent = "Unlocked"
+    }
+    document.getElementById("divgbuptcost").textContent = "Cost: " + sf.gbuptcost
+    document.getElementById("divalphaacceleratorcost").textContent = "Cost: " + sf.alphaacccost
+    document.getElementById("divgbupmcost").textContent = "Cost: " + sf.gbupmcost
+    document.getElementById("chunkamount").textContent = "Particle Chunks: " + sf.pchunks
+    document.getElementById("divthreeboostcost").textContent = "Cost: " + sf.tbcost + " Alpha"
 }
 
 function openbase() {
@@ -96,11 +110,7 @@ function openomega() {
 
 load()
 
-function gbbexec() {
-    for(let i = 0; i < sf.gblen; i++) {
-        
-    }
-}
+loadcut() //costs, unlocks and texts (number text on page), makes saving smoother
 
 function buygen() {
         if(sf.firstgenbought == false) {
@@ -137,7 +147,7 @@ function buyspeed() {
 
 function mbman() {
     sf.num += sf.mbinc * sf.mbmultv
-    document.getElementById("counter").textContent = sf.num + " particles"
+    document.getElementById("counter").textContent = sf.num.toFixed(3) + " particles"
 }
 
 function mbup() {
@@ -166,6 +176,7 @@ function unlockgeneratorboost() {
         if(sf.num >= 5000) {
             sf.num -= 5000
             sf.gbunlocked = true
+            document.getElementById("divgenunlockcost").textContent = "Unlocked"
         }
     }
 }
@@ -236,6 +247,7 @@ function bang() {
             sf.alphaacceleratorsleft -= 1
             sf.pchunks -=2
             sf.bangtimeleft = sf.bangtime
+            document.getElementById("chunkamount").textContent = "Particle Chunks: " + sf.pchunks
         }
     }
 }
@@ -261,6 +273,7 @@ setInterval(() => {
     if(sf.bangtimeleft == 0) {
         sf.alphaacceleratorsleft += sf.alphaaccelerators
         sf.alphanum += sf.alphainc * sf.alphaacceleratorsleft
+        document.getElementById("bangtimeleft").textContent = ""
     }
     sf.bangtimeleft -= 1
     if(sf.bangtimeleft > 0 && sf.bangtimeleft < sf.bangtime) {
