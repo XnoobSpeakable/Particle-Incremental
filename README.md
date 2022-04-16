@@ -30,6 +30,10 @@ stage 5 (b5.x.y) is in the middle of Omega particle section development
 
 stage 6 (b6.x.y) is post-Omega, when the the Omega section is finished and I'm working on other features, balancing, bugfixes
 
+the second number is major updates
+
+the third number is minor updates/bugfixes
+
 Release:
 
 r1.0.0 is supposed to be the final version of the game, but versions r1.0.1, r1.0.2... maybe even r1.1.0, r1.1.1 etc. might exist because I might make post-release bugfixes, balancing tweaks, possibly even updating major sections of the game (adding new features, redesigning UI, reworking some parts of the code to be more efficient, adding other settings/themes)
