@@ -2,7 +2,7 @@
 
 A particle-based incremental game.
 
-Latest version: b1.3.0
+Latest version: b1.3.1
 
 What version numbers mean + future plans:
 
