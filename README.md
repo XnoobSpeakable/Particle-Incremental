@@ -42,6 +42,6 @@ Next goals:
 
 -Adding alpha particle stuff
 
--Theme selection, seetings menu
+-Theme selection, seetings menu (update: currently no longer planned)
 
 (this may or may not be out of date, because I'll probably forget to update this file)
