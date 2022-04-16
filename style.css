@@ -5,6 +5,16 @@ button:hover {
   color: red
 }
 
+
+#divgencost {
+  display: inline-block;
+}
+#divbbcost {
+  display: inline-block;
+  text-indent: 2.25em
+}
+
+
 /* stolen code */
 /* Style the tab */
 .tab {
@@ -30,3 +40,4 @@ button:hover {
 .tabcontent {
   background-color: white;
 }
+
