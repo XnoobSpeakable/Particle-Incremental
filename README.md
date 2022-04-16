@@ -2,8 +2,6 @@
 
 A particle-based incremental game.
 
-Latest version: b1.3.1
-
 What version numbers mean + future plans:
 
 the version is split into 4 parts. The letter, and the numbers stage, major and minor
