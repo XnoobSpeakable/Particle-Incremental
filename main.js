@@ -31,7 +31,9 @@ function load() {
             alphaacceleratorsleft: 0,
             alphainc: 1,
             tbcost: 1,
-            tbmultiplier: 1
+            tbmultiplier: 1,
+            perbangmult: 1,
+            pbcost: 4
           };
         }
     else {
@@ -58,6 +60,7 @@ function loadcut() {
     document.getElementById("divgbupmcost").textContent = "Cost: " + sf.gbupmcost
     document.getElementById("chunkamount").textContent = "Particle Chunks: " + sf.pchunks
     document.getElementById("divthreeboostcost").textContent = "Cost: " + sf.tbcost + " Alpha"
+    document.getElementById("divperbangcost").textContent = "Cost: " + sf.pbcost + " Alpha"
 }
 
 function openbase() {
@@ -286,6 +289,15 @@ function threeboost() {
     }
 }
 
+function perbang() {
+    if(sf.alphanum >= sf.pbcost) {
+        sf.alphanum -= sf.pbcost
+        sf.pbcost *= 4
+        document.getElementById("divperbangcost").textContent = "Cost: " + sf.pbcost + " Alpha"
+        sf.perbangmult += 1
+    }
+}
+
 //game loop
 setInterval(() => {
     if(sf.firstgenbought) {
@@ -297,7 +309,7 @@ setInterval(() => {
         }
     if(sf.bangtimeleft == 0) {
         sf.alphaacceleratorsleft += sf.alphaaccelerators
-        sf.alphanum += sf.alphainc * sf.alphaacceleratorsleft
+        sf.alphanum += sf.alphainc * sf.alphaacceleratorsleft * sf.perbangmult
         document.getElementById("bangtimeleft").textContent = ""
     }
     sf.bangtimeleft -= 1

@@ -74,8 +74,12 @@
     <div id="Alpha" style="display:none">
       <div id="alphacounter">0 Alpha particles</div>
       <br>
-      <button onclick="threeboost()">3x boost to base (multiplicative)</button>
+      <div class="btn-group">
+        <button onclick="threeboost()">3x boost to base (multiplicative)</button>
+        <button onclick="perbang()">+1 Alpha per bang</button>
+      </div>
       <div id="divthreeboostcost">Cost: 1 Alpha</div>
+      <div id="divperbangcost">Cost: 4 Alpha</div>
     </div>
     <div id="Beta" style="display:none">nothing here yet</div>
     <div id="Gamma" style="display:none">nothing here yet</div>
@@ -83,10 +87,10 @@
     <div id="Omega" style="display:none">nothing here yet</div>
     <button onclick="save()">save</button>
     <br>
-    Version b1.4.1
+    Version b1.5.0
     <br>
     Changelog:
     <br>
-    bugfix to made large numbers more readable
+    added an alpha thing, havent tested it, cost thing in the wrong place, maybe bug fixes too i dont remember im so tired pelase help
   </body>
 </html>

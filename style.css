@@ -47,3 +47,10 @@ button:hover {
   display: inline-block;
   text-indent: 4.75em;
 }
+#divthreeboost {
+  display: inline-block;
+}
+#divperbangcost {
+  display: inline-block;
+  text-indent: 13.25em;
+}
