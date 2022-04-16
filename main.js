@@ -232,7 +232,7 @@ function gbupm() {
             sf.num -= sf.gbupmcost
             sf.gbupmcost *= 5
             document.getElementById("divgbupmcost").textContent = "Cost: " + sf.gbupmcost
-            if(sf.gbuptmcost >= 1000000) {
+            if(sf.gbupmcost >= 1000000) {
                 document.getElementById("divgbupmcost").textContent = "Cost: " + (sf.gbupmcost / 1000000).toFixed(2) + " million"
             }
             sf.gbmc += 5
