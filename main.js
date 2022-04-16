@@ -40,7 +40,12 @@ function load() {
 }
 
 function loadcut() {
-    document.getElementById("divgencost").textContent = "Cost: " + sf.gencost
+    if(sf.firstgenbought == false) {
+        document.getElementById("divgencost").textContent = "Cost: Free"
+    }
+    else {
+        document.getElementById("divgencost").textContent = "Cost: " + sf.gencost
+    }
     document.getElementById("divbbcost").textContent = "Cost: " + sf.bbcost
     document.getElementById("divmbupcost").textContent = "Cost: " + sf.mbupcost
     document.getElementById("divmbmultcost").textContent = "Cost: " + sf.mbmultcost
