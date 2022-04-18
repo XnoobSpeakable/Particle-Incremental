@@ -63,57 +63,42 @@ function loadcut() {
     document.getElementById("divperbangcost").textContent = "Cost: " + sf.pbcost + " Alpha"
 }
 
-function openbase() {
-    document.getElementById("Base").style.display='block'
+function pretab() {
+    document.getElementById("Base").style.display='none'
     document.getElementById("Alpha").style.display='none'
     document.getElementById("Beta").style.display='none'
     document.getElementById("Gamma").style.display='none'
     document.getElementById("Delta").style.display='none'
     document.getElementById("Omega").style.display='none'
+}
+
+function openbase() {
+    pretab()
+    document.getElementById("Base").style.display='block'
 }
 
 function openalpha() {
-    document.getElementById("Base").style.display='none'
+    pretab()
     document.getElementById("Alpha").style.display='block'
-    document.getElementById("Beta").style.display='none'
-    document.getElementById("Gamma").style.display='none'
-    document.getElementById("Delta").style.display='none'
-    document.getElementById("Omega").style.display='none'
 }
 
 function openbeta() {
-    document.getElementById("Base").style.display='none'
-    document.getElementById("Alpha").style.display='none'
+    pretab()
     document.getElementById("Beta").style.display='block'
-    document.getElementById("Gamma").style.display='none'
-    document.getElementById("Delta").style.display='none'
-    document.getElementById("Omega").style.display='none'
 }
 
 function opengamma() {
-    document.getElementById("Base").style.display='none'
-    document.getElementById("Alpha").style.display='none'
-    document.getElementById("Beta").style.display='none'
+    pretab()
     document.getElementById("Gamma").style.display='block'
-    document.getElementById("Delta").style.display='none'
-    document.getElementById("Omega").style.display='none'
 }
 
 function opendelta() {
-    document.getElementById("Base").style.display='none'
-    document.getElementById("Alpha").style.display='none'
-    document.getElementById("Beta").style.display='none'
-    document.getElementById("Gamma").style.display='none'
+    pretab()
     document.getElementById("Delta").style.display='block'
-    document.getElementById("Omega").style.display='none'
 }
 
 function openomega() {
-    document.getElementById("Base").style.display='none'
-    document.getElementById("Alpha").style.display='none'
-    document.getElementById("Beta").style.display='none'
-    document.getElementById("Gamma").style.display='none'
-    document.getElementById("Delta").style.display='none'
+    pretab()
     document.getElementById("Omega").style.display='block'
 }
 
