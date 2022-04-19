@@ -86,6 +86,12 @@ load()
 
 loadcut() //costs, unlocks and texts (number text on page), makes saving smoother
 
+function format(n) {
+  let e = Math.floor(Math.log10(n));
+  let m = n / Math.pow(10, e);
+  return `${m.toFixed(2)}e${e}`;
+} //tysm Diamboy for this function
+
 function buygen() {
         if(sf.firstgenbought == false) {
             sf.firstgenbought = true
@@ -97,8 +103,8 @@ function buygen() {
                 sf.gencost *= 4
                 sf.genmult++
                 document.getElementById("divgencost").textContent = "Cost: " + sf.gencost
-                if(sf.gencost >= 1000000) {
-                    document.getElementById("divgencost").textContent = "Cost: " + (sf.gencost / 1000000).toFixed(2) + " million"
+                if(sf.gencost >= 1000) {
+                    document.getElementById("divgencost").textContent = "Cost: " + format(sf.gencost)
                 }
             }
         }
@@ -109,8 +115,8 @@ function buybb() {
         sf.num -= sf.bbcost
         sf.bbcost *= 2
         document.getElementById("divbbcost").textContent = "Cost: " + sf.bbcost
-        if(sf.bbcost >= 1000000) {
-            document.getElementById("divbbcost").textContent = "Cost: " + (sf.bbcost / 1000000).toFixed(2) + " million"
+        if(sf.bbcost >= 1000) {
+            document.getElementById("divbbcost").textContent = "Cost: " + format(sf.bbcost)
         }
         sf.inc++
     }
@@ -136,8 +142,8 @@ function mbup() {
         sf.mbupcost *= 2
         sf.mbinc += 1
         document.getElementById("divmbupcost").textContent = "Cost: " + sf.mbupcost
-        if(sf.mbupcost >= 1000000) {
-            document.getElementById("divmbupcost").textContent = "Cost: " + (sf.mbupcost / 1000000).toFixed(2) + " million"
+        if(sf.mbupcost >= 1000) {
+            document.getElementById("divmbupcost").textContent = "Cost: " + format(sf.mbupcost)
         }
     }
 }
@@ -148,8 +154,8 @@ function mbmult() {
         sf.mbmultcost *= 3
         sf.mbmultv += 1
         document.getElementById("divmbmultcost").textContent = "Cost: " + sf.mbmultcost
-        if(sf.mbmultcost >= 1000000) {
-            document.getElementById("divbbcost").textContent = "Cost: " + (sf.bbcost / 1000000).toFixed(2) + " million"
+        if(sf.mbmultcost >= 1000) {
+            document.getElementById("divmbmultcost").textContent = "Cost: " + format(sf.mbmultcost)
         }
     }
 }
@@ -183,8 +189,8 @@ function gbupt() {
             sf.num -= sf.gbuptcost
             sf.gbuptcost *= 5
             document.getElementById("divgbuptcost").textContent = "Cost: " + sf.gbuptcost
-            if(sf.gbuptcost >= 1000000) {
-                document.getElementById("divgbuptcost").textContent = "Cost: " + (sf.gbuptcost / 1000000).toFixed(2) + " million"
+            if(sf.gbuptcost >= 1000) {
+                document.getElementById("divgbuptcost").textContent = "Cost: " + format(sf.gbuptcost)
             }
             sf.gbtlc += 10
         }
@@ -200,8 +206,8 @@ function gbupm() {
             sf.num -= sf.gbupmcost
             sf.gbupmcost *= 5
             document.getElementById("divgbupmcost").textContent = "Cost: " + sf.gbupmcost
-            if(sf.gbupmcost >= 1000000) {
-                document.getElementById("divgbupmcost").textContent = "Cost: " + (sf.gbupmcost / 1000000).toFixed(2) + " million"
+            if(sf.gbupmcost >= 1000) {
+                document.getElementById("divgbupmcost").textContent = "Cost: " + format(sf.gbupmcost)
             }
             sf.gbmc += 5
         }
@@ -219,7 +225,7 @@ function alphaacc() {
         if(sf.num >= sf.alphaacccost) {
             sf.num -= sf.alphaacccost
             sf.alphaacccost *= 1000
-            document.getElementById("divalphaacceleratorcost").textContent = "Cost: " + sf.alphaacccost
+            document.getElementById("divalphaacceleratorcost").textContent = "Cost: " + format(sf.alphaacccost)
             sf.alphaaccelerators += 1
             sf.alphaacceleratorsleft = sf.alphaaccelerators
         }
@@ -250,6 +256,9 @@ function threeboost() {
         sf.alphanum -= sf.tbcost
         sf.tbcost *= 4
         document.getElementById("divthreeboostcost").textContent = "Cost: " + sf.tbcost + " Alpha"
+        if(sf.tbcost >= 1000) {
+            document.getElementById("divthreeboostcost").textContent = "Cost: " + format(sf.tbcost) + " Alpha"
+        }
         sf.tbmultiplier *= 3
     }
 }
@@ -259,6 +268,9 @@ function perbang() {
         sf.alphanum -= sf.pbcost
         sf.pbcost *= 4
         document.getElementById("divperbangcost").textContent = "Cost: " + sf.pbcost + " Alpha"
+        if(sf.tbcost >= 1000) {
+            document.getElementById("divperbangcost").textContent = "Cost: " + format(sf.pbcost) + " Alpha"
+        }
         sf.perbangmult += 1
     }
 }
@@ -292,11 +304,13 @@ setInterval(() => {
         document.getElementById("bangshow").style.display='block'
     }
     document.getElementById("counter").textContent = sf.num.toFixed(2) + " particles"
-    if(sf.num >= 1000000) {
-        document.getElementById("counter").textContent = (sf.num / 1000000).toFixed(2) + " million particles"
+    if(sf.num >= 1000) {
+        document.getElementById("counter").textContent = format(sf.num)
     }
     document.getElementById("alphacounter").textContent = sf.alphanum.toFixed(2) + " Alpha particles"
-
+    if(sf.alphanum >= 1000) {
+        document.getElementById("alphacounter").textContent = format(sf.alphanum)
+    }
     document.getElementById("stat").textContent = JSON.stringify(sf)
     }
   }, 100)
