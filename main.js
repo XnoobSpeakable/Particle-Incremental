@@ -1,6 +1,7 @@
 function load() {
     if(localStorage.getItem('savefile') == null) {
         sf = {
+            version: "b1.10.0",
             num: 0,
             inc: 1,
             mbinc: 1,
@@ -35,9 +36,14 @@ function load() {
             tbcost: 1,
             tbmultiplier: 1,
             perbangmult: 1,
-            pbcost: 4
+            pbcost: 4,
+            esetting: 1e+3
           };
         }
+    else if(sf.version != "b1.10.0") {
+        sf.nuclearcost = 1e+6
+        sf.npoff = 1
+    }
     else {
         sf = JSON.parse(localStorage.getItem('savefile'))
     }
@@ -48,21 +54,23 @@ function loadcut() {
         document.getElementById("divgencost").textContent = "Cost: Free"
     }
     else {
-        document.getElementById("divgencost").textContent = "Cost: " + sf.gencost
+        document.getElementById("divgencost").textContent = "Cost: " + format(sf.gencost)
     }
-    document.getElementById("divbbcost").textContent = "Cost: " + sf.bbcost
-    document.getElementById("divmbupcost").textContent = "Cost: " + sf.mbupcost
-    document.getElementById("divmbmultcost").textContent = "Cost: " + sf.mbmultcost
+    document.getElementById("divbbcost").textContent = "Cost: " + format(sf.bbcost)
+    document.getElementById("divmbupcost").textContent = "Cost: " + format(sf.mbupcost)
+    document.getElementById("divmbmultcost").textContent = "Cost: " + format(sf.mbmultcost)
     if(sf.gbunlocked) {
         document.getElementById("divgenunlockcost").textContent = "Unlocked"
         document.getElementById("gbshow").style.display='block'
     }
-    document.getElementById("divgbuptcost").textContent = "Cost: " + sf.gbuptcost
-    document.getElementById("divalphaacceleratorcost").textContent = "Cost: " + sf.alphaacccost
-    document.getElementById("divgbupmcost").textContent = "Cost: " + sf.gbupmcost
-    document.getElementById("chunkamount").textContent = "Particle Chunks: " + sf.pchunks
-    document.getElementById("divthreeboostcost").textContent = "Cost: " + sf.tbcost + " Alpha"
-    document.getElementById("divperbangcost").textContent = "Cost: " + sf.pbcost + " Alpha"
+    document.getElementById("divgbuptcost").textContent = "Cost: " + format(sf.gbuptcost)
+    document.getElementById("divalphaacceleratorcost").textContent = "Cost: " + format(sf.alphaacccost)
+    document.getElementById("divgbupmcost").textContent = "Cost: " + format(sf.gbupmcost)
+    document.getElementById("chunkamount").textContent = "Particle Chunks: " + format(sf.pchunks)
+    document.getElementById("divthreeboostcost").textContent = "Cost: " + format(sf.tbcost) + " Alpha"
+    document.getElementById("divperbangcost").textContent = "Cost: " + format(sf.pbcost) + " Alpha"
+    document.getElementById("divnuclearcost").textContent = "Cost: " + format(sf.nuclearcost)
+    document.getElementById("divnp").textContent = "Nuclear Particles: " + format(sf.npoff - 1)
 }
 
 function pretab() {
@@ -85,29 +93,33 @@ function openstats() {pretab();document.getElementById("Stats").style.display='b
 function opensettings() {pretab();document.getElementById("Settings").style.display='block'}
 
 load()
-
 loadcut() //costs, unlocks and texts (number text on page), makes saving smoother
 
+function setting1e3() {sf.esetting = 1e+3;loadcut()}
+function setting1e6() {sf.esetting = 1e+6;loadcut()}
+
 function format(n) {
-  let e = Math.floor(Math.log10(n));
-  let m = n / Math.pow(10, e);
-  return `${m.toFixed(2)}e${e}`;
-} //tysm Diamboy for this function
+    if(n >= sf.esetting) {
+        let e = Math.floor(Math.log10(n));
+        let m = n / Math.pow(10, e);
+        return `${m.toFixed(2)}e${e}`;
+    }
+    else {
+        return n.toFixed(2)
+    }
+} //tysm Diamboy for this function, I modified it with the if statement later.
 
 function buygen() {
         if(sf.firstgenbought == false) {
             sf.firstgenbought = true
-            document.getElementById("divgencost").textContent = "Cost: " + sf.gencost
+            document.getElementById("divgencost").textContent = "Cost: " + format(sf.gencost)
         }
         if(sf.firstgenbought == true) {
             if(sf.num >= sf.gencost) {
                 sf.num -= sf.gencost
                 sf.gencost *= 4
                 sf.genmult++
-                document.getElementById("divgencost").textContent = "Cost: " + sf.gencost
-                if(sf.gencost >= 1000) {
-                    document.getElementById("divgencost").textContent = "Cost: " + format(sf.gencost)
-                }
+                document.getElementById("divgencost").textContent = "Cost: " + format(sf.gencost)
             }
         }
     }
@@ -116,10 +128,7 @@ function buybb() {
     if(sf.num >= sf.bbcost) {
         sf.num -= sf.bbcost
         sf.bbcost *= 2
-        document.getElementById("divbbcost").textContent = "Cost: " + sf.bbcost
-        if(sf.bbcost >= 1000) {
-            document.getElementById("divbbcost").textContent = "Cost: " + format(sf.bbcost)
-        }
+        document.getElementById("divbbcost").textContent = "Cost: " + format(sf.bbcost)
         sf.inc++
     }
 }
@@ -135,7 +144,7 @@ function buyspeed() {
 
 function mbman() {
     sf.num += sf.mbinc * sf.mbmultv
-    document.getElementById("counter").textContent = sf.num.toFixed(2) + " particles"
+    document.getElementById("counter").textContent = format(sf.num) + " particles"
 }
 
 function mbup() {
@@ -143,10 +152,7 @@ function mbup() {
         sf.num -= sf.mbupcost
         sf.mbupcost *= 2
         sf.mbinc += 1
-        document.getElementById("divmbupcost").textContent = "Cost: " + sf.mbupcost
-        if(sf.mbupcost >= 1000) {
-            document.getElementById("divmbupcost").textContent = "Cost: " + format(sf.mbupcost)
-        }
+        document.getElementById("divmbupcost").textContent = "Cost: " + format(sf.mbupcost)
     }
 }
 
@@ -155,10 +161,7 @@ function mbmult() {
         sf.num -= sf.mbmultcost
         sf.mbmultcost *= 3
         sf.mbmultv += 1
-        document.getElementById("divmbmultcost").textContent = "Cost: " + sf.mbmultcost
-        if(sf.mbmultcost >= 1000) {
-            document.getElementById("divmbmultcost").textContent = "Cost: " + format(sf.mbmultcost)
-        }
+        document.getElementById("divmbmultcost").textContent = "Cost: " + format(sf.mbmultcost)
     }
 }
 
@@ -190,10 +193,7 @@ function gbupt() {
         if(sf.num >= sf.gbuptcost) {
             sf.num -= sf.gbuptcost
             sf.gbuptcost *= 5
-            document.getElementById("divgbuptcost").textContent = "Cost: " + sf.gbuptcost
-            if(sf.gbuptcost >= 1000) {
-                document.getElementById("divgbuptcost").textContent = "Cost: " + format(sf.gbuptcost)
-            }
+            document.getElementById("divgbuptcost").textContent = "Cost: " + format(sf.gbuptcost)
             sf.gbtlc += 10
         }
     }
@@ -207,10 +207,7 @@ function gbupm() {
         if(sf.num >= sf.gbupmcost) {
             sf.num -= sf.gbupmcost
             sf.gbupmcost *= 5
-            document.getElementById("divgbupmcost").textContent = "Cost: " + sf.gbupmcost
-            if(sf.gbupmcost >= 1000) {
-                document.getElementById("divgbupmcost").textContent = "Cost: " + format(sf.gbupmcost)
-            }
+            document.getElementById("divgbupmcost").textContent = "Cost: " + format(sf.gbupmcost)
             sf.gbmc += 5
         }
     }
@@ -225,10 +222,7 @@ function nuclearbuy() {
         sf.nuclearcost *= 10
         document.getElementById("divnuclearcost").textContent = "Cost: " + format(sf.nuclearcost)
         sf.npoff += 1
-        document.getElementById("divnp").textContent = "Nuclear Particles: " + (sf.npoff - 1)
-        if(sf.npoff >= 1000000) {
-            document.getElementById("divnp").textContent = "Nuclear Particles: " + format(sf.npoff - 1)
-        }
+        document.getElementById("divnp").textContent = "Nuclear Particles: " + format(sf.npoff - 1)
     }
 }
 
@@ -251,7 +245,7 @@ function makechunk() {
     if(sf.num >= 1e+10) {
         sf.num -= 1e+10
         sf.pchunks += 1
-        document.getElementById("chunkamount").textContent = "Particle Chunks: " + sf.pchunks
+        document.getElementById("chunkamount").textContent = "Particle Chunks: " + format(sf.pchunks)
     }
 }
 
@@ -261,7 +255,7 @@ function bang() {
             sf.alphaacceleratorsleft -= 1
             sf.pchunks -=2
             sf.bangtimeleft = sf.bangtime
-            document.getElementById("chunkamount").textContent = "Particle Chunks: " + sf.pchunks
+            document.getElementById("chunkamount").textContent = "Particle Chunks: " + format(sf.pchunks)
         }
     }
 }
@@ -270,10 +264,7 @@ function threeboost() {
     if(sf.alphanum >= sf.tbcost) {
         sf.alphanum -= sf.tbcost
         sf.tbcost *= 4
-        document.getElementById("divthreeboostcost").textContent = "Cost: " + sf.tbcost + " Alpha"
-        if(sf.tbcost >= 1000) {
-            document.getElementById("divthreeboostcost").textContent = "Cost: " + format(sf.tbcost) + " Alpha"
-        }
+        document.getElementById("divthreeboostcost").textContent = "Cost: " + format(sf.tbcost) + " Alpha"
         sf.tbmultiplier *= 3
     }
 }
@@ -282,10 +273,7 @@ function perbang() {
     if(sf.alphanum >= sf.pbcost) {
         sf.alphanum -= sf.pbcost
         sf.pbcost *= 4
-        document.getElementById("divperbangcost").textContent = "Cost: " + sf.pbcost + " Alpha"
-        if(sf.tbcost >= 1000) {
-            document.getElementById("divperbangcost").textContent = "Cost: " + format(sf.pbcost) + " Alpha"
-        }
+        document.getElementById("divperbangcost").textContent = "Cost: " + format(sf.pbcost) + " Alpha"
         sf.perbangmult += 1
     }
 }
@@ -293,45 +281,40 @@ function perbang() {
 //game loop
 setInterval(() => {
     if(sf.firstgenbought) {
+        document.getElementById("boostsection").style.display='block'
         if(sf.gbtl > 1) {
             sf.gbm = sf.gbmc
         }
         else {
             sf.gbm = 1
         }
-    if(sf.bangtimeleft == 0) {
-        sf.alphaacceleratorsleft += sf.alphaaccelerators
-        sf.alphanum += sf.alphainc * sf.alphaacceleratorsleft * sf.perbangmult
-        document.getElementById("bangtimeleft").textContent = ""
-    }
-    sf.bangtimeleft -= 1
-    if(sf.bangtimeleft > 0 && sf.bangtimeleft < sf.bangtime) {
-        document.getElementById("bangtimeleft").textContent = "Bang time left: " + sf.bangtimeleft
-    }
-    sf.gbtl -= 1
-    sf.hundredoveris = 100 / sf.intervalspeed
+        if(sf.bangtimeleft == 0) {
+            sf.alphaacceleratorsleft += sf.alphaaccelerators
+            sf.alphanum += sf.alphainc * sf.alphaacceleratorsleft * sf.perbangmult
+            document.getElementById("bangtimeleft").textContent = ""
+        }
+        sf.bangtimeleft -= 1
+        if(sf.bangtimeleft > 0 && sf.bangtimeleft < sf.bangtime) {
+            document.getElementById("bangtimeleft").textContent = "Bang time left: " + sf.bangtimeleft
+        }
+        sf.gbtl -= 1
+        sf.hundredoveris = 100 / sf.intervalspeed
 
-    //most important line, calculates your main "Particles" number
-    sf.num += sf.inc * sf.genmult * sf.hundredoveris * (sf.gbm * sf.npoff) *sf.npoff * sf.tbmultiplier
+        //most important line, calculates your main "Particles" number
+        sf.num += sf.inc * sf.genmult * sf.hundredoveris * (sf.gbm * sf.npoff) *sf.npoff * sf.tbmultiplier
 
-    if(sf.num >= 1000000) {
-        document.getElementById("nuclearreach").style.display='none'
-        document.getElementById("nuclearshow").style.display='block'
-    }
-    if(sf.num >= 1000000000) {
-        document.getElementById("bangreach").style.display='none'
-        document.getElementById("bangshow").style.display='block'
-    }
-    document.getElementById("counter").textContent = sf.num.toFixed(2) + " particles"
-    if(sf.num >= 1000) {
+        if(sf.num >= 1000000) {
+            document.getElementById("nuclearreach").style.display='none'
+            document.getElementById("nuclearshow").style.display='block'
+        }
+        if(sf.num >= 1000000000) {
+            document.getElementById("bangreach").style.display='none'
+            document.getElementById("bangshow").style.display='block'
+        }
         document.getElementById("counter").textContent = format(sf.num) + " particles"
-    }
-    document.getElementById("alphacounter").textContent = sf.alphanum.toFixed(2) + " Alpha particles"
-    if(sf.alphanum >= 1000) {
-        document.getElementById("alphacounter").textContent = format(sf.alphanum)
+        document.getElementById("alphacounter").textContent = format(sf.alphanum) + " Alpha particles"
     }
     document.getElementById("stat").textContent = JSON.stringify(sf)
-    }
   }, 100)
 
 function save() {
