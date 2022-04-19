@@ -313,8 +313,8 @@ setInterval(() => {
         }
         document.getElementById("counter").textContent = format(sf.num) + " particles"
         document.getElementById("alphacounter").textContent = format(sf.alphanum) + " Alpha particles"
+        document.getElementById("stat").textContent = JSON.stringify(sf)
     }
-    document.getElementById("stat").textContent = JSON.stringify(sf)
   }, 100)
 
 function save() {
