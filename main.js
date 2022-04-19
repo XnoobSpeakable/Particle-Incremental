@@ -1,7 +1,7 @@
 function load() {
     if(localStorage.getItem('savefile') == null) {
         sf = {
-            version: "b1.10.5",
+            version: "b1.11.0",
             num: 0,
             inc: 1,
             mbinc: 1,
@@ -37,14 +37,19 @@ function load() {
             tbmultiplier: 1,
             perbangmult: 1,
             pbcost: 4,
-            esetting: 1e+3
+            esetting: 1e+3,
+            tempboost: 1
           };
         }
     else {
         sf = JSON.parse(localStorage.getItem('savefile'))
     }
-    if(sf.version != "b1.10.5") { 
-        //do nothing FOR NOW
+    if(sf.version != "b1.11.0") { 
+        if(!sf.tempboost) {
+            sf.tempboost = 1
+        }
+        alert("Your save was created in an older version of the game, which may cause problems. This specific version intorduces a lot of balancing tweaks that will not affect upgrades you've already purchased and make progression way slower. It is hightly recommended to wipe your save and start over.")
+        sf.version = "b1.11.0"
     }
 }
 
@@ -116,7 +121,7 @@ function buygen() {
         if(sf.firstgenbought == true) {
             if(sf.num >= sf.gencost) {
                 sf.num -= sf.gencost
-                sf.gencost *= 4
+                sf.gencost *= 3
                 sf.genmult++
                 document.getElementById("divgencost").textContent = "Cost: " + format(sf.gencost)
             }
@@ -191,9 +196,9 @@ function gbupt() {
     if(sf.gbunlocked) {
         if(sf.num >= sf.gbuptcost) {
             sf.num -= sf.gbuptcost
-            sf.gbuptcost *= 5
+            sf.gbuptcost *= 4
             document.getElementById("divgbuptcost").textContent = "Cost: " + format(sf.gbuptcost)
-            sf.gbtlc += 10
+            sf.gbtlc += 20
         }
     }
     else {
@@ -205,9 +210,9 @@ function gbupm() {
     if(sf.gbunlocked) {
         if(sf.num >= sf.gbupmcost) {
             sf.num -= sf.gbupmcost
-            sf.gbupmcost *= 5
+            sf.gbupmcost *= 4
             document.getElementById("divgbupmcost").textContent = "Cost: " + format(sf.gbupmcost)
-            sf.gbmc += 5
+            sf.gbmc += 6
         }
     }
     else {
@@ -218,7 +223,7 @@ function gbupm() {
 function nuclearbuy() {
     if(sf.num >= sf.nuclearcost) {
         sf.num -= sf.nuclearcost
-        sf.nuclearcost *= 7.5
+        sf.nuclearcost *= 7
         document.getElementById("divnuclearcost").textContent = "Cost: " + format(sf.nuclearcost)
         sf.npoff += 1
         document.getElementById("divnp").textContent = "Nuclear Particles: " + format(sf.npoff - 1)
@@ -299,8 +304,15 @@ setInterval(() => {
         sf.gbtl -= 1
         sf.hundredoveris = 100 / sf.intervalspeed
 
+        if(sf.num > 1e+6 && sf.num < 1e+12) {
+            sf.tempboost = 3
+        }
+        else {
+            sf.tempboost = 1
+        }
+
         //most important line, calculates your main "Particles" number
-        sf.num += sf.inc * sf.genmult * sf.hundredoveris * (sf.gbm * sf.npoff) *sf.npoff * sf.tbmultiplier
+        sf.num += sf.inc * sf.genmult * sf.hundredoveris * (sf.gbm * sf.npoff) *sf.npoff * sf.tbmultiplier * sf.tempboost
 
         if(sf.num >= 1000000) {
             document.getElementById("nuclearreach").style.display='none'
