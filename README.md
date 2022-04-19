@@ -42,6 +42,6 @@ Next goals:
 
 -Adding alpha particle stuff
 
--Theme selection, seetings menu (update: currently no longer planned)
+-Theme selection, settings menu (update: currently no longer planned) (update 2: settings done, theme selection not done, not sure if I'll do that)
 
 (this may or may not be out of date, because I'll probably forget to update this file)
