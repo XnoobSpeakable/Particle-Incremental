@@ -1,7 +1,7 @@
 function load() {
     if(localStorage.getItem('savefile') == null) {
         sf = {
-            version: "b1.10.3",
+            version: "b1.10.5",
             num: 0,
             inc: 1,
             mbinc: 1,
@@ -43,7 +43,7 @@ function load() {
     else {
         sf = JSON.parse(localStorage.getItem('savefile'))
     }
-    if(sf.version != "b1.10.4") { 
+    if(sf.version != "b1.10.5") { 
         //do nothing FOR NOW
     }
 }
