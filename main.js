@@ -1,6 +1,7 @@
 function load() {
     if(localStorage.getItem('savefile') == null) {
         sf = {
+            version: "b1.10.3",
             num: 0,
             inc: 1,
             mbinc: 1,
@@ -41,6 +42,9 @@ function load() {
         }
     else {
         sf = JSON.parse(localStorage.getItem('savefile'))
+    }
+    if(sf.version != "b1.10.4") { 
+        //do nothing FOR NOW
     }
 }
 
@@ -214,7 +218,7 @@ function gbupm() {
 function nuclearbuy() {
     if(sf.num >= sf.nuclearcost) {
         sf.num -= sf.nuclearcost
-        sf.nuclearcost *= 10
+        sf.nuclearcost *= 7.5
         document.getElementById("divnuclearcost").textContent = "Cost: " + format(sf.nuclearcost)
         sf.npoff += 1
         document.getElementById("divnp").textContent = "Nuclear Particles: " + format(sf.npoff - 1)
