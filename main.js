@@ -70,37 +70,17 @@ function pretab() {
     document.getElementById("Gamma").style.display='none'
     document.getElementById("Delta").style.display='none'
     document.getElementById("Omega").style.display='none'
+    document.getElementById("Stats").style.display='none'
+    document.getElementById("Settings").style.display='none'
 }
-
-function openbase() {
-    pretab()
-    document.getElementById("Base").style.display='block'
-}
-
-function openalpha() {
-    pretab()
-    document.getElementById("Alpha").style.display='block'
-}
-
-function openbeta() {
-    pretab()
-    document.getElementById("Beta").style.display='block'
-}
-
-function opengamma() {
-    pretab()
-    document.getElementById("Gamma").style.display='block'
-}
-
-function opendelta() {
-    pretab()
-    document.getElementById("Delta").style.display='block'
-}
-
-function openomega() {
-    pretab()
-    document.getElementById("Omega").style.display='block'
-}
+function openbase() {pretab();document.getElementById("Base").style.display='block'}
+function openalpha() {pretab();document.getElementById("Alpha").style.display='block'}
+function openbeta() {pretab();document.getElementById("Beta").style.display='block'}
+function opengamma() {pretab();document.getElementById("Gamma").style.display='block'}
+function opendelta() {pretab();document.getElementById("Delta").style.display='block'}
+function openomega() {pretab();document.getElementById("Omega").style.display='block'}
+function openstats() {pretab();document.getElementById("Stats").style.display='block'}
+function opensettings() {pretab();document.getElementById("Settings").style.display='block'}
 
 load()
 
@@ -316,10 +296,16 @@ setInterval(() => {
         document.getElementById("counter").textContent = (sf.num / 1000000).toFixed(2) + " million particles"
     }
     document.getElementById("alphacounter").textContent = sf.alphanum.toFixed(2) + " Alpha particles"
+
+    document.getElementById("stat").textContent = JSON.stringify(sf)
     }
   }, 100)
 
 function save() {
     savefile = JSON.stringify(sf)
     localStorage.setItem('savefile', savefile)
+}
+
+function reset() {
+    localStorage.removeItem('savefile');
 }

@@ -1,9 +1,6 @@
 button:hover {
   color: blue;
 }
-#disclaimer {
-  color: red;
-}
 #divgencost {
   display: inline-block;
 }
@@ -53,4 +50,10 @@ button:hover {
 #divperbangcost {
   display: inline-block;
   text-indent: 7.25em;
+}
+#resetb {
+  color: red
+}
+#stat {
+  word-break:break-all;
 }

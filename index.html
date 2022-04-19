@@ -12,14 +12,17 @@
 
   <body>
     <script defer src="main.js"></script>
+    <div id="counter">0 particles</div>
+    <br>
     <button onclick="openbase()">Base</button>
     <button onclick="openalpha()">Alpha</button>
     <button onclick="openbeta()">Beta</button>
     <button onclick="opengamma()">Gamma</button>
     <button onclick="opendelta()">Delta</button>
     <button onclick="openomega()">Omega</button>
+    <button onclick="openstats()">Stats</button>
+    <button onclick="opensettings()">Settings</button>
     <div id="Base">
-      <div id="counter">0 particles</div>
       <br>
       <div class="btn-group">
         <button onclick="buygen()">Buy generator</button>
@@ -85,12 +88,25 @@
     <div id="Gamma" style="display:none">nothing here yet</div>
     <div id="Delta" style="display:none">nothing here yet</div>
     <div id="Omega" style="display:none">nothing here yet</div>
+    <div id="Stats" style="display:none">
+      <div id="stat"></div>
+    </div>
+    <div id="Settings" style="display:none">
+      <br>
+      <button onclick="reset()" id="resetb">RESET SAVE</button>
+      <br>
+      Refresh and you're back to 0 particles
+      <br>
+      THIS CAN NOT BE UNDONE!
+      <br>
+      <br>
+    </div>
     <button onclick="save()">save</button>
     <br>
-    Version b1.6.0
+    Version b1.7.0
     <br>
     Changelog:
     <br>
-    Updated tab system
+    Settings, stats and experimenting with other stuff
   </body>
 </html>
