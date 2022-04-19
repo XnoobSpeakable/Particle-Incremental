@@ -22,6 +22,8 @@ function load() {
             gbmc: 5,
             gbuptcost: 100,
             gbupmcost: 10000,
+            nuclearcost: 1e+6,
+            npoff: 1,
             alphaacccost: 1e+12,
             alphaaccelerators: 0,
             pchunks: 0,
@@ -217,6 +219,19 @@ function gbupm() {
     }
 }
 
+function nuclearbuy() {
+    if(sf.num >= sf.nuclearcost) {
+        sf.num -= sf.nuclearcost
+        sf.nuclearcost *= 10
+        document.getElementById("divnuclearcost").textContent = "Cost: " + format(sf.nuclearcost)
+        sf.npoff += 1
+        document.getElementById("divnp").textContent = "Nuclear Particles: " + (sf.npoff - 1)
+        if(sf.npoff >= 1000000) {
+            document.getElementById("divnp").textContent = "Nuclear Particles: " + format(sf.npoff - 1)
+        }
+    }
+}
+
 function alphaacc() {
     if(sf.bangtimeleft > 0 && sf.bangtimeleft < sf.bangtime) {
         document.getElementById("divalphaacceleratorcost").textContent = "Bang in progress, try again later"
@@ -297,15 +312,19 @@ setInterval(() => {
     sf.hundredoveris = 100 / sf.intervalspeed
 
     //most important line, calculates your main "Particles" number
-    sf.num += sf.inc * sf.genmult * sf.hundredoveris * sf.gbm * sf.tbmultiplier
+    sf.num += sf.inc * sf.genmult * sf.hundredoveris * (sf.gbm * sf.npoff) *sf.npoff * sf.tbmultiplier
 
+    if(sf.num >= 1000000) {
+        document.getElementById("nuclearreach").style.display='none'
+        document.getElementById("nuclearshow").style.display='block'
+    }
     if(sf.num >= 1000000000) {
         document.getElementById("bangreach").style.display='none'
         document.getElementById("bangshow").style.display='block'
     }
     document.getElementById("counter").textContent = sf.num.toFixed(2) + " particles"
     if(sf.num >= 1000) {
-        document.getElementById("counter").textContent = format(sf.num)
+        document.getElementById("counter").textContent = format(sf.num) + " particles"
     }
     document.getElementById("alphacounter").textContent = sf.alphanum.toFixed(2) + " Alpha particles"
     if(sf.alphanum >= 1000) {
