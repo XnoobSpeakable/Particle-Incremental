@@ -1,7 +1,6 @@
 function load() {
     if(localStorage.getItem('savefile') == null) {
         sf = {
-            version: "b1.10.0",
             num: 0,
             inc: 1,
             mbinc: 1,
@@ -40,10 +39,6 @@ function load() {
             esetting: 1e+3
           };
         }
-    else if(sf.version != "b1.10.0") {
-        sf.nuclearcost = 1e+6
-        sf.npoff = 1
-    }
     else {
         sf = JSON.parse(localStorage.getItem('savefile'))
     }
