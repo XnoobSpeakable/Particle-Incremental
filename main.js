@@ -1,7 +1,7 @@
 function load() {
     if(localStorage.getItem('savefile') == null) {
         sf = {
-            version: "b1.11.0",
+            version: "b1.11.1",
             num: 0,
             inc: 1,
             mbinc: 1,
@@ -44,12 +44,12 @@ function load() {
     else {
         sf = JSON.parse(localStorage.getItem('savefile'))
     }
-    if(sf.version != "b1.11.0") { 
+    if(sf.version != "b1.11.1") { 
         if(!sf.tempboost) {
             sf.tempboost = 1
         }
-        alert("Your save was created in an older version of the game, which may cause problems. This specific version intorduces a lot of balancing tweaks that will not affect upgrades you've already purchased and make progression way slower. It is hightly recommended to wipe your save and start over.")
-        sf.version = "b1.11.0"
+        alert("Your save was created in an older version of the game, which may cause problems. This specific version introduces a lot of balancing tweaks that will not affect upgrades you've already purchased and make progression way slower or faster. It is hightly recommended to wipe your save and start over.")
+        sf.version = "b1.11.1"
     }
 }
 
@@ -121,7 +121,7 @@ function buygen() {
         if(sf.firstgenbought == true) {
             if(sf.num >= sf.gencost) {
                 sf.num -= sf.gencost
-                sf.gencost *= 3
+                sf.gencost *= 4
                 sf.genmult++
                 document.getElementById("divgencost").textContent = "Cost: " + format(sf.gencost)
             }
@@ -196,7 +196,7 @@ function gbupt() {
     if(sf.gbunlocked) {
         if(sf.num >= sf.gbuptcost) {
             sf.num -= sf.gbuptcost
-            sf.gbuptcost *= 4
+            sf.gbuptcost *= 5
             document.getElementById("divgbuptcost").textContent = "Cost: " + format(sf.gbuptcost)
             sf.gbtlc += 20
         }
@@ -210,9 +210,9 @@ function gbupm() {
     if(sf.gbunlocked) {
         if(sf.num >= sf.gbupmcost) {
             sf.num -= sf.gbupmcost
-            sf.gbupmcost *= 4
+            sf.gbupmcost *= 5
             document.getElementById("divgbupmcost").textContent = "Cost: " + format(sf.gbupmcost)
-            sf.gbmc += 6
+            sf.gbmc += 5
         }
     }
     else {
@@ -305,14 +305,16 @@ setInterval(() => {
         sf.hundredoveris = 100 / sf.intervalspeed
 
         if(sf.num > 1e+6 && sf.num < 1e+12) {
-            sf.tempboost = 3
+            sf.tempboost = 1.5
+            document.getElementById("tmp").style.display='block'
         }
         else {
             sf.tempboost = 1
+            document.getElementById("tmp").style.display='none'
         }
 
         //most important line, calculates your main "Particles" number
-        sf.num += sf.inc * sf.genmult * sf.hundredoveris * (sf.gbm * sf.npoff) *sf.npoff * sf.tbmultiplier * sf.tempboost
+        sf.num += sf.inc * sf.genmult * sf.hundredoveris * (sf.gbm * sf.npoff) * sf.npoff * sf.tbmultiplier * sf.tempboost
 
         if(sf.num >= 1000000) {
             document.getElementById("nuclearreach").style.display='none'
