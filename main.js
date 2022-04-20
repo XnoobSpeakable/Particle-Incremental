@@ -1,7 +1,7 @@
 function load() {
     if(localStorage.getItem('savefile') == null) {
         sf = {
-            version: "b1.11.1",
+            version: "b1.11.2",
             num: 0,
             inc: 1,
             mbinc: 1,
@@ -25,7 +25,7 @@ function load() {
             gbupmcost: 10000,
             nuclearcost: 1e+6,
             npoff: 1,
-            alphaacccost: 1e+12,
+            alphaacccost: 1e+10,
             alphaaccelerators: 0,
             pchunks: 0,
             alphanum: 0,
@@ -44,12 +44,13 @@ function load() {
     else {
         sf = JSON.parse(localStorage.getItem('savefile'))
     }
-    if(sf.version != "b1.11.1") { 
+    if(sf.version != "b1.11.2") { 
         if(!sf.tempboost) {
             sf.tempboost = 1
         }
-        alert("Your save was created in an older version of the game, which may cause problems. This specific version introduces a lot of balancing tweaks that will not affect upgrades you've already purchased and make progression way slower or faster. It is hightly recommended to wipe your save and start over.")
-        sf.version = "b1.11.1"
+        alert("Your save was created in an older version of the game, which may cause problems.")
+        sf.alphaacccost = 1e+10
+        sf.version = "b1.11.2"
     }
 }
 
@@ -246,8 +247,8 @@ function alphaacc() {
 }
 
 function makechunk() {
-    if(sf.num >= 1e+10) {
-        sf.num -= 1e+10
+    if(sf.num >= 1e+9) {
+        sf.num -= 1e+9
         sf.pchunks += 1
         document.getElementById("chunkamount").textContent = "Particle Chunks: " + format(sf.pchunks)
     }
