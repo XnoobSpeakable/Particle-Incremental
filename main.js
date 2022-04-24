@@ -1,7 +1,7 @@
 function load() {
     if(localStorage.getItem('savefile') == null) {
         sf = {
-            version: "b1.12.1",
+            version: "b1.13.0",
             num: 0,
             inc: 1,
             mbinc: 1,
@@ -47,13 +47,16 @@ function load() {
             pcatime: 160,
             pcatimeleft: 0,
             pcaupbought: 0,
-            pcafracmult: 2
+            pcafracmult: 2,
+            autosavedelay: 300,
+            autosavemode: 1,
+            autosaveset: 300
           };
         }
     else {
         sf = JSON.parse(localStorage.getItem('savefile'))
     }
-    if(sf.version != "b1.12.1") { 
+    if(sf.version != "b1.13.0") { 
         if(!sf.tempboost) {
             sf.tempboost = 1
         }
@@ -84,9 +87,18 @@ function load() {
         if(!sf.pcafracmult) {
             sf.pcafracmult = 2
         }
+        if(!sf.autosavedelay) {
+            sf.autosavedelay = 300
+        }
+        if(!sf.autosavemode) {
+            sf.autosavemode = 1
+        }
+        if(!sf.autosaveset) {
+            sf.autosaveset = 300
+        }
         alert("Your save was created in an older version of the game, which may cause problems. I have coded backwards compatibility with older saves, but I cannot guarantee that it will work properly.")
         sf.alphaacccost = 1e+10
-        sf.version = "b1.12.1"
+        sf.version = "b1.13.0"
     }
 }
 
@@ -375,6 +387,45 @@ function togglepca() {
     }
 }
 
+function autosavesettings() {
+    if(sf.autosavemode == 5) {
+        sf.autosavemode = 0
+    }
+    else {
+    sf.autosavemode++
+    }
+    if(sf.autosavemode == 0) {
+        sf.autosaveset = 600
+        document.getElementById("autosaving").textContent = "On, delay: 60s"
+        sf.autosavedelay = 600
+    }
+    if(sf.autosavemode == 1) {
+        sf.autosaveset = 300
+        document.getElementById("autosaving").textContent = "On, delay: 30s"
+        sf.autosavedelay = 300
+    }
+    if(sf.autosavemode == 2) {
+        sf.autosaveset = 150
+        document.getElementById("autosaving").textContent = "On, delay: 15s"
+        sf.autosavedelay = 150
+    }
+    if(sf.autosavemode == 3) {
+        sf.autosaveset = 100
+        document.getElementById("autosaving").textContent = "On, delay: 10s"
+        sf.autosavedelay = 100
+    }
+    if(sf.autosavemode == 4) {
+        sf.autosaveset = 50
+        document.getElementById("autosaving").textContent = "On, delay: 5s"
+        sf.autosavedelay = 50
+    }
+    if(sf.autosavemode == 5) {
+        sf.autosaveset = 1e+300
+        document.getElementById("autosaving").textContent = "Off"
+        sf.autosavedelay = 1e+300
+    }
+}
+
 //game loop
 setInterval(() => {
     if(sf.pcaunlocked == true) {
@@ -430,6 +481,11 @@ setInterval(() => {
         document.getElementById("counter").textContent = format(sf.num) + " particles"
         document.getElementById("alphacounter").textContent = format(sf.alphanum) + " Alpha particles"
         document.getElementById("stat").textContent = JSON.stringify(sf)
+        sf.autosavedelay -= 1
+        if(sf.autosavedelay == 0) {
+            sf.autosavedelay = sf.autosaveset
+            save()
+        }
     }
   }, 100)
 
