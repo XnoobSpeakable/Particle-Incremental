@@ -1,7 +1,7 @@
 function load() {
     if(localStorage.getItem('savefile') == null) {
         sf = {
-            version: "b1.11.2",
+            version: "b1.12.0",
             num: 0,
             inc: 1,
             mbinc: 1,
@@ -37,20 +37,56 @@ function load() {
             tbmultiplier: 1,
             perbangmult: 1,
             pbcost: 4,
-            esetting: 1e+3,
-            tempboost: 1
+            esetting: 1e+4,
+            tempboost: 1,
+            bangspeedcost: 1,
+            bangspeedbought: 0,
+            pcaunlocked: false,
+            pcatoggle: true,
+            pcaupcost: 2,
+            pcatime: 160,
+            pcatimeleft: 0,
+            pcaupbought: 0,
+            pcafracmult: 2
           };
         }
     else {
         sf = JSON.parse(localStorage.getItem('savefile'))
     }
-    if(sf.version != "b1.11.2") { 
+    if(sf.version != "b1.12.0") { 
         if(!sf.tempboost) {
             sf.tempboost = 1
         }
-        alert("Your save was created in an older version of the game, which may cause problems.")
+        if(!sf.bangspeedcost) {
+            sf.bangspeedcost = 1
+        }
+        if(!sf.bangspeedbought) {
+            sf.bangspeedbought = 0
+        }
+        if(sf.pcaunlocked === null) {
+            sf.pcaunlocked = false
+        }
+        if(sf.pcatoggle === null) {
+            sf.pcatoggle = true
+        }
+        if(!sf.pcaupcost) {
+            sf.pcaupcost = 2
+        }
+        if(!sf.pcatime) {
+            sf.pcatime = 160
+        }
+        if(!sf.pcatimeleft) {
+            sf.pcatimeleft = 0
+        }
+        if(!sf.pcaupbought) {
+            sf.pcaupbought = 0
+        }
+        if(!sf.pcafracmult) {
+            sf.pcafracmult = 2
+        }
+        alert("Your save was created in an older version of the game, which may cause problems. I have coded backwards compatibility with older saves, but I cannot guarantee that it will work properly.")
         sf.alphaacccost = 1e+10
-        sf.version = "b1.11.2"
+        sf.version = "b1.12.0"
     }
 }
 
@@ -100,7 +136,7 @@ function opensettings() {pretab();document.getElementById("Settings").style.disp
 load()
 loadcut() //costs, unlocks and texts (number text on page), makes saving smoother
 
-function setting1e3() {sf.esetting = 1e+3;loadcut()}
+function setting1e4() {sf.esetting = 1e+4;loadcut()}
 function setting1e6() {sf.esetting = 1e+6;loadcut()}
 
 function format(n) {
@@ -257,7 +293,7 @@ function makechunk() {
 function bang() {
     if(sf.pchunks >= 2) {
         if(sf.alphaacceleratorsleft > 0) {
-            sf.alphaacceleratorsleft -= 1
+            sf.alphaacceleratorsleft -= sf.alphaaccelerators
             sf.pchunks -=2
             sf.bangtimeleft = sf.bangtime
             document.getElementById("chunkamount").textContent = "Particle Chunks: " + format(sf.pchunks)
@@ -283,8 +319,74 @@ function perbang() {
     }
 }
 
+function bangspeed() {
+    if(sf.alphanum >= sf.bangspeedcost) {
+        sf.alphanum -= sf.bangspeedcost
+        sf.bangspeedbought += 1
+        if(sf.bangspeedbought <= 3) {
+            sf.bangtime = Math.ceil(sf.bangtime / 2)
+            sf.bangspeedcost *= 2
+            document.getElementById("divbangspeedcost").textContent = "Cost: " + format(sf.bangspeedcost) + " Alpha"
+        }
+        else {
+            sf.bangtime = Math.ceil(sf.bangtime / 2)
+            sf.bangspeedcost *= 5
+            document.getElementById("divbangspeedcost").textContent = "Cost: " + format(sf.bangspeedcost) + " Alpha"
+        }
+    }
+}
+
+function unlockpca() {
+    if(sf.alphanum >= 20) {
+        sf.alphanum -= 20
+        document.getElementById("divunlockpca").textContent = "Unlocked"
+        sf.pcaunlocked = true
+    }
+}
+
+function upgradepca() {
+    if(sf.pcaunlocked) {
+        if(sf.alphanum >= sf.pcaupcost) {
+            sf.alphanum -= sf.pcaupcost
+            sf.pcaupcost *= 3
+            sf.pcaupbought += 1
+            if(sf.pcaupbought <= 4) {
+                sf.pcatime = Math.ceil(sf.pcatime / 2)
+            }
+            else {
+                sf.pcatime = Math.ceil(10 / sf.pcafracmult)
+                sf.pcafracmult++
+            }
+            document.getElementById("divupgradepcacost").textContent = "Cost: " + format(sf.pcaupcost) + " Alpha"
+        }
+    }
+}
+
+function togglepca() {
+    if(sf.pcaunlocked == true) {
+        sf.pcatoggle = !sf.pcatoggle
+        document.getElementById("divtogglepca").style.display='inline-block'
+        if(sf.pcatoggle == true) {
+            document.getElementById("divtogglepca").textContent = "On"
+        }
+        else {
+            document.getElementById("divtogglepca").textContent = "Off"
+        }
+    }
+}
+
 //game loop
 setInterval(() => {
+    if(sf.pcaunlocked == true) {
+        if(sf.pcatoggle == true) {
+            if(sf.pcatimeleft == 0) {
+                sf.pcatimeleft = sf.pcatime
+                makechunk()
+            }
+            sf.pcatimeleft -= 1
+            document.getElementById("untilpca").textContent = sf.pcatimeleft + " left until next autobuy"
+        }
+    }
     if(sf.firstgenbought) {
         document.getElementById("boostsection").style.display='block'
         if(sf.gbtl > 1) {

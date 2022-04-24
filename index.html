@@ -22,6 +22,7 @@
     <button onclick="openomega()">Omega</button>
     <button onclick="openstats()">Stats</button>
     <button onclick="opensettings()">Settings</button>
+
     <div id="Base">
       <br>
       <div class="btn-group">
@@ -89,6 +90,7 @@
       <div id="bangreach">Reach 1e9 to unlock Bang!</div>
       <br>
     </div>
+
     <div id="Alpha" style="display:none">
       <div id="alphacounter">0 Alpha particles</div>
       <br>
@@ -98,7 +100,23 @@
       </div>
       <div id="divthreeboostcost">Cost: 1 Alpha</div>
       <div id="divperbangcost">Cost: 4 Alpha</div>
+      <h2>Base automation</h2>
+      <button onclick="bangspeed()">Make bang twice as fast</button>
+      <div id="divbangspeedcost">Cost: 1 Alpha</div>
+      <br>
+      <div class="btn-group">
+        <button onclick="unlockpca()">Unlock Particle Chunk Autobuyer (PCA)</button>
+        <button onclick="upgradepca()" id="pca1">Make PCA faster</button>
+        <button onclick="togglepca()" id="pca2">Toggle PCA</button>
+      </div>
+      <div id="divunlockpca">Cost: 20 Alpha</div>
+      <div id="divupgradepcacost">Cost: 4 Alpha</div>
+      <div id="divtogglepca">On</div>
+      <div id="untilpca"></div>
+      <br>
+      <br>
     </div>
+
     <div id="Beta" style="display:none">nothing here yet</div>
     <div id="Gamma" style="display:none">nothing here yet</div>
     <div id="Delta" style="display:none">nothing here yet</div>
@@ -115,17 +133,17 @@
       THIS CAN NOT BE UNDONE!
       <br>
       <br>
-      <button onclick="setting1e3()">Make scientific notation start at 1e3</button>
+      <button onclick="setting1e4()">Make scientific notation start at 1e4</button>
       <button onclick="setting1e6()">Make scientific notation start at 1e6</button>
       <br>
       <br>
     </div>
     <button onclick="save()">save</button>
     <br>
-    Version b1.11.3
+    Version b1.12.0
     <br>
     Changelog:
     <br>
-    Cost changes
+    More alpha upgrades
   </body>
 </html>

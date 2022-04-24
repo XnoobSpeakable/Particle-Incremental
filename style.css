@@ -57,3 +57,14 @@ button:hover {
 #stat {
   word-break:break-all;
 }
+#divunlockpca {
+  display: inline-block;
+}
+#divupgradepcacost {
+  display: inline-block;
+  text-indent: 10em;
+}
+#divtogglepca {
+  display: inline-block;
+  text-indent: 1.75em;
+}
