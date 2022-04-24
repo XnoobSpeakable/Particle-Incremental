@@ -1,7 +1,7 @@
 function load() {
     if(localStorage.getItem('savefile') == null) {
         sf = {
-            version: "b1.12.0",
+            version: "b1.12.1",
             num: 0,
             inc: 1,
             mbinc: 1,
@@ -53,7 +53,7 @@ function load() {
     else {
         sf = JSON.parse(localStorage.getItem('savefile'))
     }
-    if(sf.version != "b1.12.0") { 
+    if(sf.version != "b1.12.1") { 
         if(!sf.tempboost) {
             sf.tempboost = 1
         }
@@ -86,7 +86,7 @@ function load() {
         }
         alert("Your save was created in an older version of the game, which may cause problems. I have coded backwards compatibility with older saves, but I cannot guarantee that it will work properly.")
         sf.alphaacccost = 1e+10
-        sf.version = "b1.12.0"
+        sf.version = "b1.12.1"
     }
 }
 
