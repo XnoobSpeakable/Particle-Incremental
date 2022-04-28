@@ -1,7 +1,7 @@
 function load() {
     if(localStorage.getItem('savefile') == null) {
         sf = {
-            version: "b1.13.1",
+            version: "b1.14.0",
             num: 0,
             inc: 1,
             mbinc: 1,
@@ -50,55 +50,53 @@ function load() {
             pcafracmult: 2,
             autosavedelay: 300,
             autosavemode: 1,
-            autosaveset: 300
+            autosaveset: 300,
+            boosterparticles: 0,
+            bppercent: 1,
+            bpgainmult: 1,
+            untilboost: 1,
+            bpupcost: 100,
+            bppercentcost: 100
           };
         }
     else {
         sf = JSON.parse(localStorage.getItem('savefile'))
     }
-    if(sf.version != "b1.13.1") { 
-        if(!sf.tempboost) {
-            sf.tempboost = 1
+    if(sf.version != "b1.14.0") { 
+        if(!sf.tempboost) {sf.tempboost = 1}
+        if (!sf.bangspeedcost) {sf.bangspeedcost = 1}
+        if(!sf.bangspeedbought) {sf.bangspeedbought = 0}
+        if(sf.pcaunlocked === null) {sf.pcaunlocked = false}
+        if(sf.pcatoggle === null) {sf.pcatoggle = true}
+        if(!sf.pcaupcost) {sf.pcaupcost = 2}
+        if(!sf.pcatime) {sf.pcatime = 160}
+        if(!sf.pcatimeleft) {sf.pcatimeleft = 0}
+        if(!sf.pcaupbought) {sf.pcaupbought = 0}
+        if(!sf.pcafracmult) {sf.pcafracmult = 2}
+        if(!sf.autosavedelay) {sf.autosavedelay = 300}
+        if(!sf.autosavemode) {sf.autosavemode = 1}
+        if(!sf.autosaveset) {sf.autosaveset = 300}
+        if(!sf.boosterparticles) {
+            sf.boosterparticles = 0
         }
-        if(!sf.bangspeedcost) {
-            sf.bangspeedcost = 1
+        if(!sf.bppercent) {
+            sf.bppercent = 1
         }
-        if(!sf.bangspeedbought) {
-            sf.bangspeedbought = 0
+        if(!sf.bpgainmult) {
+            sf.bpgainmult = 1
         }
-        if(sf.pcaunlocked === null) {
-            sf.pcaunlocked = false
+        if(!sf.untilboost) {
+            sf.untilboost = 1
         }
-        if(sf.pcatoggle === null) {
-            sf.pcatoggle = true
+        if(!sf.bpupcost) {
+            sf.bpupcost = 100
         }
-        if(!sf.pcaupcost) {
-            sf.pcaupcost = 2
-        }
-        if(!sf.pcatime) {
-            sf.pcatime = 160
-        }
-        if(!sf.pcatimeleft) {
-            sf.pcatimeleft = 0
-        }
-        if(!sf.pcaupbought) {
-            sf.pcaupbought = 0
-        }
-        if(!sf.pcafracmult) {
-            sf.pcafracmult = 2
-        }
-        if(!sf.autosavedelay) {
-            sf.autosavedelay = 300
-        }
-        if(!sf.autosavemode) {
-            sf.autosavemode = 1
-        }
-        if(!sf.autosaveset) {
-            sf.autosaveset = 300
+        if(!sf.bppercentcost) {
+            sf.bppercentcost = 100
         }
         alert("Your save was created in an older version of the game, which may cause problems. I have coded backwards compatibility with older saves, but I cannot guarantee that it will work properly.")
         sf.alphaacccost = 1e+10
-        sf.version = "b1.13.1"
+        sf.version = "b1.14.0"
     }
 }
 
@@ -309,6 +307,7 @@ function bang() {
             sf.pchunks -=2
             sf.bangtimeleft = sf.bangtime
             document.getElementById("chunkamount").textContent = "Particle Chunks: " + format(sf.pchunks)
+            document.getElementById("boostersmaintext").style.display='block'
         }
     }
 }
@@ -426,6 +425,24 @@ function autosavesettings() {
     }
 }
 
+function boosterup() {
+    if(sf.alphanum >= sf.bpupcost) {
+        sf.alphanum -= sf.bpupcost
+        sf.bpupcost *= 10
+        sf.bpgainmult += 1
+        document.getElementById("divboosterupcost").textContent = format(sf.bpupcost) + " Alpha particles"
+    }
+}
+
+function boosteruppercent() {
+    if(sf.alphanum >= sf.bpuppercentcost) {
+        sf.alphanum -= sf.bpuppercentcost
+        sf.bpuppercentcost *= 10
+        sf.bppercent += 1
+        document.getElementById("divboosteruppercentcost").textContent = format(sf.bpuppercentcost) + " Alpha particles"
+    }
+}
+
 //game loop
 setInterval(() => {
     if(sf.pcaunlocked == true) {
@@ -457,6 +474,13 @@ setInterval(() => {
         }
         sf.gbtl -= 1
         sf.hundredoveris = 100 / sf.intervalspeed
+        
+        sf.untilboost -= 1
+        if(sf.untilboost == 0) {
+            sf.untilboost = 10
+            sf.boosterparticles += sf.alphanum * sf.bpgainmult
+            document.getElementById("boostersmaintext").textContent = "You are currently getting " + format(sf.bpgainmult) + " booster particles per alpha particle per second, resulting in a +" + format(sf.boosterparticles * sf.bppercent) + "% boost to base particle production"
+        }
 
         if(sf.num > 1e+6 && sf.num < 1e+12) {
             sf.tempboost = 1.5
@@ -468,7 +492,7 @@ setInterval(() => {
         }
 
         //most important line, calculates your main "Particles" number
-        sf.num += sf.inc * sf.genmult * sf.hundredoveris * (sf.gbm * sf.npoff) * sf.npoff * sf.tbmultiplier * sf.tempboost
+        sf.num += sf.inc * sf.genmult * sf.hundredoveris * (sf.gbm * sf.npoff) * sf.npoff * sf.tbmultiplier * sf.tempboost * (1 + ((sf.boosterparticles / 100) * sf.bppercent))
 
         if(sf.num >= 1000000) {
             document.getElementById("nuclearreach").style.display='none'

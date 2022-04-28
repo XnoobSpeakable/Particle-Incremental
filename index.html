@@ -115,6 +115,14 @@
       <div id="untilpca"></div>
       <br>
       <br>
+      <h2>Booster particles</h2>
+      <div id="boostersmaintext" style="display:none">You are currently getting 0 booster particles per alpha particle per second, resulting in a +0% boost to base particle production</div>
+      <div class="btn-group">
+        <button onclick="boosterup()">+1 booster particle per alpha particle per second</button>
+        <button onclick="boosteruppercent()">+1 percent boost per booster particle</button>
+      </div>
+      <div id="divboosterupcost">100 Alpha</div>
+      <div id="divboosteruppercentcost">100 Alpha</div>
     </div>
 
     <div id="Beta" style="display:none">nothing here yet</div>
@@ -142,10 +150,10 @@
     </div>
     <button onclick="save()">save</button>
     <br>
-    Version b1.13.1
+    Version b1.14.0
     <br>
     Changelog:
     <br>
-    autosaving! + bugfix
+    booster particles
   </body>
 </html>

@@ -68,3 +68,10 @@ button:hover {
   display: inline-block;
   text-indent: 1.75em;
 }
+#divboosterupcost {
+  display: inline-block;
+}
+#divboosteruppercentcost {
+  display: inline-block;
+  text-indent: 15em;
+}
