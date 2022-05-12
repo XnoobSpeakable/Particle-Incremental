@@ -1,7 +1,7 @@
 function load() {
     if(localStorage.getItem('savefile') == null) {
         sf = {
-            version: "b1.14.0",
+            version: "b1.14.1",
             num: 0,
             inc: 1,
             mbinc: 1,
@@ -56,13 +56,14 @@ function load() {
             bpgainmult: 1,
             untilboost: 1,
             bpupcost: 100,
-            bppercentcost: 100
+            bppercentcost: 100,
+            themenumber: 0
           };
         }
     else {
         sf = JSON.parse(localStorage.getItem('savefile'))
     }
-    if(sf.version != "b1.14.0") { 
+    if(sf.version != "b1.14.1") { 
         if(!sf.tempboost) {sf.tempboost = 1}
         if (!sf.bangspeedcost) {sf.bangspeedcost = 1}
         if(!sf.bangspeedbought) {sf.bangspeedbought = 0}
@@ -94,13 +95,41 @@ function load() {
         if(!sf.bppercentcost) {
             sf.bppercentcost = 100
         }
+        if(!sf.themenumber) {
+            sf.themenumber = 100
+        }
         alert("Your save was created in an older version of the game, which may cause problems. I have coded backwards compatibility with older saves, but I cannot guarantee that it will work properly.")
         sf.alphaacccost = 1e+10
-        sf.version = "b1.14.0"
+        sf.version = "b1.14.1"
+    }
+}
+
+function theme() {
+    sf.themenumber += 1
+    themeexec()
+}
+
+function themeexec() {
+    switch (sf.themenumber % 2) {
+        case 0:
+            document.body.style.backgroundColor = "#EEEEEE"
+            var className = document.getElementsByClassName('button');
+            for(var i=0;i < className.length;i++){
+                className[i].style.backgroundColor = "#DFDFDF"
+            }
+            break;
+        case 1:
+            document.body.style.backgroundColor = "#777777"
+            var className = document.getElementsByClassName('button');
+            for(var i=0;i < className.length;i++){
+                className[i].style.backgroundColor = "#999999"
+            }
+            break;
     }
 }
 
 function loadcut() {
+    themeexec()
     if(sf.firstgenbought == false) {
         document.getElementById("divgencost").textContent = "Cost: Free"
     }
@@ -144,7 +173,7 @@ function openstats() {pretab();document.getElementById("Stats").style.display='b
 function opensettings() {pretab();document.getElementById("Settings").style.display='block'}
 
 load()
-loadcut() //costs, unlocks and texts (number text on page), makes saving smoother
+loadcut()
 
 function setting1e4() {sf.esetting = 1e+4;loadcut()}
 function setting1e6() {sf.esetting = 1e+6;loadcut()}
@@ -161,155 +190,155 @@ function format(n) {
 } //tysm Diamboy for this function, I modified it with the if statement later.
 
 function buygen() {
-        if(sf.firstgenbought == false) {
-            sf.firstgenbought = true
+    if(sf.firstgenbought == false) {
+        sf.firstgenbought = true
+        document.getElementById("divgencost").textContent = "Cost: " + format(sf.gencost)
+    }
+    if(sf.firstgenbought == true) {
+        if(sf.num >= sf.gencost) {
+            sf.num -= sf.gencost
+            sf.gencost *= 4
+            sf.genmult++
             document.getElementById("divgencost").textContent = "Cost: " + format(sf.gencost)
         }
-        if(sf.firstgenbought == true) {
-            if(sf.num >= sf.gencost) {
-                sf.num -= sf.gencost
-                sf.gencost *= 4
-                sf.genmult++
-                document.getElementById("divgencost").textContent = "Cost: " + format(sf.gencost)
-            }
-        }
     }
+}
 
 function buybb() {
-    if(sf.num >= sf.bbcost) {
-        sf.num -= sf.bbcost
-        sf.bbcost *= 2
-        document.getElementById("divbbcost").textContent = "Cost: " + format(sf.bbcost)
-        sf.inc++
-    }
+if(sf.num >= sf.bbcost) {
+    sf.num -= sf.bbcost
+    sf.bbcost *= 2
+    document.getElementById("divbbcost").textContent = "Cost: " + format(sf.bbcost)
+    sf.inc++
+}
 }
 
 
 function buyspeed() {
-    if(sf.num >= sf.speedcost) {
-        sf.num -= sf.speedcost
-        sf.intervalspeed = 1000 / sf.fracmult
-        sf.fracmult++
-    }
+if(sf.num >= sf.speedcost) {
+    sf.num -= sf.speedcost
+    sf.intervalspeed = 1000 / sf.fracmult
+    sf.fracmult++
+}
 }
 
 function mbman() {
-    sf.num += sf.mbinc * sf.mbmultv
-    document.getElementById("counter").textContent = format(sf.num) + " particles"
+sf.num += sf.mbinc * sf.mbmultv
+document.getElementById("counter").textContent = format(sf.num) + " particles"
 }
 
 function mbup() {
-    if(sf.num >= sf.mbupcost) {
-        sf.num -= sf.mbupcost
-        sf.mbupcost *= 2
-        sf.mbinc += 1
-        document.getElementById("divmbupcost").textContent = "Cost: " + format(sf.mbupcost)
-    }
+if(sf.num >= sf.mbupcost) {
+    sf.num -= sf.mbupcost
+    sf.mbupcost *= 2
+    sf.mbinc += 1
+    document.getElementById("divmbupcost").textContent = "Cost: " + format(sf.mbupcost)
+}
 }
 
 function mbmult() {
-    if(sf.num >= sf.mbmultcost) {
-        sf.num -= sf.mbmultcost
-        sf.mbmultcost *= 3
-        sf.mbmultv += 1
-        document.getElementById("divmbmultcost").textContent = "Cost: " + format(sf.mbmultcost)
-    }
+if(sf.num >= sf.mbmultcost) {
+    sf.num -= sf.mbmultcost
+    sf.mbmultcost *= 3
+    sf.mbmultv += 1
+    document.getElementById("divmbmultcost").textContent = "Cost: " + format(sf.mbmultcost)
+}
 }
 
 function unlockgeneratorboost() {
-    if(sf.gbunlocked) {
+if(sf.gbunlocked) {
+    document.getElementById("divgenunlockcost").textContent = "Unlocked"
+}
+else {
+    if(sf.num >= 5000) {
+        sf.num -= 5000
+        sf.gbunlocked = true
         document.getElementById("divgenunlockcost").textContent = "Unlocked"
+        document.getElementById("gbshow").style.display='block'
     }
-    else {
-        if(sf.num >= 5000) {
-            sf.num -= 5000
-            sf.gbunlocked = true
-            document.getElementById("divgenunlockcost").textContent = "Unlocked"
-            document.getElementById("gbshow").style.display='block'
-        }
-    }
+}
 }
 
 function gbboost() {
-    if(sf.gbunlocked) {
-        sf.gbtl = sf.gbtlc
-        document.getElementById("divgenboost").textContent = ""
-    }
-    else {
-        document.getElementById("divgenboost").textContent = "Unlock Generator Boost first"
-    }
+if(sf.gbunlocked) {
+    sf.gbtl = sf.gbtlc
+    document.getElementById("divgenboost").textContent = ""
+}
+else {
+    document.getElementById("divgenboost").textContent = "Unlock Generator Boost first"
+}
 }
 function gbupt() {
-    if(sf.gbunlocked) {
-        if(sf.num >= sf.gbuptcost) {
-            sf.num -= sf.gbuptcost
-            sf.gbuptcost *= 5
-            document.getElementById("divgbuptcost").textContent = "Cost: " + format(sf.gbuptcost)
-            sf.gbtlc += 20
-        }
+if(sf.gbunlocked) {
+    if(sf.num >= sf.gbuptcost) {
+        sf.num -= sf.gbuptcost
+        sf.gbuptcost *= 5
+        document.getElementById("divgbuptcost").textContent = "Cost: " + format(sf.gbuptcost)
+        sf.gbtlc += 20
     }
-    else {
-        document.getElementById("divgbuptcost").textContent = "Unlock Generator Boost first"
-    }
+}
+else {
+    document.getElementById("divgbuptcost").textContent = "Unlock Generator Boost first"
+}
 }
 
 function gbupm() {
-    if(sf.gbunlocked) {
-        if(sf.num >= sf.gbupmcost) {
-            sf.num -= sf.gbupmcost
-            sf.gbupmcost *= 5
-            document.getElementById("divgbupmcost").textContent = "Cost: " + format(sf.gbupmcost)
-            sf.gbmc += 5
-        }
+if(sf.gbunlocked) {
+    if(sf.num >= sf.gbupmcost) {
+        sf.num -= sf.gbupmcost
+        sf.gbupmcost *= 5
+        document.getElementById("divgbupmcost").textContent = "Cost: " + format(sf.gbupmcost)
+        sf.gbmc += 5
     }
-    else {
-        document.getElementById("divgbupmcost").textContent = "Unlock Generator Boost first"
-    }
+}
+else {
+    document.getElementById("divgbupmcost").textContent = "Unlock Generator Boost first"
+}
 }
 
 function nuclearbuy() {
-    if(sf.num >= sf.nuclearcost) {
-        sf.num -= sf.nuclearcost
-        sf.nuclearcost *= 7
-        document.getElementById("divnuclearcost").textContent = "Cost: " + format(sf.nuclearcost)
-        sf.npoff += 1
-        document.getElementById("divnp").textContent = "Nuclear Particles: " + format(sf.npoff - 1)
-    }
+if(sf.num >= sf.nuclearcost) {
+    sf.num -= sf.nuclearcost
+    sf.nuclearcost *= 7
+    document.getElementById("divnuclearcost").textContent = "Cost: " + format(sf.nuclearcost)
+    sf.npoff += 1
+    document.getElementById("divnp").textContent = "Nuclear Particles: " + format(sf.npoff - 1)
+}
 }
 
 function alphaacc() {
-    if(sf.bangtimeleft > 0 && sf.bangtimeleft < sf.bangtime) {
-        document.getElementById("divalphaacceleratorcost").textContent = "Bang in progress, try again later"
+if(sf.bangtimeleft > 0 && sf.bangtimeleft < sf.bangtime) {
+    document.getElementById("divalphaacceleratorcost").textContent = "Bang in progress, try again later"
+}
+else {
+    if(sf.num >= sf.alphaacccost) {
+        sf.num -= sf.alphaacccost
+        sf.alphaacccost *= 1000
+        document.getElementById("divalphaacceleratorcost").textContent = "Cost: " + format(sf.alphaacccost)
+        sf.alphaaccelerators += 1
+        sf.alphaacceleratorsleft = sf.alphaaccelerators
     }
-    else {
-        if(sf.num >= sf.alphaacccost) {
-            sf.num -= sf.alphaacccost
-            sf.alphaacccost *= 1000
-            document.getElementById("divalphaacceleratorcost").textContent = "Cost: " + format(sf.alphaacccost)
-            sf.alphaaccelerators += 1
-            sf.alphaacceleratorsleft = sf.alphaaccelerators
-        }
-    }
+}
 }
 
 function makechunk() {
-    if(sf.num >= 1e+9) {
-        sf.num -= 1e+9
-        sf.pchunks += 1
-        document.getElementById("chunkamount").textContent = "Particle Chunks: " + format(sf.pchunks)
-    }
+if(sf.num >= 1e+9) {
+    sf.num -= 1e+9
+    sf.pchunks += 1
+    document.getElementById("chunkamount").textContent = "Particle Chunks: " + format(sf.pchunks)
+}
 }
 
 function bang() {
-    if(sf.pchunks >= 2) {
-        if(sf.alphaacceleratorsleft > 0) {
-            sf.alphaacceleratorsleft -= sf.alphaaccelerators
-            sf.pchunks -=2
-            sf.bangtimeleft = sf.bangtime
-            document.getElementById("chunkamount").textContent = "Particle Chunks: " + format(sf.pchunks)
-            document.getElementById("boostersmaintext").style.display='block'
-        }
+if(sf.pchunks >= 2) {
+    if(sf.alphaacceleratorsleft > 0) {
+        sf.alphaacceleratorsleft -= sf.alphaaccelerators
+        sf.pchunks -=2
+        sf.bangtimeleft = sf.bangtime
+        document.getElementById("chunkamount").textContent = "Particle Chunks: " + format(sf.pchunks)
+        document.getElementById("boostersmaintext").style.display='block'
     }
+}
 }
 
 function threeboost() {
@@ -443,18 +472,7 @@ function boosteruppercent() {
     }
 }
 
-//game loop
-setInterval(() => {
-    if(sf.pcaunlocked == true) {
-        if(sf.pcatoggle == true) {
-            if(sf.pcatimeleft == 0) {
-                sf.pcatimeleft = sf.pcatime
-                makechunk()
-            }
-            sf.pcatimeleft -= 1
-            document.getElementById("untilpca").textContent = sf.pcatimeleft + " left until next autobuy"
-        }
-    }
+function fgbtest() {
     if(sf.firstgenbought) {
         document.getElementById("boostsection").style.display='block'
         if(sf.gbtl > 1) {
@@ -504,14 +522,34 @@ setInterval(() => {
         }
         document.getElementById("counter").textContent = format(sf.num) + " particles"
         document.getElementById("alphacounter").textContent = format(sf.alphanum) + " Alpha particles"
-        document.getElementById("stat").textContent = JSON.stringify(sf)
         sf.autosavedelay -= 1
         if(sf.autosavedelay == 0) {
             sf.autosavedelay = sf.autosaveset
             save()
         }
     }
-  }, 100)
+}
+
+function pcatest() {
+    if(sf.pcaunlocked == true) {
+        if(sf.pcatoggle == true) {
+            if(sf.pcatimeleft == 0) {
+                sf.pcatimeleft = sf.pcatime
+                makechunk()
+            }
+            sf.pcatimeleft -= 1
+            document.getElementById("untilpca").textContent = sf.pcatimeleft + " left until next autobuy"
+        }
+    }
+}
+
+//game loop
+setInterval(() => {
+    pcatest()
+    fgbtest()
+    document.getElementById("stat").textContent = JSON.stringify(sf)
+    }, 100)
+
 
 function save() {
     savefile = JSON.stringify(sf)

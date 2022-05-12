@@ -14,21 +14,21 @@
     <script defer src="main.js"></script>
     <div id="counter">0 particles</div>
     <br>
-    <button onclick="openbase()">Base</button>
-    <button onclick="openalpha()">Alpha</button>
-    <button onclick="openbeta()">Beta</button>
-    <button onclick="opengamma()">Gamma</button>
-    <button onclick="opendelta()">Delta</button>
-    <button onclick="openomega()">Omega</button>
-    <button onclick="openstats()">Stats</button>
-    <button onclick="opensettings()">Settings</button>
+    <button onclick="openbase()" class="button">Base</button>
+    <button onclick="openalpha()" class="button">Alpha</button>
+    <button onclick="openbeta()" class="button">Beta</button>
+    <button onclick="opengamma()" class="button">Gamma</button>
+    <button onclick="opendelta()" class="button">Delta</button>
+    <button onclick="openomega()" class="button">Omega</button>
+    <button onclick="openstats()" class="button">Stats</button>
+    <button onclick="opensettings()" class="button">Settings</button>
 
     <div id="Base">
       <br>
       <div class="btn-group">
-        <button onclick="buygen()">Buy generator</button>
-        <button onclick="buybb()">Bigger batches</button>
-        <button onclick="buyspeed()">Speed</button>
+        <button onclick="buygen()" class="button">Buy generator</button>
+        <button onclick="buybb()" class="button">Bigger batches</button>
+        <button onclick="buyspeed()" class="button">Speed</button>
       </div>
       <div id="divgencost">Cost: Free</div>
       <div id="divbbcost">Cost: 2000</div>
@@ -37,21 +37,21 @@
         <h2>Boost</h2>
         <h3>Manual boost</h3>
         <div class="btn-group">
-          <button onclick="mbman()">Manual Boost</button>
-          <button onclick="mbup()">Manual Boost +1/click</button>
-          <button onclick="mbmult()">Manual Boost +1x/click</button>
+          <button onclick="mbman()" class="button">Manual Boost</button>
+          <button onclick="mbup()" class="button">Manual Boost +1/click</button>
+          <button onclick="mbmult()" class="button">Manual Boost +1x/click</button>
         </div>
         <div id="divmbupcost">Cost: 50</div>
         <div id="divmbmultcost">Cost: 1000</div>
         <br>
         <h3>Generator boost</h3>
-        <button onclick="unlockgeneratorboost()">Unlock generator boost</button>
+        <button onclick="unlockgeneratorboost()" class="button">Unlock generator boost</button>
         <div id="divgenunlockcost">Cost: 5000</div>
         <div id="gbshow" style="display:none">
           <div class="btn-group">
-            <button onclick="gbboost()">Generator Boost</button>
-            <button onclick="gbupt()">Generator Boost +1s</button>
-            <button onclick="gbupm()">Generator Boost +5x boost</button>
+            <button onclick="gbboost()" class="button">Generator Boost</button>
+            <button onclick="gbupt()" class="button">Generator Boost +1s</button>
+            <button onclick="gbupm()" class="button">Generator Boost +5x boost</button>
           </div>
           <div id="divgenboost"></div>
           <div id="divgbuptcost">Cost: 50</div>
@@ -61,7 +61,7 @@
       <br>
       <div id="nuclearshow" style="display:none">
         <h2>Nuclear boost</h2>
-        <button onclick="nuclearbuy()">Buy Nuclear Particle</button>
+        <button onclick="nuclearbuy()" class="button">Buy Nuclear Particle</button>
         <div id="divnuclearcost">Cost: 1e6</div>
         <div id="divnp">Nuclear Particles: 0</div>
         Nuclear particles add a +1x multipler to generators and generator boost
@@ -75,14 +75,14 @@
         Using an alpha accelerator, you can bang two partcle chunks together to make alpha particles
         <br>
         <div class="btn-group">
-          <button onclick="alphaacc()">Buy Alpha Accelerator</button>
-          <button onclick="makechunk()">Make Particle Chunk</button>
+          <button onclick="alphaacc()" class="button">Buy Alpha Accelerator</button>
+          <button onclick="makechunk()" class="button">Make Particle Chunk</button>
         </div>
         <div id="divalphaacceleratorcost">Cost: 1e12</div>
         <div id="pcosttext">Cost: 1e9</div>
         <br>
         <br>
-        <button onclick="bang()">BANG!</button>
+        <button onclick="bang()" class="button">BANG!</button>
         <div>Cost: 2 Particle Chunks</div>
         <div id="chunkamount">Particle Chunks: 0</div>
         <div id="bangtimeleft"></div>
@@ -95,19 +95,19 @@
       <div id="alphacounter">0 Alpha particles</div>
       <br>
       <div class="btn-group">
-        <button onclick="threeboost()">3x boost to base (multiplicative)</button>
-        <button onclick="perbang()">+1 Alpha per bang</button>
+        <button onclick="threeboost()" class="button">3x boost to base (multiplicative)</button>
+        <button onclick="perbang()" class="button">+1 Alpha per bang</button>
       </div>
       <div id="divthreeboostcost">Cost: 1 Alpha</div>
       <div id="divperbangcost">Cost: 4 Alpha</div>
       <h2>Base automation</h2>
-      <button onclick="bangspeed()">Make bang twice as fast</button>
+      <button onclick="bangspeed()" class="button">Make bang twice as fast</button>
       <div id="divbangspeedcost">Cost: 1 Alpha</div>
       <br>
       <div class="btn-group">
-        <button onclick="unlockpca()">Unlock Particle Chunk Autobuyer (PCA)</button>
-        <button onclick="upgradepca()" id="pca1">Make PCA faster</button>
-        <button onclick="togglepca()" id="pca2">Toggle PCA</button>
+        <button onclick="unlockpca()" class="button">Unlock Particle Chunk Autobuyer (PCA)</button>
+        <button onclick="upgradepca()" class="button">Make PCA faster</button>
+        <button onclick="togglepca()" class="button">Toggle PCA</button>
       </div>
       <div id="divunlockpca">Cost: 20 Alpha</div>
       <div id="divupgradepcacost">Cost: 2 Alpha</div>
@@ -118,8 +118,8 @@
       <h2>Booster particles</h2>
       <div id="boostersmaintext" style="display:none">You are currently getting 0 booster particles per alpha particle per second, resulting in a +0% boost to base particle production</div>
       <div class="btn-group">
-        <button onclick="boosterup()">+1 booster particle per alpha particle per second</button>
-        <button onclick="boosteruppercent()">+1 percent boost per booster particle</button>
+        <button onclick="boosterup()" class="button">+1 booster particle per alpha particle per second</button>
+        <button onclick="boosteruppercent()" class="button">+1 percent boost per booster particle</button>
       </div>
       <div id="divboosterupcost">100 Alpha</div>
       <div id="divboosteruppercentcost">100 Alpha</div>
@@ -134,26 +134,29 @@
     </div>
     <div id="Settings" style="display:none">
       <br>
-      <button onclick="reset()" id="resetb">RESET SAVE</button>
+      <button onclick="reset()" id="resetb" class="button">RESET SAVE</button>
       <br>
       Refresh and you're back to 0 particles
       <br>
       THIS CAN NOT BE UNDONE!
       <br>
       <br>
-      <button onclick="setting1e4()">Make scientific notation start at 1e4</button>
-      <button onclick="setting1e6()">Make scientific notation start at 1e6</button>
+      <button onclick="setting1e4()" class="button">Make scientific notation start at 1e4</button>
+      <button onclick="setting1e6()" class="button">Make scientific notation start at 1e6</button>
       <br>
       <br>
-      <button onclick="autosavesettings()">Toggle Autosave and autosave speed</button>
+      <button onclick="theme()" class="button">Change theme</button>
+      <br>
+      <br>
+      <button onclick="autosavesettings()" class="button">Toggle Autosave and autosave speed</button>
       <div id="autosaving">On, delay: 30s</div>
     </div>
-    <button onclick="save()">save</button>
+    <button onclick="save()" class="button">save</button>
     <br>
-    Version b1.14.0
+    Version b1.14.1
     <br>
     Changelog:
     <br>
-    booster particles
+    added themes + bugfix
   </body>
 </html>
