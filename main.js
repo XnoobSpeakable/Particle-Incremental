@@ -1,7 +1,7 @@
 function load() {
     if(localStorage.getItem('savefile') == null) {
         sf = {
-            version: "b1.14.1",
+            version: "b1.14.2",
             num: 0,
             inc: 1,
             mbinc: 1,
@@ -63,7 +63,7 @@ function load() {
     else {
         sf = JSON.parse(localStorage.getItem('savefile'))
     }
-    if(sf.version != "b1.14.1") { 
+    if(sf.version != "b1.14.2") { 
         if(!sf.tempboost) {sf.tempboost = 1}
         if (!sf.bangspeedcost) {sf.bangspeedcost = 1}
         if(!sf.bangspeedbought) {sf.bangspeedbought = 0}
@@ -77,30 +77,16 @@ function load() {
         if(!sf.autosavedelay) {sf.autosavedelay = 300}
         if(!sf.autosavemode) {sf.autosavemode = 1}
         if(!sf.autosaveset) {sf.autosaveset = 300}
-        if(!sf.boosterparticles) {
-            sf.boosterparticles = 0
-        }
-        if(!sf.bppercent) {
-            sf.bppercent = 1
-        }
-        if(!sf.bpgainmult) {
-            sf.bpgainmult = 1
-        }
-        if(!sf.untilboost) {
-            sf.untilboost = 1
-        }
-        if(!sf.bpupcost) {
-            sf.bpupcost = 100
-        }
-        if(!sf.bppercentcost) {
-            sf.bppercentcost = 100
-        }
-        if(!sf.themenumber) {
-            sf.themenumber = 100
-        }
+        if(!sf.boosterparticles) {sf.boosterparticles = 0}
+        if(!sf.bppercent) {sf.bppercent = 1}
+        if(!sf.bpgainmult) {sf.bpgainmult = 1}
+        if(!sf.untilboost) {sf.untilboost = 1}
+        if(!sf.bpupcost) {sf.bpupcost = 100}
+        if(!sf.bppercentcost) {sf.bppercentcost = 100}
+        if(!sf.themenumber) {sf.themenumber = 100}
         alert("Your save was created in an older version of the game, which may cause problems. I have coded backwards compatibility with older saves, but I cannot guarantee that it will work properly.")
         sf.alphaacccost = 1e+10
-        sf.version = "b1.14.1"
+        sf.version = "b1.14.2"
     }
 }
 
@@ -130,6 +116,7 @@ function themeexec() {
 
 function loadcut() {
     themeexec()
+    autosavetextanddelayupdate()
     if(sf.firstgenbought == false) {
         document.getElementById("divgencost").textContent = "Cost: Free"
     }
@@ -415,13 +402,7 @@ function togglepca() {
     }
 }
 
-function autosavesettings() {
-    if(sf.autosavemode == 5) {
-        sf.autosavemode = 0
-    }
-    else {
-    sf.autosavemode++
-    }
+function autosavetextanddelayupdate() {
     if(sf.autosavemode == 0) {
         sf.autosaveset = 600
         document.getElementById("autosaving").textContent = "On, delay: 60s"
@@ -452,6 +433,16 @@ function autosavesettings() {
         document.getElementById("autosaving").textContent = "Off"
         sf.autosavedelay = 1e+300
     }
+}
+
+function autosavesettings() {
+    if(sf.autosavemode == 5) {
+        sf.autosavemode = 0
+    }
+    else {
+    sf.autosavemode++
+    }
+    autosavetextanddelayupdate()
 }
 
 function boosterup() {

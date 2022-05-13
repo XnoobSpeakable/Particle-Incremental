@@ -1,6 +1,9 @@
 button:hover {
   color: blue;
 }
+button:active {
+  color: #0099FF
+}
 #divgencost {
   display: inline-block;
 }
@@ -53,6 +56,12 @@ button:hover {
 }
 #resetb {
   color: red
+}
+#resetb:hover {
+  color: #FF00FF
+}
+#resetb:active {
+  color: #0099FF
 }
 #stat {
   word-break:break-all;
