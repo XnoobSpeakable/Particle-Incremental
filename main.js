@@ -1,7 +1,7 @@
 function load() {
     if(localStorage.getItem('savefile') == null) {
         sf = {
-            version: "b1.14.2",
+            version: "b1.14.3",
             num: 0,
             inc: 1,
             mbinc: 1,
@@ -63,7 +63,7 @@ function load() {
     else {
         sf = JSON.parse(localStorage.getItem('savefile'))
     }
-    if(sf.version != "b1.14.2") { 
+    if(sf.version != "b1.14.3") { 
         if(!sf.tempboost) {sf.tempboost = 1}
         if (!sf.bangspeedcost) {sf.bangspeedcost = 1}
         if(!sf.bangspeedbought) {sf.bangspeedbought = 0}
@@ -86,7 +86,7 @@ function load() {
         if(!sf.themenumber) {sf.themenumber = 100}
         alert("Your save was created in an older version of the game, which may cause problems. I have coded backwards compatibility with older saves, but I cannot guarantee that it will work properly.")
         sf.alphaacccost = 1e+10
-        sf.version = "b1.14.2"
+        sf.version = "b1.14.3"
     }
 }
 
@@ -513,13 +513,8 @@ function fgbtest() {
         }
         document.getElementById("counter").textContent = format(sf.num) + " particles"
         document.getElementById("alphacounter").textContent = format(sf.alphanum) + " Alpha particles"
-        sf.autosavedelay -= 1
-        if(sf.autosavedelay == 0) {
-            sf.autosavedelay = sf.autosaveset
-            save()
         }
     }
-}
 
 function pcatest() {
     if(sf.pcaunlocked == true) {
@@ -534,11 +529,20 @@ function pcatest() {
     }
 }
 
+function savinginloop() {
+	sf.autosavedelay -= 1
+    if(sf.autosavedelay == 0) {
+        sf.autosavedelay = sf.autosaveset
+        save()
+	}
+}
+
 //game loop
 setInterval(() => {
     pcatest()
     fgbtest()
     document.getElementById("stat").textContent = JSON.stringify(sf)
+	savinginloop()
     }, 100)
 
 
