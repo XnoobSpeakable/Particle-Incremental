@@ -114,8 +114,39 @@ function themeexec() {
     }
 }
 
+function prepud() {
+    document.getElementById("tabopenalpha").style.display='none'
+    document.getElementById("tabopenbeta").style.display='none'
+    document.getElementById("tabopengamma").style.display='none'
+    document.getElementById("tabopendelta").style.display='none'
+    document.getElementById("tabopenomega").style.display='none'
+}
+function passiveunlockdisplay() {
+    if(sf.num >= 1e9) {
+        document.getElementById("tabopenalpha").style.display='inline'
+        document.getElementById("tabopenomega").style.display='inline'
+    }
+    if(sf.alphanum >= 1e9) {
+        document.getElementById("tabopenbeta").style.display='inline'
+    }
+}
+
+function format(n) {
+    if(n >= sf.esetting) {
+        let e = Math.floor(Math.log10(n));
+        let m = n / Math.pow(10, e);
+        return `${m.toFixed(2)}e${e}`;
+    }
+    else {
+        return n.toFixed(2)
+    }
+} //tysm Diamboy for this function, I modified it with the if statement later.
+
+
 function loadcut() {
     themeexec()
+    prepud()
+    passiveunlockdisplay() 
     autosavetextanddelayupdate()
     if(sf.firstgenbought == false) {
         document.getElementById("divgencost").textContent = "Cost: Free"
@@ -138,6 +169,22 @@ function loadcut() {
     document.getElementById("divperbangcost").textContent = "Cost: " + format(sf.pbcost) + " Alpha"
     document.getElementById("divnuclearcost").textContent = "Cost: " + format(sf.nuclearcost)
     document.getElementById("divnp").textContent = "Nuclear Particles: " + format(sf.npoff - 1)
+    document.getElementById("divbangspeedcost").textContent = "Cost: " + format(sf.bangspeedcost) + " Alpha"
+    document.getElementById("divupgradepcacost").textContent = "Cost: " + format(sf.pcaupcost) + " Alpha"
+    if(sf.pcaunlocked) {
+        document.getElementById("divunlockpca").textContent = "Unlocked"
+        document.getElementById("untilpca").textContent = sf.pcatimeleft + " left until next autobuy"
+        document.getElementById("divtogglepca").style.display='inline-block'
+        if(sf.pcatoggle) {
+            document.getElementById("divtogglepca").textContent = "On"
+        }
+        else {
+            document.getElementById("divtogglepca").textContent = "Off"
+        }
+    }
+    document.getElementById("divupgradepcacost").textContent = "Cost: " + format(sf.pcaupcost) + " Alpha"
+    document.getElementById("divboosterupcost").textContent = format(sf.bpupcost) + " Alpha particles"
+    document.getElementById("divboosteruppercentcost").textContent = format(sf.bppercentcost) + " Alpha particles"
 }
 
 function pretab() {
@@ -164,17 +211,6 @@ loadcut()
 
 function setting1e4() {sf.esetting = 1e+4;loadcut()}
 function setting1e6() {sf.esetting = 1e+6;loadcut()}
-
-function format(n) {
-    if(n >= sf.esetting) {
-        let e = Math.floor(Math.log10(n));
-        let m = n / Math.pow(10, e);
-        return `${m.toFixed(2)}e${e}`;
-    }
-    else {
-        return n.toFixed(2)
-    }
-} //tysm Diamboy for this function, I modified it with the if statement later.
 
 function buygen() {
     if(sf.firstgenbought == false) {
@@ -390,10 +426,10 @@ function upgradepca() {
 }
 
 function togglepca() {
-    if(sf.pcaunlocked == true) {
+    if(sf.pcaunlocked) {
         sf.pcatoggle = !sf.pcatoggle
         document.getElementById("divtogglepca").style.display='inline-block'
-        if(sf.pcatoggle == true) {
+        if(sf.pcatoggle) {
             document.getElementById("divtogglepca").textContent = "On"
         }
         else {
@@ -455,11 +491,11 @@ function boosterup() {
 }
 
 function boosteruppercent() {
-    if(sf.alphanum >= sf.bpuppercentcost) {
-        sf.alphanum -= sf.bpuppercentcost
-        sf.bpuppercentcost *= 10
+    if(sf.alphanum >= sf.bppercentcost) {
+        sf.alphanum -= sf.bppercentcost
+        sf.bppercentcost *= 10
         sf.bppercent += 1
-        document.getElementById("divboosteruppercentcost").textContent = format(sf.bpuppercentcost) + " Alpha particles"
+        document.getElementById("divboosteruppercentcost").textContent = format(sf.bppercentcost) + " Alpha particles"
     }
 }
 
@@ -539,6 +575,7 @@ function savinginloop() {
 
 //game loop
 setInterval(() => {
+    passiveunlockdisplay()
     pcatest()
     fgbtest()
     document.getElementById("stat").textContent = JSON.stringify(sf)

@@ -14,12 +14,12 @@
     <script defer src="main.js"></script>
     <div id="counter">0 particles</div>
     <br>
-    <button onclick="openbase()" class="button">Base</button>
-    <button onclick="openalpha()" class="button">Alpha</button>
-    <button onclick="openbeta()" class="button">Beta</button>
-    <button onclick="opengamma()" class="button">Gamma</button>
-    <button onclick="opendelta()" class="button">Delta</button>
-    <button onclick="openomega()" class="button">Omega</button>
+    <button onclick="openbase()" class="button" id="tabopenbase">Base</button>
+    <button onclick="openalpha()" class="button" id="tabopenalpha">Alpha</button>
+    <button onclick="openbeta()" class="button" id="tabopenbeta">Beta</button>
+    <button onclick="opengamma()" class="button" id="tabopengamma">Gamma</button>
+    <button onclick="opendelta()" class="button" id="tabopendelta">Delta</button>
+    <button onclick="openomega()" class="button" id="tabopenomega">Omega</button>
     <button onclick="openstats()" class="button">Stats</button>
     <button onclick="opensettings()" class="button">Settings</button>
 
@@ -35,27 +35,31 @@
       <div id="divspeedcost">Cost: 50</div>
       <div id="boostsection" style="display:none">
         <h2>Boost</h2>
-        <h3>Manual boost</h3>
-        <div class="btn-group">
-          <button onclick="mbman()" class="button">Manual Boost</button>
-          <button onclick="mbup()" class="button">Manual Boost +1/click</button>
-          <button onclick="mbmult()" class="button">Manual Boost +1x/click</button>
-        </div>
-        <div id="divmbupcost">Cost: 50</div>
-        <div id="divmbmultcost">Cost: 1000</div>
-        <br>
-        <h3>Generator boost</h3>
-        <button onclick="unlockgeneratorboost()" class="button">Unlock generator boost</button>
-        <div id="divgenunlockcost">Cost: 5000</div>
-        <div id="gbshow" style="display:none">
+        <div id="manboostsection">
+          <h3>Manual boost</h3>
           <div class="btn-group">
-            <button onclick="gbboost()" class="button">Generator Boost</button>
-            <button onclick="gbupt()" class="button">Generator Boost +1s</button>
-            <button onclick="gbupm()" class="button">Generator Boost +5x boost</button>
+            <button onclick="mbman()" class="button">Manual Boost</button>
+            <button onclick="mbup()" class="button">Manual Boost +1/click</button>
+            <button onclick="mbmult()" class="button">Manual Boost +1x/click</button>
           </div>
-          <div id="divgenboost"></div>
-          <div id="divgbuptcost">Cost: 50</div>
-          <div id="divgbupmcost">Cost: 10000</div>
+          <div id="divmbupcost">Cost: 50</div>
+          <div id="divmbmultcost">Cost: 1000</div>
+        </div>
+        <br>
+        <div id="genboostsection">
+          <h3>Generator boost</h3>
+          <button onclick="unlockgeneratorboost()" class="button">Unlock generator boost</button>
+          <div id="divgenunlockcost">Cost: 5000</div>
+          <div id="gbshow" style="display:none">
+            <div class="btn-group">
+              <button onclick="gbboost()" class="button">Generator Boost</button>
+              <button onclick="gbupt()" class="button">Generator Boost +1s</button>
+              <button onclick="gbupm()" class="button">Generator Boost +5x boost</button>
+            </div>
+            <div id="divgenboost"></div>
+            <div id="divgbuptcost">Cost: 50</div>
+            <div id="divgbupmcost">Cost: 10000</div>
+          </div>
         </div>
       </div>
       <br>
@@ -113,22 +117,26 @@
       <div id="divupgradepcacost">Cost: 2 Alpha</div>
       <div id="divtogglepca">On</div>
       <div id="untilpca"></div>
-      <br>
-      <br>
-      <h2>Booster particles</h2>
-      <div id="boostersmaintext" style="display:none">You are currently getting 0 booster particles per alpha particle per second, resulting in a +0% boost to base particle production</div>
-      <div class="btn-group">
-        <button onclick="boosterup()" class="button">+1 booster particle per alpha particle per second</button>
-        <button onclick="boosteruppercent()" class="button">+1 percent boost per booster particle</button>
+      <div id="bpsection">
+        <h2>Booster particles</h2>
+        <div id="boostersmaintext">You are currently getting 0 booster particles per alpha particle per second, resulting in a +0% boost to base particle production</div>
+        <div class="btn-group">
+          <button onclick="boosterup()" class="button">+1 booster particle per alpha particle per second</button>
+          <button onclick="boosteruppercent()" class="button">+1 percent boost per booster particle</button>
+        </div>
+        <div id="divboosterupcost">100 Alpha</div>
+        <div id="divboosteruppercentcost">100 Alpha</div>
       </div>
-      <div id="divboosterupcost">100 Alpha</div>
-      <div id="divboosteruppercentcost">100 Alpha</div>
+      <br>
+      <br>
     </div>
 
     <div id="Beta" style="display:none">nothing here yet</div>
     <div id="Gamma" style="display:none">nothing here yet</div>
     <div id="Delta" style="display:none">nothing here yet</div>
-    <div id="Omega" style="display:none">nothing here yet</div>
+    <div id="Omega" style="display:none">
+      <button onclick="buyomegabase()" class="button">Buy omega_base particles</button>
+    </div>
     <div id="Stats" style="display:none">
       <div id="stat"></div>
     </div>
@@ -139,6 +147,8 @@
       Refresh and you're back to 0 particles
       <br>
       THIS CAN NOT BE UNDONE!
+      <br>
+      (also resets all settings)
       <br>
       <br>
       <button onclick="setting1e4()" class="button">Make scientific notation start at 1e4</button>
@@ -153,10 +163,16 @@
     </div>
     <button onclick="save()" class="button">save</button>
     <br>
-    Version b1.14.3
+    Version b1.15.0
     <br>
     Changelog:
     <br>
-    bugfix related to autosave
+    Made things only appear after passing a certain number of particles
+    <br>
+    Insanely many bugfixes
+    <br>
+    Slightly cleaned up code
+    <br>
+    Started working on omega section
   </body>
 </html>
