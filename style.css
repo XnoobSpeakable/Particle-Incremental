@@ -84,9 +84,3 @@ button:active {
   display: inline-block;
   text-indent: 15em;
 }
-#manboostsection {
-  display: inline-flexbox;
-}
-#genboostsection {
-  display: inline-flexbox;
-}
