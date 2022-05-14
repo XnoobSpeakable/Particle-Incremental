@@ -1,7 +1,7 @@
 function load() {
     if(localStorage.getItem('savefile') == null) {
         sf = {
-            version: "b1.15.1",
+            version: "b1.15.2",
             num: 0,
             inc: 1,
             mbinc: 1,
@@ -57,13 +57,17 @@ function load() {
             untilboost: 1,
             bpupcost: 100,
             bppercentcost: 100,
-            themenumber: 0
+            themenumber: 0,
+            omegabase: 0,
+            omegabasecost: 1e+10,
+            omegaalpha: 0,
+            omegaalphacost: 1e+12
           };
         }
     else {
         sf = JSON.parse(localStorage.getItem('savefile'))
     }
-    if(sf.version != "b1.15.1") { 
+    if(sf.version != "b1.15.2") { 
         if(!sf.tempboost) {sf.tempboost = 1}
         if (!sf.bangspeedcost) {sf.bangspeedcost = 1}
         if(!sf.bangspeedbought) {sf.bangspeedbought = 0}
@@ -84,9 +88,13 @@ function load() {
         if(!sf.bpupcost) {sf.bpupcost = 100}
         if(!sf.bppercentcost) {sf.bppercentcost = 100}
         if(!sf.themenumber) {sf.themenumber = 100}
+        if(!sf.omegabase) {sf.omegabase = 0}
+        if(!sf.omegabasecost) {sf.omegabasecost = 1e+10}
+        if(!sf.omegaalpha) {sf.omegaalpha = 0}
+        if(!sf.omegaalphacost) {sf.omegaalphacost = 1e+12}
         alert("Your save was created in an older version of the game, which may cause problems. I have coded backwards compatibility with older saves, but I cannot guarantee that it will work properly.")
         sf.alphaacccost = 1e+10
-        sf.version = "b1.15.1"
+        sf.version = "b1.15.2"
     }
 }
 
@@ -138,10 +146,14 @@ function format(n) {
         return `${m.toFixed(2)}e${e}`;
     }
     else {
-        return n.toFixed(2)
+        if(n % 1 != 0) {
+            return n.toFixed(2)
+        }
+        else {
+            return n
+        }
     }
-} //tysm Diamboy for this function, I modified it with the if statement later.
-
+} //tysm Diamboy for the complicated part of this function.
 
 function loadcut() {
     themeexec()
@@ -185,6 +197,10 @@ function loadcut() {
     document.getElementById("divupgradepcacost").textContent = "Cost: " + format(sf.pcaupcost) + " Alpha"
     document.getElementById("divboosterupcost").textContent = format(sf.bpupcost) + " Alpha particles"
     document.getElementById("divboosteruppercentcost").textContent = format(sf.bppercentcost) + " Alpha particles"
+    document.getElementById("omegabasecost").textContent = "Cost: " + format(sf.omegabasecost)
+    document.getElementById("divobase").textContent = "You have " + format(sf.omegabase)
+    document.getElementById("omegaalphacost").textContent = "Cost: " + format(sf.omegaalphacost)
+    document.getElementById("divoalpha").textContent = "You have " + format(sf.omegaalpha)
 }
 
 function pretab() {
@@ -197,6 +213,14 @@ function pretab() {
     document.getElementById("Stats").style.display='none'
     document.getElementById("Settings").style.display='none'
 }
+function pretabomega() {
+    document.getElementById("oBase").style.display='none'
+    document.getElementById("oAlpha").style.display='none'
+    document.getElementById("oBeta").style.display='none'
+    document.getElementById("oGamma").style.display='none'
+    document.getElementById("oDelta").style.display='none'
+    document.getElementById("oOmega").style.display='none'
+}
 function openbase() {pretab();document.getElementById("Base").style.display='block'}
 function openalpha() {pretab();document.getElementById("Alpha").style.display='block'}
 function openbeta() {pretab();document.getElementById("Beta").style.display='block'}
@@ -205,6 +229,12 @@ function opendelta() {pretab();document.getElementById("Delta").style.display='b
 function openomega() {pretab();document.getElementById("Omega").style.display='block'}
 function openstats() {pretab();document.getElementById("Stats").style.display='block'}
 function opensettings() {pretab();document.getElementById("Settings").style.display='block'}
+function oopenbase() {pretabomega();document.getElementById("oBase").style.display='block'} //these ones are for the tabs in the omega tab
+function oopenalpha() {pretabomega();document.getElementById("oAlpha").style.display='block'}
+function oopenbeta() {pretabomega();document.getElementById("oBeta").style.display='block'}
+function oopengamma() {pretabomega();document.getElementById("oGamma").style.display='block'}
+function oopendelta() {pretabomega();document.getElementById("oDelta").style.display='block'}
+function oopenomega() {pretabomega();document.getElementById("oOmega").style.display='block'}
 
 load()
 loadcut()
@@ -499,9 +529,31 @@ function boosteruppercent() {
     }
 }
 
+function buyomegabase() {
+    if(sf.num >= sf.omegabasecost) {
+        sf.num -= sf.omegabasecost
+        sf.omegabase +=1
+        document.getElementById("omegabasecost").textContent = "Cost: " + format(sf.omegabasecost)
+        document.getElementById("divobase").textContent = "You have " + format(sf.omegabase)
+    }
+}
+
+function buyomegaalpha() {
+    if(sf.alphanum >= sf.omegaalphacost) {
+        sf.num -= sf.omegaalphacost
+        sf.omegaalpha += 1
+        document.getElementById("omegaalphacost").textContent = "Cost: " + format(sf.omegaalphacost)
+        document.getElementById("divoalpha").textContent = "You have " + format(sf.omegaalpha)
+    }
+}
+function buyomegabeta() {}
+function buyomegagamma() {}
+function buyomegadelta() {}
+
 function fgbtest() {
     if(sf.firstgenbought) {
-        document.getElementById("boostsection").style.display='block'
+        document.getElementById("boostsection").style.display='flex'
+        document.getElementById("bigboosttext").style.display='block'
         if(sf.gbtl > 1) {
             sf.gbm = sf.gbmc
         }

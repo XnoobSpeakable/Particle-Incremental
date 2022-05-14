@@ -84,3 +84,51 @@ button:active {
   display: inline-block;
   text-indent: 15em;
 }
+#omegabasecost {
+  display: inline-block;
+}
+#omegaalphacost {
+  display: inline-block;
+  text-indent: 3.5em;
+}
+#omegabetacost {
+  display: inline-block;
+  text-indent: 6em;
+}
+#omegagammacost {
+  display: inline-block;
+  text-indent: 4em;
+}
+#omegadeltacost {
+  display: inline-block;
+  text-indent: 4em;
+}
+#divobase {
+  display: inline-block;
+}
+#divoalpha {
+  display: inline-block;
+  text-indent: 4.5em;
+}
+#divobeta {
+  display: inline-block;
+  text-indent: 7em;
+}
+#divogamma {
+  display: inline-block;
+  text-indent: 7em;
+}
+#divodelta {
+  display: inline-block;
+  text-indent: 7em;
+}
+#boostsection {
+  flex: space-evenly;
+  flex-direction: row;
+  gap: 2.375em
+}
+#nbnb {
+  flex: space-evenly;
+  flex-direction: row;
+  gap: 1.5em
+}
