@@ -1,7 +1,7 @@
 function load() {
     if(localStorage.getItem('savefile') == null) {
         sf = {
-            version: "b1.15.4",
+            version: "b1.15.5",
             num: 0,
             inc: 1,
             mbinc: 1,
@@ -67,7 +67,7 @@ function load() {
     else {
         sf = JSON.parse(localStorage.getItem('savefile'))
     }
-    if(sf.version != "b1.15.4") { 
+    if(sf.version != "b1.15.5") { 
         if(!sf.tempboost) {sf.tempboost = 1}
         if (!sf.bangspeedcost) {sf.bangspeedcost = 1}
         if(!sf.bangspeedbought) {sf.bangspeedbought = 0}
@@ -94,7 +94,7 @@ function load() {
         if(!sf.omegaalphacost) {sf.omegaalphacost = 1e+12}
         alert("Your save was created in an older version of the game, which may cause problems. I have coded backwards compatibility with older saves, but I cannot guarantee that it will work properly.")
         sf.alphaacccost = 1e+10
-        sf.version = "b1.15.4"
+        sf.version = "b1.15.5"
     }
 }
 
@@ -250,6 +250,7 @@ function pretab() {
     document.getElementById("Omega").style.display='none'
     document.getElementById("Stats").style.display='none'
     document.getElementById("Settings").style.display='none'
+    document.getElementById("Tutorial").style.display='none'
 }
 function pretabomega() {
     document.getElementById("oBase").style.display='none'
@@ -266,6 +267,7 @@ function opengamma() {pretab();document.getElementById("Gamma").style.display='b
 function opendelta() {pretab();document.getElementById("Delta").style.display='block'}
 function openomega() {pretab();document.getElementById("Omega").style.display='block'}
 function openstats() {pretab();document.getElementById("Stats").style.display='block'}
+function opentutorial() {pretab();document.getElementById("Tutorial").style.display='block'}
 function opensettings() {pretab();document.getElementById("Settings").style.display='block'}
 function oopenbase() {pretabomega();document.getElementById("oBase").style.display='block'} //these ones are for the tabs in the omega tab
 function oopenalpha() {pretabomega();document.getElementById("oAlpha").style.display='block'}

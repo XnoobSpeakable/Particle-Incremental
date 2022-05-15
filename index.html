@@ -24,6 +24,7 @@
       <button onclick="openomega()" class="button" id="tabopenomega">Omega</button>
       <button onclick="openstats()" class="button">Stats</button>
       <button onclick="opensettings()" class="button">Settings</button>
+      <button onclick="opentutorial()" class="button">Tutorial</button>
 
       <div id="Base">
         <br>
@@ -82,7 +83,7 @@
           <div id="nuclearreach">Reach 1e6 to unlock Nuclear boosts!</div>
           <div id="bangshow" style="display:none; border:0.2em solid #333333; padding-left: 10px; padding-bottom: 5px; padding-right: 10px; border-radius: 5px" class="withtheoutline">
             <h2>Bang!</h2>
-            Using an alpha accelerator, you can bang two partcle chunks together to make alpha particles
+            Using an alpha accelerator, you can bang two particle chunks together to make alpha particles
             <br>
             <div class="btn-group">
               <button onclick="alphaacc()" class="button">Buy Alpha Accelerator</button>
@@ -208,13 +209,37 @@
         <button onclick="autosavesettings()" class="button">Toggle Autosave and autosave speed</button>
         <div id="autosaving">On, delay: 30s</div>
       </div>
+      <div id="Tutorial" style="display:none">
+        A generator gives you n particles every loop. Default is 1 loop per second and 1 particle per loop. <br>
+        The bigger batches upgrade adds 1 to the n (first upgrade makes it 2 particles per loop, 2nd 3 per loop etc). <br>
+        The speed upgrade makes generators do 1 more loop per second (1st upgrade 2loops/s, 2nd upgrade 3l/s etc). <br>
+        The way that the speed upgrade works makes it have diminishing returns. Every upgrade does less that the previous one. <br>
+        <br>
+        Manual boost adds n particles to your particles when clicked. <br>
+        The +1/click upgrade increases n by 1. <br>
+        The +1x/click multiplies n by some m (starting at 1) that gets incremented when you buy this upgrade. <br>
+        1st upgrade doubles n, 2nd triples it etc. <br>
+        <br>
+        The generator boost multiplies particle production by n for m seconds. <br>
+        The default is a 5x multiplier for 1 second. <br>
+        The +1s upgrade makes it last for 1 more second <br>
+        The +5x upgrade increases the multiplier by 5x (1st upgrade 10x, 2nd upgrade 15x etc). <br>
+        <br>
+        Every nuclear particle adds a +1x multiplier to both generator boosts and particle production. <br>
+        (1st particle 2x, 2nd particle 3x etc). <br>
+        <br>
+        The buy particle chunk button is self explanatory. <br>
+        The bang button makes an alpha particle from 2 particle chunks. <br>
+        You need at least 1 alpha accelerator to bang. <br>
+        Buying more alpha accelerators multiplies alpha particle gain from the bangs by the total number of accelerators you have. <br> 
+      </div>
       <button onclick="save()" class="button">save</button>
       <br>
-      Version b1.15.4
+      Version b1.15.5
       <br>
       Changelog:
       <br>
-      UI changes
+      Added tutorial tab + fixed typo.
     </div>
     </body>
 </html>
