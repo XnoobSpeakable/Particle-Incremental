@@ -1,7 +1,7 @@
 function load() {
     if(localStorage.getItem('savefile') == null) {
         sf = {
-            version: "b1.15.3",
+            version: "b1.15.4",
             num: 0,
             inc: 1,
             mbinc: 1,
@@ -67,7 +67,7 @@ function load() {
     else {
         sf = JSON.parse(localStorage.getItem('savefile'))
     }
-    if(sf.version != "b1.15.3") { 
+    if(sf.version != "b1.15.4") { 
         if(!sf.tempboost) {sf.tempboost = 1}
         if (!sf.bangspeedcost) {sf.bangspeedcost = 1}
         if(!sf.bangspeedbought) {sf.bangspeedbought = 0}
@@ -94,7 +94,7 @@ function load() {
         if(!sf.omegaalphacost) {sf.omegaalphacost = 1e+12}
         alert("Your save was created in an older version of the game, which may cause problems. I have coded backwards compatibility with older saves, but I cannot guarantee that it will work properly.")
         sf.alphaacccost = 1e+10
-        sf.version = "b1.15.3"
+        sf.version = "b1.15.4"
     }
 }
 
@@ -115,7 +115,7 @@ function themeexec() {
             var className2 = document.getElementsByClassName('withtheoutline');
             for(var i=0;i < className2.length;i++){
                 className2[i].style.border = "0.2em solid #333333"
-                document.getElementById("whattheme").textContent = "Theme: Light"
+                document.getElementById("whattheme").textContent = "Theme: Light (old)"
             }
             break;
         case 1:
@@ -131,31 +131,32 @@ function themeexec() {
             }
             document.getElementById("whattheme").textContent = "Theme: Dark"
             break;
-            case 2:
-                document.getElementById('diventirebody').style = "color: black"
-                document.body.style.backgroundColor = "#EEEEEE"
-                var className = document.getElementsByClassName('button');
-                for(var i=0;i < className.length;i++){
-                    className[i].style.backgroundColor = "#DFDFDF"
-                }
-                var className2 = document.getElementsByClassName('withtheoutline');
-                for(var i=0;i < className2.length;i++){
-                    className2[i].style.border = "0.2em solid #F33333"
-                    document.getElementById("whattheme").textContent = "Theme: Red Borders"
-                }
-                break;
-            case 3:
-            document.getElementById('diventirebody').style = "color: #FFFFFF"
-            document.body.style.backgroundColor = "#000000"
+        case 2:
+            document.getElementById('diventirebody').style = "color: black"
+            document.body.style.backgroundColor = "#EEEEEE"
             var className = document.getElementsByClassName('button');
             for(var i=0;i < className.length;i++){
-                className[i].style.backgroundColor = "#FFFFFF"
+                className[i].style.backgroundColor = "#DFDFDF"
             }
             var className2 = document.getElementsByClassName('withtheoutline');
             for(var i=0;i < className2.length;i++){
-                className2[i].style.border = "0.2em solid white"
+                className2[i].style.border = "0.2em solid #F33333"
+                document.getElementById("whattheme").textContent = "Theme: Red Borders"
+            }
+            break;
+        case 3:
+            document.getElementById('diventirebody').style = "color: #CCCCCC"
+            document.body.style.backgroundColor = "#000000"
+            var className = document.getElementsByClassName('button');
+            for(var i=0;i < className.length;i++){
+                className[i].style.backgroundColor = "#CCCCCC"
+            }
+            var className2 = document.getElementsByClassName('withtheoutline');
+            for(var i=0;i < className2.length;i++){
+                className2[i].style.border = "0.2em solid #CCCCCC"
             }
             document.getElementById("whattheme").textContent = "Theme: Black"
+            break;
     }
 }
 
