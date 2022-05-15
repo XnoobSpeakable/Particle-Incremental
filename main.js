@@ -1,7 +1,7 @@
 function load() {
     if(localStorage.getItem('savefile') == null) {
         sf = {
-            version: "b1.15.2",
+            version: "b1.15.3",
             num: 0,
             inc: 1,
             mbinc: 1,
@@ -67,7 +67,7 @@ function load() {
     else {
         sf = JSON.parse(localStorage.getItem('savefile'))
     }
-    if(sf.version != "b1.15.2") { 
+    if(sf.version != "b1.15.3") { 
         if(!sf.tempboost) {sf.tempboost = 1}
         if (!sf.bangspeedcost) {sf.bangspeedcost = 1}
         if(!sf.bangspeedbought) {sf.bangspeedbought = 0}
@@ -94,7 +94,7 @@ function load() {
         if(!sf.omegaalphacost) {sf.omegaalphacost = 1e+12}
         alert("Your save was created in an older version of the game, which may cause problems. I have coded backwards compatibility with older saves, but I cannot guarantee that it will work properly.")
         sf.alphaacccost = 1e+10
-        sf.version = "b1.15.2"
+        sf.version = "b1.15.3"
     }
 }
 
@@ -104,21 +104,58 @@ function theme() {
 }
 
 function themeexec() {
-    switch (sf.themenumber % 2) {
+    switch (sf.themenumber % 4) {
         case 0:
+            document.getElementById('diventirebody').style = "color: black"
             document.body.style.backgroundColor = "#EEEEEE"
             var className = document.getElementsByClassName('button');
             for(var i=0;i < className.length;i++){
                 className[i].style.backgroundColor = "#DFDFDF"
             }
+            var className2 = document.getElementsByClassName('withtheoutline');
+            for(var i=0;i < className2.length;i++){
+                className2[i].style.border = "0.2em solid #333333"
+                document.getElementById("whattheme").textContent = "Theme: Light"
+            }
             break;
         case 1:
-            document.body.style.backgroundColor = "#777777"
+            document.getElementById('diventirebody').style = "color: #EBEBEB"
+            document.body.style.backgroundColor = "#696969"
             var className = document.getElementsByClassName('button');
             for(var i=0;i < className.length;i++){
                 className[i].style.backgroundColor = "#999999"
             }
+            var className2 = document.getElementsByClassName('withtheoutline');
+            for(var i=0;i < className2.length;i++){
+                className2[i].style.border = "0.2em solid black"
+            }
+            document.getElementById("whattheme").textContent = "Theme: Dark"
             break;
+            case 2:
+                document.getElementById('diventirebody').style = "color: black"
+                document.body.style.backgroundColor = "#EEEEEE"
+                var className = document.getElementsByClassName('button');
+                for(var i=0;i < className.length;i++){
+                    className[i].style.backgroundColor = "#DFDFDF"
+                }
+                var className2 = document.getElementsByClassName('withtheoutline');
+                for(var i=0;i < className2.length;i++){
+                    className2[i].style.border = "0.2em solid #F33333"
+                    document.getElementById("whattheme").textContent = "Theme: Red Borders"
+                }
+                break;
+            case 3:
+            document.getElementById('diventirebody').style = "color: #FFFFFF"
+            document.body.style.backgroundColor = "#000000"
+            var className = document.getElementsByClassName('button');
+            for(var i=0;i < className.length;i++){
+                className[i].style.backgroundColor = "#FFFFFF"
+            }
+            var className2 = document.getElementsByClassName('withtheoutline');
+            for(var i=0;i < className2.length;i++){
+                className2[i].style.border = "0.2em solid white"
+            }
+            document.getElementById("whattheme").textContent = "Theme: Black"
     }
 }
 
@@ -554,6 +591,7 @@ function fgbtest() {
     if(sf.firstgenbought) {
         document.getElementById("boostsection").style.display='flex'
         document.getElementById("bigboosttext").style.display='block'
+        document.getElementById("veryouterboost").style.display='block'
         if(sf.gbtl > 1) {
             sf.gbm = sf.gbmc
         }
