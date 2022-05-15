@@ -1,7 +1,7 @@
 function load() {
     if(localStorage.getItem('savefile') == null) {
         sf = {
-            version: "b1.15.6",
+            version: "b1.16.0",
             num: 0,
             inc: 1,
             mbinc: 1,
@@ -61,13 +61,20 @@ function load() {
             omegabase: 0,
             omegabasecost: 1e+10,
             omegaalpha: 0,
-            omegaalphacost: 1e+12
+            omegaalphacost: 1e+12,
+            bangautobuyerunlocked: false,
+            batoggle: true,
+            baupcost: 1,
+            batime: 160,
+            batimeleft: 0,
+            baupbought: 0,
+            bafracmult: 2
           };
         }
     else {
         sf = JSON.parse(localStorage.getItem('savefile'))
     }
-    if(sf.version != "b1.15.6") { 
+    if(sf.version != "b1.16.0") { 
         if(!sf.tempboost) {sf.tempboost = 1}
         if (!sf.bangspeedcost) {sf.bangspeedcost = 1}
         if(!sf.bangspeedbought) {sf.bangspeedbought = 0}
@@ -92,9 +99,16 @@ function load() {
         if(!sf.omegabasecost) {sf.omegabasecost = 1e+10}
         if(!sf.omegaalpha) {sf.omegaalpha = 0}
         if(!sf.omegaalphacost) {sf.omegaalphacost = 1e+12}
+        if(sf.bangautobuyerunlocked === null) {sf.bangautobuyerunlocked = false}
+        if(sf.batoggle === null) {sf.batoggle = true}
+        if(!sf.baupcost) {sf.baupcost = 2}
+        if(!sf.batime) {sf.batime = 160}
+        if(!sf.batimeleft) {sf.batimeleft = 0}
+        if(!sf.baupbought) {sf.baupbought = 0}
+        if(!sf.bafracmult) {sf.bafracmult = 2}
         alert("Your save was created in an older version of the game, which may cause problems. I have coded backwards compatibility with older saves, but I cannot guarantee that it will work properly.")
         sf.alphaacccost = 1e+10
-        sf.version = "b1.15.6"
+        sf.version = "b1.16.0"
     }
 }
 
@@ -266,6 +280,17 @@ function loadcut() {
     document.getElementById("divobase").textContent = "You have " + format(sf.omegabase)
     document.getElementById("omegaalphacost").textContent = "Cost: " + format(sf.omegaalphacost)
     document.getElementById("divoalpha").textContent = "You have " + format(sf.omegaalpha)
+    if(sf.bangautobuyerunlocked) {
+        document.getElementById("divbau").textContent = "Unlocked"
+        document.getElementById("untilba").textContent = sf.pcatimeleft + " left until next autobuy"
+        document.getElementById("divtoggleba").style.display='inline-block'
+        if(sf.batoggle) {
+            document.getElementById("divtoggleba").textContent = "On"
+        }
+        else {
+            document.getElementById("divtoggleba").textContent = "Off"
+        }
+    }
 }
 
 function pretab() {
@@ -600,6 +625,7 @@ function buyomegabase() {
     if(sf.num >= sf.omegabasecost) {
         sf.num -= sf.omegabasecost
         sf.omegabase +=1
+        sf.omegabasecost *= 10
         document.getElementById("omegabasecost").textContent = "Cost: " + format(sf.omegabasecost)
         document.getElementById("divobase").textContent = "You have " + format(sf.omegabase)
     }
@@ -609,6 +635,7 @@ function buyomegaalpha() {
     if(sf.alphanum >= sf.omegaalphacost) {
         sf.num -= sf.omegaalphacost
         sf.omegaalpha += 1
+        sf.omegaalphacost *= 100
         document.getElementById("omegaalphacost").textContent = "Cost: " + format(sf.omegaalphacost)
         document.getElementById("divoalpha").textContent = "You have " + format(sf.omegaalpha)
     }
@@ -616,6 +643,47 @@ function buyomegaalpha() {
 function buyomegabeta() {}
 function buyomegagamma() {}
 function buyomegadelta() {}
+
+function buybangautobuyer() {
+    if(sf.omegabase >= 1) {
+        sf.omegabase -= 1
+        sf.bangautobuyerunlocked = true
+        document.getElementById("divbau").textContent = "Unlocked"
+        document.getElementById("divobase").textContent = "You have " + format(sf.omegabase)
+    }
+}
+
+function upgradeba() {
+    if(sf.bangautobuyerunlocked) {
+        if(sf.omegabase >= sf.baupcost) {
+            sf.omegabase -= sf.baupcost
+            sf.baupcost += 1
+            sf.baupbought += 1
+            if(sf.baupbought <= 4) {
+                sf.batime = Math.ceil(sf.batime / 2)
+            }
+            else {
+                sf.batime = Math.ceil(10 / sf.bafracmult)
+                sf.bafracmult++
+            }
+            document.getElementById("divupgradeba").innerHTML = "Cost: " + format(sf.baupcost) + " Ω<sub>B</sub>"
+            document.getElementById("divobase").textContent = "You have " + format(sf.omegabase)
+        }
+    }
+}
+
+function toggleba() {
+    if(sf.bangautobuyerunlocked) {
+        sf.batoggle = !sf.batoggle
+        document.getElementById("divtoggleba").style.display='inline-block'
+        if(sf.batoggle) {
+            document.getElementById("divtoggleba").textContent = "On"
+        }
+        else {
+            document.getElementById("divtoggleba").textContent = "Off"
+        }
+    }
+}
 
 function fgbtest() {
     if(sf.firstgenbought) {
@@ -685,6 +753,19 @@ function pcatest() {
     }
 }
 
+function batest() {
+    if(sf.bangautobuyerunlocked == true) {
+        if(sf.batoggle == true) {
+            if(sf.batimeleft == 0) {
+                sf.batimeleft = sf.batime
+                bang()
+            }
+            sf.batimeleft -= 1
+            document.getElementById("untilba").textContent = sf.batimeleft + " left until next autobuy"
+        }
+    }
+}
+
 function savinginloop() {
 	sf.autosavedelay -= 1
     if(sf.autosavedelay == 0) {
@@ -697,6 +778,7 @@ function savinginloop() {
 setInterval(() => {
     passiveunlockdisplay()
     pcatest()
+    batest()
     fgbtest()
     document.getElementById("stat").textContent = JSON.stringify(sf)
 	savinginloop()

@@ -132,3 +132,14 @@ button:active {
   flex-direction: row;
   gap: 1.5em
 }
+#divbau {
+  display: inline-block
+}
+#divupgradeba {
+  display: inline-block;
+  text-indent: 5.25em;
+}
+#divtoggleba {
+  display: inline-block;
+  text-indent: 6em;
+}

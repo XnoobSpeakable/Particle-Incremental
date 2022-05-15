@@ -168,19 +168,50 @@
         <div id="divogamma">You have 0</div>
         <div id="divodelta">You have 0</div>
         <br>
-        <!--
-        <button onclick="oopenbase()" class="button">Base</button>
-        <button onclick="oopenalpha()" class="button">Alpha</button>
-        <button onclick="oopenbeta()" class="button">Beta</button>
-        <button onclick="oopengamma()" class="button">Gamma</button>
-        <button onclick="oopendelta()" class="button">Delta</button>
-        <button onclick="oopenomega()" class="button">Omega</button>
-        <div id="oBase" style="display:none">nothing haere yet</div>
-        <div id="oBeta" style="display:none">nothing haere yet</div>
-        <div id="oGamma" style="display:none">nothing haere yet</div>
-        <div id="oDelta" style="display:none">nothing haere yet</div>
-        <div id="oOmega" style="display:none">nothing haere yet</div>
-        -->
+        <br>
+        <button onclick="oopenbase()" class="button">Base upgrades</button>
+        <button onclick="oopenalpha()" class="button">Alpha upgrades</button>
+        <button onclick="oopenbeta()" class="button" style="display:none">Beta</button>
+        <button onclick="oopengamma()" class="button" style="display:none">Gamma</button>
+        <button onclick="oopendelta()" class="button" style="display:none">Delta</button>
+        <button onclick="oopenomega()" class="button" style="display:none">Omega</button>
+        <div id="oBase" style="display:block">
+          <br>
+          <div class="btn-group">
+            <button onclick="buybangautobuyer()" class="button">Unlock bang autobuyer</button>
+            <button onclick="upgradeba()" class="button">Make bang autobuyer faster</button>
+            <button onclick="toggleba()" class="button">Toggle bang autobuyer</button>
+          </div>
+          <div id="divbau">Cost: 1 Ω<sub>B</sub></div>
+          <div id="divupgradeba">Cost: 1 Ω<sub>B</sub></div>
+          <div id="divtoggleba">On</div>
+          <div id="untilba">0</div>
+        </div>
+        <div id="oAlpha" style="display:none">
+          <br>
+          nothing here yet
+        </div>
+        <div id="oBeta" style="display:none">
+          <br>
+          nothi
+          ng haere yet
+        </div>
+        <div id="oGamma" style="display:none">
+          <br>
+          nothing hae
+          re yet
+        </div>
+        <div id="oDelta" style="display:none">
+          <br>
+          nothing hae
+          re yet
+        </div>
+        <div id="oOmega" style="display:none">
+          <br>
+          not
+          hing haere yet
+        </div>
+        <br>
       </div>
 
       <div id="Stats" style="display:none">
@@ -235,11 +266,11 @@
       </div>
       <button onclick="save()" class="button">save</button>
       <br>
-      Version b1.15.6
+      Version b1.16.0
       <br>
       Changelog:
       <br>
-      Added more themes + bugfix
+      Bang autobuyer added + bugfix
     </div>
     </body>
 </html>
