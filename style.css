@@ -143,3 +143,9 @@ button:active {
   display: inline-block;
   text-indent: 6em;
 }
+#bnbn {
+  display: flex;
+  flex: space-evenly;
+  flex-direction: row;
+  gap: 1.5em
+}

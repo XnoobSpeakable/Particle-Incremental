@@ -112,20 +112,38 @@
         </div>
         <div id="divthreeboostcost">Cost: 1 Alpha</div>
         <div id="divperbangcost">Cost: 4 Alpha</div>
-        <h2>Base automation</h2>
-        <button onclick="bangspeed()" class="button">Make bang twice as fast</button>
-        <div id="divbangspeedcost">Cost: 1 Alpha</div>
-        <br>
-        <div class="btn-group">
-          <button onclick="unlockpca()" class="button">Unlock Particle Chunk Autobuyer (PCA)</button>
-          <button onclick="upgradepca()" class="button">Make PCA faster</button>
-          <button onclick="togglepca()" class="button">Toggle PCA</button>
+        <div id="bnbn">
+          <div style=" border:0.2em solid #333333; padding-left: 10px; padding-bottom: 5px; padding-right: 10px; border-radius: 5px" class="withtheoutline"">
+            <h2>Base automation</h2>
+            <br>
+            <div>
+              <button onclick="bangspeed()" class="button">Make bang twice as fast</button>
+              <div id="divbangspeedcost">Cost: 1 Alpha</div>
+              <br>
+              <div class="btn-group">
+                <button onclick="unlockpca()" class="button">Unlock Particle Chunk Autobuyer (PCA)</button>
+                <button onclick="upgradepca()" class="button">Make PCA faster</button>
+                <button onclick="togglepca()" class="button">Toggle PCA</button>
+              </div>
+              <div id="divunlockpca">Cost: 20 Alpha</div>
+              <div id="divupgradepcacost">Cost: 2 Alpha</div>
+              <div id="divtogglepca">On</div>
+              <div id="untilpca"></div>
+            </div>
+          </div>
+          <div id="nuclearalphashow" style="display:none; border:0.2em solid #333333; padding-left: 10px; padding-bottom: 5px; padding-right: 10px; border-radius: 5px" class="withtheoutline">
+            <h2>Nuclear Alpha boost</h2>
+            <button onclick="nuclearalphabuy()" class="button">Buy Nuclear Alpha Particle</button>
+            <div id="divnuclearalphacost">Cost: 1e6</div>
+            <div id="divnap">Nuclear Alpha Particles: 0</div>
+            Nuclear particles add a +1x multipler to Alpha gain
+            <br>
+            <br>
+          </div>
+          <div id="nuclearalphareach">Reach 1e6 Alpha to unlock Nuclear Alpha boosts!</div>
         </div>
-        <div id="divunlockpca">Cost: 20 Alpha</div>
-        <div id="divupgradepcacost">Cost: 2 Alpha</div>
-        <div id="divtogglepca">On</div>
-        <div id="untilpca"></div>
-        <div id="bpsection">
+        <br>
+        <div id="bpsection" style="border:0.2em solid #333333; padding-left: 10px; padding-bottom: 5px; padding-right: 10px; border-radius: 5px" class="withtheoutline">
           <h2>Booster particles</h2>
           <div id="boostersmaintext">You are currently getting 0 booster particles per alpha particle per second, resulting in a +0% boost to base particle production</div>
           <div class="btn-group">
@@ -135,7 +153,6 @@
           <div id="divboosterupcost">100 Alpha</div>
           <div id="divboosteruppercentcost">100 Alpha</div>
         </div>
-        <br>
         <br>
       </div>
 
@@ -266,11 +283,11 @@
       </div>
       <button onclick="save()" class="button">save</button>
       <br>
-      Version b1.16.0
+      Version b1.17.0
       <br>
       Changelog:
       <br>
-      Bang autobuyer added + bugfix
+      Nuclear alpha particles
     </div>
     </body>
 </html>

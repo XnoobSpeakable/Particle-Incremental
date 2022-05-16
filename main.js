@@ -1,7 +1,7 @@
 function load() {
     if(localStorage.getItem('savefile') == null) {
         sf = {
-            version: "b1.16.0",
+            version: "b1.17.0",
             num: 0,
             inc: 1,
             mbinc: 1,
@@ -68,16 +68,15 @@ function load() {
             batime: 160,
             batimeleft: 0,
             baupbought: 0,
-            bafracmult: 2
+            bafracmult: 2,
+            nuclearalphacost: 1e+6,
+            napoff: 1
           };
         }
     else {
         sf = JSON.parse(localStorage.getItem('savefile'))
     }
-    if(sf.version != "b1.16.0") { 
-        if(!sf.tempboost) {sf.tempboost = 1}
-        if (!sf.bangspeedcost) {sf.bangspeedcost = 1}
-        if(!sf.bangspeedbought) {sf.bangspeedbought = 0}
+    if(sf.version != "b1.17.0") { 
         if(sf.pcaunlocked === null) {sf.pcaunlocked = false}
         if(sf.pcatoggle === null) {sf.pcatoggle = true}
         if(!sf.pcaupcost) {sf.pcaupcost = 2}
@@ -106,9 +105,11 @@ function load() {
         if(!sf.batimeleft) {sf.batimeleft = 0}
         if(!sf.baupbought) {sf.baupbought = 0}
         if(!sf.bafracmult) {sf.bafracmult = 2}
+        if(!sf.nuclearalphacost) {sf.nuclearalphacost = 1e6}
+        if(!sf.napoff) {sf.napoff = 1}
         alert("Your save was created in an older version of the game, which may cause problems. I have coded backwards compatibility with older saves, but I cannot guarantee that it will work properly.")
         sf.alphaacccost = 1e+10
-        sf.version = "b1.16.0"
+        sf.version = "b1.17.0"
     }
 }
 
@@ -442,13 +443,13 @@ else {
 }
 
 function nuclearbuy() {
-if(sf.num >= sf.nuclearcost) {
-    sf.num -= sf.nuclearcost
-    sf.nuclearcost *= 7
-    document.getElementById("divnuclearcost").textContent = "Cost: " + format(sf.nuclearcost)
-    sf.npoff += 1
-    document.getElementById("divnp").textContent = "Nuclear Particles: " + format(sf.npoff - 1)
-}
+    if(sf.num >= sf.nuclearcost) {
+        sf.num -= sf.nuclearcost
+        sf.nuclearcost *= 7
+        document.getElementById("divnuclearcost").textContent = "Cost: " + format(sf.nuclearcost)
+        sf.npoff += 1
+        document.getElementById("divnp").textContent = "Nuclear Particles: " + format(sf.npoff - 1)
+    }
 }
 
 function alphaacc() {
@@ -685,6 +686,16 @@ function toggleba() {
     }
 }
 
+function nuclearalphabuy() {
+    if(sf.alphanum >= sf.nuclearalphacost) {
+        sf.alphanum -= sf.nuclearalphacost
+        sf.nuclearalphacost *= 7
+        document.getElementById("divnuclearalphacost").textContent = "Cost: " + format(sf.nuclearalphacost)
+        sf.napoff += 1
+        document.getElementById("divnap").textContent = "Nuclear Alpha Particles: " + format(sf.napoff - 1)
+    }
+}
+
 function fgbtest() {
     if(sf.firstgenbought) {
         document.getElementById("boostsection").style.display='flex'
@@ -698,7 +709,7 @@ function fgbtest() {
         }
         if(sf.bangtimeleft == 0) {
             sf.alphaacceleratorsleft += sf.alphaaccelerators
-            sf.alphanum += sf.alphainc * sf.alphaacceleratorsleft * sf.perbangmult
+            sf.alphanum += sf.alphainc * sf.alphaacceleratorsleft * sf.perbangmult * sf.napoff
             document.getElementById("bangtimeleft").textContent = ""
         }
         sf.bangtimeleft -= 1
@@ -730,6 +741,10 @@ function fgbtest() {
         if(sf.num >= 1000000) {
             document.getElementById("nuclearreach").style.display='none'
             document.getElementById("nuclearshow").style.display='block'
+        }
+        if(sf.alphanum >= 1000000) {
+            document.getElementById("nuclearalphareach").style.display='none'
+            document.getElementById("nuclearalphashow").style.display='block'
         }
         if(sf.num >= 1000000000) {
             document.getElementById("bangreach").style.display='none'
