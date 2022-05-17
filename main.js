@@ -1,7 +1,7 @@
 function load() {
     if(localStorage.getItem('savefile') == null) {
         sf = {
-            version: "b1.17.0",
+            version: "b1.18.0",
             num: 0,
             inc: 1,
             mbinc: 1,
@@ -76,7 +76,7 @@ function load() {
     else {
         sf = JSON.parse(localStorage.getItem('savefile'))
     }
-    if(sf.version != "b1.17.0") { 
+    if(sf.version != "b1.18.0") { 
         if(sf.pcaunlocked === null) {sf.pcaunlocked = false}
         if(sf.pcatoggle === null) {sf.pcatoggle = true}
         if(!sf.pcaupcost) {sf.pcaupcost = 2}
@@ -109,7 +109,7 @@ function load() {
         if(!sf.napoff) {sf.napoff = 1}
         alert("Your save was created in an older version of the game, which may cause problems. I have coded backwards compatibility with older saves, but I cannot guarantee that it will work properly.")
         sf.alphaacccost = 1e+10
-        sf.version = "b1.17.0"
+        sf.version = "b1.18.0"
     }
 }
 
@@ -119,7 +119,7 @@ function theme() {
 }
 
 function themeexec() {
-    switch (sf.themenumber % 6) {
+    switch (sf.themenumber % 5) {
         case 0:
             document.getElementById('diventirebody').style = "color: black"
             document.body.style.backgroundColor = "#EEEEEE"
@@ -173,32 +173,18 @@ function themeexec() {
             document.getElementById("whattheme").textContent = "Theme: Black"
             break;
         case 4:
-            document.getElementById('diventirebody').style = "color: #FFFFFF"
+            document.getElementById('diventirebody').style = "color: #EEEEEE"
             document.body.style.backgroundColor = "#000000"
             var className = document.getElementsByClassName('button');
             for(var i=0;i < className.length;i++){
-                className[i].style.backgroundColor = "#FFFFFF"
+                className[i].style.backgroundColor = "#EEEEEE"
             }
             var className2 = document.getElementsByClassName('withtheoutline');
             for(var i=0;i < className2.length;i++){
-                className2[i].style.border = "0.2em solid #FFFFFF"
+                className2[i].style.border = "0.2em solid #EEEEEE"
             }
-            document.getElementById("whattheme").textContent = "Theme: Maximum contrast black"
-            break;
-        case 5:
-            document.getElementById('diventirebody').style = "color: black"
-            document.body.style.backgroundColor = "#EEEEEE"
-            var className = document.getElementsByClassName('button');
-            for(var i=0;i < className.length;i++){
-                className[i].style.backgroundColor = "#DFDFDF"
-            }
-            var className2 = document.getElementsByClassName('withtheoutline');
-            for(var i=0;i < className2.length;i++){
-                className2[i].style.border = ""
-                document.getElementById("whattheme").textContent = "Theme: Borderless"
-            }
-            break;
-        
+            document.getElementById("whattheme").textContent = "Theme: High contrast black"
+            break; 
     }
 }
 
@@ -562,35 +548,37 @@ function togglepca() {
 }
 
 function autosavetextanddelayupdate() {
-    if(sf.autosavemode == 0) {
-        sf.autosaveset = 600
-        document.getElementById("autosaving").textContent = "On, delay: 60s"
-        sf.autosavedelay = 600
-    }
-    if(sf.autosavemode == 1) {
-        sf.autosaveset = 300
-        document.getElementById("autosaving").textContent = "On, delay: 30s"
-        sf.autosavedelay = 300
-    }
-    if(sf.autosavemode == 2) {
-        sf.autosaveset = 150
-        document.getElementById("autosaving").textContent = "On, delay: 15s"
-        sf.autosavedelay = 150
-    }
-    if(sf.autosavemode == 3) {
-        sf.autosaveset = 100
-        document.getElementById("autosaving").textContent = "On, delay: 10s"
-        sf.autosavedelay = 100
-    }
-    if(sf.autosavemode == 4) {
-        sf.autosaveset = 50
-        document.getElementById("autosaving").textContent = "On, delay: 5s"
-        sf.autosavedelay = 50
-    }
-    if(sf.autosavemode == 5) {
-        sf.autosaveset = 1e+300
-        document.getElementById("autosaving").textContent = "Off"
-        sf.autosavedelay = 1e+300
+    switch(sf.autosavemode) {
+        case 0:
+            sf.autosaveset = 600
+            document.getElementById("autosaving").textContent = "On, delay: 60s"
+            sf.autosavedelay = 600
+            break;
+        case 1:
+            sf.autosaveset = 300
+            document.getElementById("autosaving").textContent = "On, delay: 30s"
+            sf.autosavedelay = 300
+            break;
+        case 2:
+            sf.autosaveset = 150
+            document.getElementById("autosaving").textContent = "On, delay: 15s"
+            sf.autosavedelay = 150
+            break;
+        case 3:
+            sf.autosaveset = 100
+            document.getElementById("autosaving").textContent = "On, delay: 10s"
+            sf.autosavedelay = 100
+            break;
+        case 4:
+            sf.autosaveset = 50
+            document.getElementById("autosaving").textContent = "On, delay: 5s"
+            sf.autosavedelay = 50
+            break;
+        case 5:
+            sf.autosaveset = 1e+300
+            document.getElementById("autosaving").textContent = "Off"
+            sf.autosavedelay = 1e+300
+            break;
     }
 }
 
@@ -646,11 +634,13 @@ function buyomegagamma() {}
 function buyomegadelta() {}
 
 function buybangautobuyer() {
-    if(sf.omegabase >= 1) {
-        sf.omegabase -= 1
-        sf.bangautobuyerunlocked = true
-        document.getElementById("divbau").textContent = "Unlocked"
-        document.getElementById("divobase").textContent = "You have " + format(sf.omegabase)
+    if(!sf.bangautobuyerunlocked) {
+        if(sf.omegabase >= 1) {
+            sf.omegabase -= 1
+            sf.bangautobuyerunlocked = true
+            document.getElementById("divbau").textContent = "Unlocked"
+            document.getElementById("divobase").textContent = "You have " + format(sf.omegabase)
+        }
     }
 }
 
@@ -725,6 +715,7 @@ function fgbtest() {
             sf.boosterparticles += sf.alphanum * sf.bpgainmult
             document.getElementById("boostersmaintext").textContent = "You are currently getting " + format(sf.bpgainmult) + " booster particles per alpha particle per second, resulting in a +" + format(sf.boosterparticles * sf.bppercent) + "% boost to base particle production"
         }
+        document.getElementById("bpamount").textContent = "You have " + format(sf.boosterparticles) + " booster particles" 
 
         if(sf.num > 1e+6 && sf.num < 1e+12) {
             sf.tempboost = 1.5
@@ -735,8 +726,9 @@ function fgbtest() {
             document.getElementById("tmp").style.display='none'
         }
 
-        //most important line, calculates your main "Particles" number
-        sf.num += sf.inc * sf.genmult * sf.hundredoveris * (sf.gbm * sf.npoff) * sf.npoff * sf.tbmultiplier * sf.tempboost * (1 + ((sf.boosterparticles / 100) * sf.bppercent))
+        gain = sf.inc * sf.genmult * sf.hundredoveris * (sf.gbm * sf.npoff) * sf.npoff * sf.tbmultiplier * sf.tempboost * (1 + ((sf.boosterparticles / 100) * sf.bppercent))
+        sf.num += gain
+        document.getElementById("particlespersecond").textContent = "You are getting " + format(gain * 10) + " particles/s"
 
         if(sf.num >= 1000000) {
             document.getElementById("nuclearreach").style.display='none'
