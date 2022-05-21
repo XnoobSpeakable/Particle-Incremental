@@ -149,3 +149,10 @@ button:active {
   flex-direction: row;
   gap: 1.5em
 }
+#gboostdouble {
+  display: inline-block;
+}
+#alphamachinedouble {
+  display: inline-block;
+  text-indent: 7.4em;
+}

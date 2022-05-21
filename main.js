@@ -1,7 +1,7 @@
 function load() {
     if(localStorage.getItem('savefile') == null) {
         sf = {
-            version: "b1.18.3",
+            version: "b1.19.0",
             num: 0,
             inc: 1,
             mbinc: 1,
@@ -70,23 +70,17 @@ function load() {
             baupbought: 0,
             bafracmult: 2,
             nuclearalphacost: 1e+6,
-            napoff: 1
+            napoff: 1,
+            gboostdoublecost: 1,
+            gboostsquare: 0,
+            alphamachinedoublecost: 1000,
+            alphamachinemulti: 0
           };
         }
     else {
         sf = JSON.parse(localStorage.getItem('savefile'))
     }
-    if(sf.version != "b1.18.3") { 
-        if(sf.pcaunlocked === null) {sf.pcaunlocked = false}
-        if(sf.pcatoggle === null) {sf.pcatoggle = true}
-        if(!sf.pcaupcost) {sf.pcaupcost = 2}
-        if(!sf.pcatime) {sf.pcatime = 160}
-        if(!sf.pcatimeleft) {sf.pcatimeleft = 0}
-        if(!sf.pcaupbought) {sf.pcaupbought = 0}
-        if(!sf.pcafracmult) {sf.pcafracmult = 2}
-        if(!sf.autosavedelay) {sf.autosavedelay = 300}
-        if(!sf.autosavemode) {sf.autosavemode = 1}
-        if(!sf.autosaveset) {sf.autosaveset = 300}
+    if(sf.version != "b1.a19.0") { 
         if(!sf.boosterparticles) {sf.boosterparticles = 0}
         if(!sf.bppercent) {sf.bppercent = 1}
         if(!sf.bpgainmult) {sf.bpgainmult = 1}
@@ -107,9 +101,12 @@ function load() {
         if(!sf.bafracmult) {sf.bafracmult = 2}
         if(!sf.nuclearalphacost) {sf.nuclearalphacost = 1e6}
         if(!sf.napoff) {sf.napoff = 1}
+        if(!sf.gboostdoublecost) {sf.gboostdoublecost = 1}
+        if(!sf.gboostsquare) {sf.gboostsquare = 0}
+        if(!sf.alphamachinedoublecost) {sf.alphamachinedoublecost = 1000}
+        if(!sf.alphamachinemulti) {sf.alphamachinemulti = 0}
         alert("Your save was created in an older version of the game, which may cause problems. I have coded backwards compatibility with older saves, but I cannot guarantee that it will work properly.")
-        sf.alphaacccost = 1e+10
-        sf.version = "b1.18.3"
+        sf.version = "b1.19.0"
     }
 }
 
@@ -278,6 +275,8 @@ function loadcut() {
             document.getElementById("divtoggleba").textContent = "Off"
         }
     }
+    document.getElementById("gboostdouble").textContent = "Cost: " + format(sf.gboostdoublecost) + " Alpha"
+    document.getElementById("alphamachinedouble").textContent = "Cost: " + format(sf.alphamachinedoublecost) + " Alpha"
 }
 
 function pretab() {
@@ -406,7 +405,9 @@ if(sf.gbunlocked) {
         sf.num -= sf.gbuptcost
         sf.gbuptcost *= 5
         document.getElementById("divgbuptcost").textContent = "Cost: " + format(sf.gbuptcost)
-        sf.gbtlc += 20
+        sf.gbtlc += 20 * Math.pow(2, sf.gboostsquare)
+        sf.gbtl = 0
+        gbboost()
     }
 }
 else {
@@ -421,6 +422,8 @@ if(sf.gbunlocked) {
         sf.gbupmcost *= 5
         document.getElementById("divgbupmcost").textContent = "Cost: " + format(sf.gbupmcost)
         sf.gbmc += 5
+        sf.gbtl = 0
+        gbboost()
     }
 }
 else {
@@ -680,9 +683,30 @@ function nuclearalphabuy() {
     if(sf.alphanum >= sf.nuclearalphacost) {
         sf.alphanum -= sf.nuclearalphacost
         sf.nuclearalphacost *= 7
-        document.getElementById("divnuclearalphacost").textContent = "Cost: " + format(sf.nuclearalphacost)
+        document.getElementById("divnuclearalphacost").textContent = "Cost: " + format(sf.nuclearalphacost) + " Alpha"
         sf.napoff += 1
         document.getElementById("divnap").textContent = "Nuclear Alpha Particles: " + format(sf.napoff - 1)
+    }
+}
+
+function gboostdouble() {
+    if(sf.alphanum >= sf.gboostdoublecost) {
+        sf.alphanum -= sf.gboostdoublecost
+        sf.gboostdoublecost *= 2
+        sf.gbtlc *= 2
+        sf.gboostsquare += 1
+        sf.gbtl = 0
+        gbboost()
+        document.getElementById("gboostdouble").textContent = "Cost: " + format(sf.gboostdoublecost) + " Alpha"
+    }
+}
+
+function alphamachinedouble() {
+    if(sf.alphanum >= sf.alphamachinedoublecost) {
+        sf.alphanum -= sf.alphamachinedoublecost
+        sf.alphamachinedoublecost *= 3
+        sf.alphamachinemulti += 1
+        document.getElementById("alphamachinedouble").textContent = "Cost: " + format(sf.alphamachinedoublecost) + " Alpha"
     }
 }
 
@@ -697,11 +721,14 @@ function fgbtest() {
         else {
             sf.gbm = 1
         }
+        alphagain = sf.alphainc * sf.alphaacceleratorsleft * sf.perbangmult * sf.napoff * Math.pow(2, sf.alphamachinemulti)
+        alphagaindisplay = sf.alphainc * sf.alphaaccelerators * sf.perbangmult * sf.napoff * Math.pow(2, sf.alphamachinemulti)
         if(sf.bangtimeleft == 0) {
             sf.alphaacceleratorsleft += sf.alphaaccelerators
-            sf.alphanum += sf.alphainc * sf.alphaacceleratorsleft * sf.perbangmult * sf.napoff
+            sf.alphanum += alphagain
             document.getElementById("bangtimeleft").textContent = ""
         }
+        document.getElementById("alphapb").textContent = "You are getting " + format(alphagaindisplay) + " Alpha/bang"
         sf.bangtimeleft -= 1
         if(sf.bangtimeleft > 0 && sf.bangtimeleft < sf.bangtime) {
             document.getElementById("bangtimeleft").textContent = "Bang time left: " + sf.bangtimeleft

@@ -107,6 +107,7 @@
 
       <div id="Alpha" style="display:none">
         <div id="alphacounter">0 Alpha particles</div>
+        <div id="alphapb">You are getting 1 alpha/bang</div>
         <br>
         <div class="btn-group">
           <button onclick="threeboost()" class="button">3x boost to base (multiplicative)</button>
@@ -136,13 +137,22 @@
           <div id="nuclearalphashow" style="display:none; border:0.2em solid #333333; padding-left: 10px; padding-bottom: 5px; padding-right: 10px; border-radius: 5px" class="withtheoutline">
             <h2>Nuclear Alpha boost</h2>
             <button onclick="nuclearalphabuy()" class="button">Buy Nuclear Alpha Particle</button>
-            <div id="divnuclearalphacost">Cost: 1e6</div>
+            <div id="divnuclearalphacost">Cost: 1e6 Alpha</div>
             <div id="divnap">Nuclear Alpha Particles: 0</div>
             Nuclear particles add a +1x multipler to Alpha gain
             <br>
             <br>
           </div>
           <div id="nuclearalphareach">Reach 1e6 Alpha to unlock Nuclear Alpha boosts!</div>
+          <div style="border:0.2em solid #333333; padding-left: 10px; padding-bottom: 5px; padding-right: 10px; border-radius: 5px" class="withtheoutline">
+            <h2>TAL Machine</h2>
+            <div class="btn-group">
+              <button onclick="gboostdouble()" class="button">Double Generator Boost Length</button>
+              <button onclick="alphamachinedouble()" class="button">Double Alpha Gain</button>
+            </div>
+            <div id="gboostdouble">Cost: 1 Alpha</div>
+            <div id="alphamachinedouble">Cost: 1000 Alpha</div>
+          </div>
         </div>
         <br>
         <div id="bpsection" style="border:0.2em solid #333333; padding-left: 10px; padding-bottom: 5px; padding-right: 10px; border-radius: 5px" class="withtheoutline">
@@ -286,11 +296,11 @@
       </div>
       <button onclick="save()" class="button">save</button>
       <br>
-      Version b1.18.3
+      Version b1.19.0
       <br>
       Changelog:
       <br>
-      bugfixes
+      bugfixes, alpha particles/bang number, new upgrades
     </div>
     </body>
 </html>
