@@ -1,7 +1,7 @@
 function load() {
     if(localStorage.getItem('savefile') == null) {
         sf = {
-            version: "b1.18.2",
+            version: "b1.18.3",
             num: 0,
             inc: 1,
             mbinc: 1,
@@ -76,7 +76,7 @@ function load() {
     else {
         sf = JSON.parse(localStorage.getItem('savefile'))
     }
-    if(sf.version != "b1.18.2") { 
+    if(sf.version != "b1.18.3") { 
         if(sf.pcaunlocked === null) {sf.pcaunlocked = false}
         if(sf.pcatoggle === null) {sf.pcatoggle = true}
         if(!sf.pcaupcost) {sf.pcaupcost = 2}
@@ -109,7 +109,7 @@ function load() {
         if(!sf.napoff) {sf.napoff = 1}
         alert("Your save was created in an older version of the game, which may cause problems. I have coded backwards compatibility with older saves, but I cannot guarantee that it will work properly.")
         sf.alphaacccost = 1e+10
-        sf.version = "b1.18.2"
+        sf.version = "b1.18.3"
     }
 }
 
@@ -691,7 +691,7 @@ function fgbtest() {
         document.getElementById("boostsection").style.display='flex'
         document.getElementById("bigboosttext").style.display='block'
         document.getElementById("veryouterboost").style.display='block'
-        if(sf.gbtl > 1) {
+        if(sf.gbtl > 0) {
             sf.gbm = sf.gbmc
         }
         else {
@@ -706,10 +706,11 @@ function fgbtest() {
         if(sf.bangtimeleft > 0 && sf.bangtimeleft < sf.bangtime) {
             document.getElementById("bangtimeleft").textContent = "Bang time left: " + sf.bangtimeleft
         }
-        sf.gbtl -= 1
-        if(sf.gbtl >= 0) {
-            document.getElementById("divgbtl").textContent = "Boost Time Left: " + format(sf.gbtl)
+        if(sf.gbtl > 0) {
+            sf.gbtl -= 1
         }
+        document.getElementById("divgbtl").textContent = "Boost Time Left: " + format(sf.gbtl)
+
         sf.hundredoveris = 100 / sf.intervalspeed
         
         sf.untilboost -= 1
