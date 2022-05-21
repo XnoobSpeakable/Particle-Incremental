@@ -1,7 +1,7 @@
 function load() {
     if(localStorage.getItem('savefile') == null) {
         sf = {
-            version: "b1.18.0",
+            version: "b1.18.2",
             num: 0,
             inc: 1,
             mbinc: 1,
@@ -76,7 +76,7 @@ function load() {
     else {
         sf = JSON.parse(localStorage.getItem('savefile'))
     }
-    if(sf.version != "b1.18.0") { 
+    if(sf.version != "b1.18.2") { 
         if(sf.pcaunlocked === null) {sf.pcaunlocked = false}
         if(sf.pcatoggle === null) {sf.pcatoggle = true}
         if(!sf.pcaupcost) {sf.pcaupcost = 2}
@@ -109,7 +109,7 @@ function load() {
         if(!sf.napoff) {sf.napoff = 1}
         alert("Your save was created in an older version of the game, which may cause problems. I have coded backwards compatibility with older saves, but I cannot guarantee that it will work properly.")
         sf.alphaacccost = 1e+10
-        sf.version = "b1.18.0"
+        sf.version = "b1.18.2"
     }
 }
 
@@ -213,7 +213,7 @@ function format(n) {
     }
     else {
         if(n % 1 != 0) {
-            return n.toFixed(2)
+            return n.toFixed(2) 
         }
         else {
             return n
@@ -707,13 +707,16 @@ function fgbtest() {
             document.getElementById("bangtimeleft").textContent = "Bang time left: " + sf.bangtimeleft
         }
         sf.gbtl -= 1
+        if(sf.gbtl >= 0) {
+            document.getElementById("divgbtl").textContent = "Boost Time Left: " + format(sf.gbtl)
+        }
         sf.hundredoveris = 100 / sf.intervalspeed
         
         sf.untilboost -= 1
         if(sf.untilboost == 0) {
             sf.untilboost = 10
             sf.boosterparticles += sf.alphanum * sf.bpgainmult
-            document.getElementById("boostersmaintext").textContent = "You are currently getting " + format(sf.bpgainmult) + " booster particles per alpha particle per second, resulting in a +" + format(sf.boosterparticles * sf.bppercent) + "% boost to base particle production"
+            document.getElementById("boostersmaintext").textContent = "You are currently getting " + format(sf.bpgainmult) + " booster particles per alpha particle per second, resulting in a +" + format(sf.boosterparticles * sf.bppercent / 100) + "% boost to base particle production"
         }
         document.getElementById("bpamount").textContent = "You have " + format(sf.boosterparticles) + " booster particles" 
 
@@ -726,7 +729,7 @@ function fgbtest() {
             document.getElementById("tmp").style.display='none'
         }
 
-        gain = sf.inc * sf.genmult * sf.hundredoveris * (sf.gbm * sf.npoff) * sf.npoff * sf.tbmultiplier * sf.tempboost * (1 + ((sf.boosterparticles / 100) * sf.bppercent))
+        gain = sf.inc * sf.genmult * sf.hundredoveris * (sf.gbm * sf.npoff) * sf.npoff * sf.tbmultiplier * sf.tempboost * (1 + (((sf.boosterparticles / 100) * sf.bppercent) / 100))
         sf.num += gain
         document.getElementById("particlespersecond").textContent = "You are getting " + format(gain * 10) + " particles/s"
 
