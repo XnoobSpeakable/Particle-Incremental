@@ -80,7 +80,7 @@ function load() {
     else {
         sf = JSON.parse(localStorage.getItem('savefile'))
     }
-    if(sf.version != "b1.a19.0") { 
+    if(sf.version != "b1.19.0") { 
         if(!sf.boosterparticles) {sf.boosterparticles = 0}
         if(!sf.bppercent) {sf.bppercent = 1}
         if(!sf.bpgainmult) {sf.bpgainmult = 1}
