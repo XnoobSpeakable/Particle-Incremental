@@ -721,11 +721,10 @@ function fgbtest() {
         else {
             sf.gbm = 1
         }
-        alphagain = sf.alphainc * sf.alphaacceleratorsleft * sf.perbangmult * sf.napoff * Math.pow(2, sf.alphamachinemulti)
         alphagaindisplay = sf.alphainc * sf.alphaaccelerators * sf.perbangmult * sf.napoff * Math.pow(2, sf.alphamachinemulti)
         if(sf.bangtimeleft == 0) {
             sf.alphaacceleratorsleft += sf.alphaaccelerators
-            sf.alphanum += alphagain
+            sf.alphanum += sf.alphainc * sf.alphaacceleratorsleft * sf.perbangmult * sf.napoff * Math.pow(2, sf.alphamachinemulti)
             document.getElementById("bangtimeleft").textContent = ""
         }
         document.getElementById("alphapb").textContent = "You are getting " + format(alphagaindisplay) + " Alpha/bang"
