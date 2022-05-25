@@ -1,7 +1,7 @@
 function load() {
     if(localStorage.getItem('savefile') == null) {
         sf = {
-            version: "b1.19.0",
+            version: "b1.19.1",
             num: 0,
             inc: 1,
             mbinc: 1,
@@ -80,7 +80,7 @@ function load() {
     else {
         sf = JSON.parse(localStorage.getItem('savefile'))
     }
-    if(sf.version != "b1.19.0") { 
+    if(sf.version != "b1.19.1") { 
         if(!sf.boosterparticles) {sf.boosterparticles = 0}
         if(!sf.bppercent) {sf.bppercent = 1}
         if(!sf.bpgainmult) {sf.bpgainmult = 1}
@@ -106,7 +106,7 @@ function load() {
         if(!sf.alphamachinedoublecost) {sf.alphamachinedoublecost = 1000}
         if(!sf.alphamachinemulti) {sf.alphamachinemulti = 0}
         alert("Your save was created in an older version of the game, which may cause problems. I have coded backwards compatibility with older saves, but I cannot guarantee that it will work properly.")
-        sf.version = "b1.19.0"
+        sf.version = "b1.19.1"
     }
 }
 
