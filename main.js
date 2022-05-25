@@ -103,7 +103,7 @@ function load() {
         if(!sf.alphamachinemulti) {sf.alphamachinemulti = 0}
         if(!sf.supbought) {sf.supbought = 0}
         if(!sf.supscale) {sf.supscale = 1}
-        alert("This version of the game is incompatible with older versons, because it'll throw off balancing. Sorry for the inconvenience. I mean you CAN continue to play, but that's chaeting. But I won't stop you either.")
+        alert("This version of the game is incompatible with older versons, because it'll throw off balancing. Sorry for the inconvenience. I mean you CAN continue to play, but that's cheating. But I won't stop you either.")
         sf.version = "b1.20.0"
     }
 }
