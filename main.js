@@ -1,7 +1,7 @@
 function load() {
     if(localStorage.getItem('savefile') == null) {
         sf = {
-            version: "b1.19.1",
+            version: "b1.20.0",
             num: 0,
             inc: 1,
             mbinc: 1,
@@ -74,19 +74,15 @@ function load() {
             gboostdoublecost: 1,
             gboostsquare: 0,
             alphamachinedoublecost: 1000,
-            alphamachinemulti: 0
+            alphamachinemulti: 0,
+            supbought: 0,
+            supscale: 1
           };
         }
     else {
         sf = JSON.parse(localStorage.getItem('savefile'))
     }
-    if(sf.version != "b1.19.1") { 
-        if(!sf.boosterparticles) {sf.boosterparticles = 0}
-        if(!sf.bppercent) {sf.bppercent = 1}
-        if(!sf.bpgainmult) {sf.bpgainmult = 1}
-        if(!sf.untilboost) {sf.untilboost = 1}
-        if(!sf.bpupcost) {sf.bpupcost = 100}
-        if(!sf.bppercentcost) {sf.bppercentcost = 100}
+    if(sf.version != "b1.20.0") { 
         if(!sf.themenumber) {sf.themenumber = 100}
         if(!sf.omegabase) {sf.omegabase = 0}
         if(!sf.omegabasecost) {sf.omegabasecost = 1e+10}
@@ -105,8 +101,10 @@ function load() {
         if(!sf.gboostsquare) {sf.gboostsquare = 0}
         if(!sf.alphamachinedoublecost) {sf.alphamachinedoublecost = 1000}
         if(!sf.alphamachinemulti) {sf.alphamachinemulti = 0}
-        alert("Your save was created in an older version of the game, which may cause problems. I have coded backwards compatibility with older saves, but I cannot guarantee that it will work properly.")
-        sf.version = "b1.19.1"
+        if(!sf.supbought) {sf.supbought = 0}
+        if(!sf.supscale) {sf.supscale = 1}
+        alert("This version of the game is incompatible with older versons, because it'll throw off balancing. Sorry for the inconvenience. I mean you CAN continue to play, but that's chaeting. But I won't stop you either.")
+        sf.version = "b1.20.0"
     }
 }
 
@@ -277,6 +275,7 @@ function loadcut() {
     }
     document.getElementById("gboostdouble").textContent = "Cost: " + format(sf.gboostdoublecost) + " Alpha"
     document.getElementById("alphamachinedouble").textContent = "Cost: " + format(sf.alphamachinedoublecost) + " Alpha"
+    document.getElementById("divspeedcost").textContent = "Cost: " + format(sf.speedcost * supscale)
 }
 
 function pretab() {
@@ -346,10 +345,15 @@ if(sf.num >= sf.bbcost) {
 
 
 function buyspeed() {
-if(sf.num >= sf.speedcost) {
-    sf.num -= sf.speedcost
+if(sf.num >= (sf.speedcost * sf.supscale)) {
+    sf.num -= (sf.speedcost * sf.supscale)
+    if(sf.supbought % 10 == 0) {
+        sf.supscale += 1
+    }
+    sf.supbought++
     sf.intervalspeed = 1000 / sf.fracmult
     sf.fracmult++
+    document.getElementById("divspeedcost").textContent = "Cost: " + format(sf.speedcost * supscale)
 }
 }
 
