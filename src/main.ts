@@ -1,6 +1,6 @@
-import { load, getUpgradeTimesBought, getUpgradeCost, player, UpgradeName, UpgradeNames, getSaveString } from './player'
+import { load, getUpgradeTimesBought, getUpgradeCost, player, UpgradeNames, getSaveString } from './player'
 import { UpdateCostVal, upgrades } from './upgrades'
-import { format, formatb, getEl, D, onD } from './util'
+import { format, formatb, getEl, D, onBought, onBoughtInc } from './util'
 import Decimal from 'break_eternity.js';
 
 // eslint-disable-next-line no-var, @typescript-eslint/no-explicit-any, @typescript-eslint/ban-types
@@ -161,7 +161,6 @@ window.setting1e4 = function (): void { player.eSetting = 1e4; loadMisc() }
 window.setting1e6 = function (): void { player.eSetting = 1e6; loadMisc() }
 
 window.mbman = function (): void {
-    const onBoughtInc = onD<UpgradeName>((key) => getUpgradeTimesBought(key).plus(1));
     const gain : Decimal = onBoughtInc('mbup', 'times', onBoughtInc('mbmult', 'times', 'nuclearbuy'));
     player.num = player.num.plus(gain)
     getEl("counter").textContent = formatb(player.num) + " particles"
@@ -258,19 +257,95 @@ function fgbtest(): void {
         }
 
         player.bangTime = Math.ceil(300/Math.pow(2, getUpgradeTimesBought('bangspeed').toNumber()))
-        const onBought = onD<UpgradeName>((key) => getUpgradeTimesBought(key))
-        const alphaGain : Decimal = D( 
-            onBought('alphaacc', 'times', onBought('perbang'.plus(1), 'times', onBought('nuclearalphabuy'.plus(1), 'times', D(2).pow('alphamachinedouble'))))
-        )
+        const alphaGain: Decimal = onBought(
+            'alphaacc',
+            'times',
+            onBought(
+                onBought('perbang', 'plus', D(1)),
+                'times',
+                onBought(
+                    onBought('nuclearalphabuy', 'plus', D(1)),
+                    'times',
+                    onBought(D(2), 'pow', 'alphamachinedouble')
+               )
+            )
+        );
         if(player.bangTimeLeft === 0) { 
             player.alphaNum = player.alphaNum.plus(alphaGain)
             getEl("bangtimeleft").textContent = ""
         }
-
-        const gain : Decimal = D( 
-            (getUpgradeTimesBought('bb')+1) * getUpgradeTimesBought('gen') * (getUpgradeTimesBought('speed')/10+0.1) * player.gbMult * (getUpgradeTimesBought('nuclearbuy')+1) * (getUpgradeTimesBought('nuclearbuy')+1) * Math.pow(3, getUpgradeTimesBought('tb')) * player.tempBoost * ((player.boosterParticles / 100) * (getUpgradeTimesBought('boosteruppercent')+1) / 100 + 1)
-        )
-        getEl("particlesperclick").textContent = "You are getting " + format((getUpgradeTimesBought('mbup') + 1) * (getUpgradeTimesBought('mbmult') + 1) * (getUpgradeTimesBought('nuclearbuy')+1)) + " particles per click"
+        const gainBasicOnes: Decimal =
+            onBought(
+                'gen',
+                'times',
+                onBought(
+                    player.gbMult,
+                    'times',
+                    D(player.tempBoost)
+                )
+            )
+        const gainPlusOneOnes: Decimal =
+            onBoughtInc(
+                'bb',
+                'times',
+                onBoughtInc(
+                    'nuclearbuy',
+                    'times',
+                    'nuclearbuy'
+                )
+            )
+        const gainSpeed: Decimal =
+            onBought(
+                onBought('speed', 'div', D(10)),
+                'plus',
+                D(0.1)
+            )
+        const gainThreeBoost: Decimal =
+            onBought(D(3), 'pow', 'tb')
+        const gainBoost: Decimal =
+                onBought(
+                    onBought(player.boosterParticles, 'div', D(100)),
+                    'times',
+                    onBought(
+                        onBought(
+                            onBought('boosteruppercent', 'plus', D(1)),
+                            'div',
+                            D(100)
+                        ),
+                        'plus',
+                        D(1)
+                    )
+                )
+        const gain: Decimal = 
+            onBought(
+                gainBasicOnes,
+                'times',
+                onBought(
+                    gainPlusOneOnes,
+                    'times',
+                    onBought(
+                        gainSpeed,
+                        'times',
+                        onBought(
+                            gainThreeBoost,
+                            'times',
+                            gainBoost
+                        )
+                    )
+                )
+            )
+        
+        const gainPerClick: Decimal =
+            onBoughtInc(
+                'mbup',
+                'times',
+                onBoughtInc(
+                    'mbmult',
+                    'times',
+                    'nuclearbuy'
+                )
+            )  
+        getEl("particlesperclick").textContent = "You are getting " + formatb(gainPerClick) + " particles per click"
 
         getEl("alphapb").textContent = "You are getting " + formatb(alphaGain) + " Alpha/bang"
         player.bangTimeLeft -= 1

@@ -1,4 +1,4 @@
-import { player } from './player'
+import { player, UpgradeName, getUpgradeTimesBought } from './player'
 import Decimal from 'break_eternity.js';
 // eslint-disable-next-line @typescript-eslint/ban-types
 export type jsnumber = number;
@@ -25,3 +25,5 @@ export function onD<T = string>(   lookup: (key: T) => Decimal) {
    return fn(r);
 }
 }
+export const onBought = onD<UpgradeName>((key) => getUpgradeTimesBought(key))
+export const onBoughtInc = onD<UpgradeName>((key) => getUpgradeTimesBought(key).plus(1));
